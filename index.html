@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ol’ha Gneupel – Interaktiver CV</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 2px solid #e63946;
+      border-radius: 10px;
+      padding: 20px;
+      width: 80%;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    .modal h2 {
+      color: #e63946;
+      margin-top: 0;
+    }
+    .close-btn {
+      background: #e63946;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .close-btn:hover {
+      background: #c62828;
+    }
+    area {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mein interaktiver Lebenslauf</h1>
+  <img src="office.png" usemap="#image-map" alt="Interaktives Büro">
+
+  <map name="image-map">
+    <area target="_self" alt="laptop" title="laptop" href="#" coords="730,508,849,580" shape="rect" onclick="openModal('laptopModal'); return false;">
+    <area target="_self" alt="picture" title="picture" href="#" coords="182,367,259,456" shape="rect" onclick="openModal('pictureModal'); return false;">
+    <area target="_self" alt="bag" title="bag" href="#" coords="1171,806,1057,723" shape="rect" onclick="openModal('bagModal'); return false;">
+    <area target="_self" alt="book" title="book" href="#" coords="1329,490,1283,388" shape="rect" onclick="openModal('bookModal'); return false;">
+    <area target="_self" alt="drawer" title="drawer" href="#" coords="161,631,233,658" shape="rect" onclick="openModal('drawerModal'); return false;">
+  </map>
+
+  <div id="laptopModal" class="modal">
+    <h2>👋 Hallo!</h2>
+    <p>Grüezi, mein Name ist Ol’ha Gneupel und ich möchte mich kurz vorstellen. Klicken Sie auf die roten Elemente, um mehr über mich zu erfahren.</p>
+    <button class="close-btn" onclick="closeModal('laptopModal')">Schließen</button>
+  </div>
+
+  <div id="pictureModal" class="modal">
+    <h2>🖼️ Kreativität</h2>
+    <p>Ich bringe kreative Ideen in Bildungsprojekte ein – von der visuellen Gestaltung bis zum Konzept.</p>
+    <button class="close-btn" onclick="closeModal('pictureModal')">Schließen</button>
+  </div>
+
+  <div id="bagModal" class="modal">
+    <h2>🧳 Berufserfahrung</h2>
+    <p>Projektleiterin in Berufsbildung, Mediendidaktik und digitalen Lernmedien. Organisationstalent mit Erfahrung in Kundenprojekten.</p>
+    <button class="close-btn" onclick="closeModal('bagModal')">Schließen</button>
+  </div>
+
+  <div id="bookModal" class="modal">
+    <h2>📚 Wissen & Lernen</h2>
+    <p>Lebenslanges Lernen ist mir wichtig – ich liebe es, neue Tools, Methoden und Konzepte zu entdecken.</p>
+    <button class="close-btn" onclick="closeModal('bookModal')">Schließen</button>
+  </div>
+
+  <div id="drawerModal" class="modal">
+    <h2>🌱 Über mich</h2>
+    <p>Ich bin naturverbunden, lerne gerne Sprachen und liebe es, komplexe Probleme kreativ zu lösen.</p>
+    <button class="close-btn" onclick="closeModal('drawerModal')">Schließen</button>
+  </div>
+
+  <script>
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'block';
+    }
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+  </script>
+</body>
+</html>
