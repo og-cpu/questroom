@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Responsive Interactive Image</title>
+  <title>Responsive Image Map</title>
   <style>
     body {
       font-family: sans-serif;
@@ -17,6 +17,7 @@
     img {
       width: 100%;
       height: auto;
+      display: block;
     }
 
     .popup {
@@ -33,31 +34,23 @@
 <body>
   <div class="container">
     <img src="meincvbuero.png" usemap="#office" id="officeImage" alt="Office Image">
-
-    <map name="office">
-      <!-- Graduation Cap (roughly polygon shape) -->
-      <area shape="poly"
-        coords="335,415, 400,390, 460,410, 400,430"
-        href="#"
-        onclick="showPopup(event, '🎓 Graduation cap — symbol of achievement!')">
-
+    <map name="office" id="officeMap">
+      <!-- Graduation Cap -->
+      <area shape="poly" coords="335,415,400,390,460,410,400,430" href="#" onclick="showPopup(event, '🎓 Graduation cap — symbol of achievement!')">
       <!-- Red Book -->
-      <area shape="rect"
-        coords="340,470,400,490"
-        href="#"
-        onclick="showPopup(event, '📕 Red book — full of knowledge!')">
+      <area shape="rect" coords="340,470,400,490" href="#" onclick="showPopup(event, '📕 Red book — full of knowledge!')">
     </map>
-
     <div id="popup" class="popup"></div>
   </div>
 
+  <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
+    imageMapResize();
+
     function showPopup(e, text) {
       e.preventDefault();
-
       const popup = document.getElementById("popup");
       popup.innerHTML = text;
-
       popup.style.left = e.pageX + 10 + "px";
       popup.style.top = e.pageY + 10 + "px";
       popup.style.display = "block";
@@ -68,26 +61,6 @@
         document.getElementById("popup").style.display = "none";
       }
     });
-
-    // Make coordinates responsive
-    function resizeMap() {
-      const img = document.getElementById("officeImage");
-      const originalWidth = 1536; // original image width
-      const scale = img.clientWidth / originalWidth;
-
-      const areas = document.querySelectorAll("area");
-      areas.forEach(area => {
-        const originalCoords = area.dataset.originalCoords || area.coords;
-        if (!area.dataset.originalCoords) {
-          area.dataset.originalCoords = originalCoords;
-        }
-        const scaledCoords = originalCoords.split(",").map(coord => Math.round(coord * scale));
-        area.coords = scaledCoords.join(",");
-      });
-    }
-
-    window.addEventListener("load", resizeMap);
-    window.addEventListener("resize", resizeMap);
   </script>
 </body>
 </html>
