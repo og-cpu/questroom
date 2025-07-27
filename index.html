@@ -2,58 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Interactive Office Scene</title>
+  <title>Responsive Interactive Image</title>
   <style>
-    .container {
-      position: relative;
-      display: inline-block;
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
     }
-    img {
+
+    .container {
       max-width: 100%;
+    }
+
+    img {
+      width: 100%;
       height: auto;
     }
-    .hotspot {
-      position: absolute;
-      cursor: pointer;
-    }
+
     .popup {
-      display: none;
       position: absolute;
       background: #fff;
       border: 1px solid #aaa;
       padding: 10px;
-      z-index: 10;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      max-width: 200px;
+      display: none;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="meincvbuero.png" alt="Interactive Office">
+    <img src="meincvbuero.png" usemap="#office" id="officeImage" alt="Office Image">
 
-    <!-- Graduation Cap -->
-    <div class="hotspot" style="top: 390px; left: 330px; width: 120px; height: 80px;" onclick="showPopup(event, '🎓 Graduation cap — symbol of achievement!')"></div>
+    <map name="office">
+      <!-- Graduation Cap (roughly polygon shape) -->
+      <area shape="poly"
+        coords="335,415, 400,390, 460,410, 400,430"
+        href="#"
+        onclick="showPopup(event, '🎓 Graduation cap — symbol of achievement!')">
 
-    <!-- Red Book -->
-    <div class="hotspot" style="top: 470px; left: 340px; width: 60px; height: 20px;" onclick="showPopup(event, '📕 Red book — full of knowledge!')"></div>
+      <!-- Red Book -->
+      <area shape="rect"
+        coords="340,470,400,490"
+        href="#"
+        onclick="showPopup(event, '📕 Red book — full of knowledge!')">
+    </map>
 
     <div id="popup" class="popup"></div>
   </div>
 
   <script>
-    const popup = document.getElementById('popup');
-    function showPopup(event, text) {
-      popup.textContent = text;
-      popup.style.left = event.pageX + 10 + 'px';
-      popup.style.top = event.pageY + 10 + 'px';
-      popup.style.display = 'block';
+    function showPopup(e, text) {
+      e.preventDefault();
+
+      const popup = document.getElementById("popup");
+      popup.innerHTML = text;
+
+      popup.style.left = e.pageX + 10 + "px";
+      popup.style.top = e.pageY + 10 + "px";
+      popup.style.display = "block";
     }
-    document.addEventListener('click', function(e) {
-      if (!e.target.classList.contains('hotspot')) {
-        popup.style.display = 'none';
+
+    document.addEventListener("click", function(e) {
+      if (!e.target.closest("area")) {
+        document.getElementById("popup").style.display = "none";
       }
     });
+
+    // Make coordinates responsive
+    function resizeMap() {
+      const img = document.getElementById("officeImage");
+      const originalWidth = 1536; // original image width
+      const scale = img.clientWidth / originalWidth;
+
+      const areas = document.querySelectorAll("area");
+      areas.forEach(area => {
+        const originalCoords = area.dataset.originalCoords || area.coords;
+        if (!area.dataset.originalCoords) {
+          area.dataset.originalCoords = originalCoords;
+        }
+        const scaledCoords = originalCoords.split(",").map(coord => Math.round(coord * scale));
+        area.coords = scaledCoords.join(",");
+      });
+    }
+
+    window.addEventListener("load", resizeMap);
+    window.addEventListener("resize", resizeMap);
   </script>
 </body>
 </html>
