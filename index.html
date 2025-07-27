@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Responsive Image Map</title>
+  <title>Responsive Interactive Image Map</title>
   <style>
     body {
       font-family: sans-serif;
@@ -12,6 +12,7 @@
 
     .container {
       max-width: 100%;
+      position: relative;
     }
 
     img {
@@ -33,20 +34,35 @@
 </head>
 <body>
   <div class="container">
-    <img src="meincvbuero.png" usemap="#office" id="officeImage" alt="Office Image">
-    <map name="office" id="officeMap">
-      <!-- Graduation Cap -->
-      <area shape="poly" coords="335,415,400,390,460,410,400,430" href="#" onclick="showPopup(event, '🎓 Graduation cap — symbol of achievement!')">
-      <!-- Red Book -->
-      <area shape="rect" coords="340,470,400,490" href="#" onclick="showPopup(event, '📕 Red book — full of knowledge!')">
+    <img src="meincvbuero.png" usemap="#workmap" id="officeImage" alt="My Office">
+
+    <map name="workmap">
+      <!-- 🎓 Graduation Cap (polygon shape) -->
+      <area shape="poly"
+        coords="335,415, 400,390, 460,410, 400,430"
+        href="#"
+        onclick="showPopup(event, '🎓 This is the graduation cap!')">
+
+      <!-- 📕 Red Book (rectangular shape) -->
+      <area shape="rect"
+        coords="340,470,400,490"
+        href="#"
+        onclick="showPopup(event, '📕 Here is the red book!')">
     </map>
+
     <div id="popup" class="popup"></div>
   </div>
 
+  <!-- Resize library for responsive maps -->
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
-  <script>
-    imageMapResize();
 
+  <script>
+    // Make map responsive
+    window.addEventListener('load', () => {
+      imageMapResize();
+    });
+
+    // Popup logic
     function showPopup(e, text) {
       e.preventDefault();
       const popup = document.getElementById("popup");
@@ -56,6 +72,7 @@
       popup.style.display = "block";
     }
 
+    // Hide popup when clicking outside
     document.addEventListener("click", function(e) {
       if (!e.target.closest("area")) {
         document.getElementById("popup").style.display = "none";
