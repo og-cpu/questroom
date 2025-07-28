@@ -43,23 +43,60 @@
   <div class="wrapper">
     <div class="image-container">
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
-<!-- CLICK!-Text über dem Bild -->
+<style>
+  @keyframes pulseClick {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+</style>
+
 <div id="clickText"
      style="position: absolute;
-            top: 32.5%;
-            left: 50.7%;
-            transform: translate(-50%, -50%);
-            background: transparent;
             color: white;
             font-weight: bold;
             font-size: 16px;
             padding: 6px 12px;
+            background: transparent;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+            z-index: 10;
             pointer-events: none;
-            animation: pulseClick 1.5s ease-out 3;
-            z-index: 10;">
+            animation: pulseClick 1.5s ease-out 3;">
   Click!
 </div>
+
+<script>
+  function positionClickText() {
+    const image = document.getElementById("imageMap");
+    const label = document.getElementById("clickText");
+
+    // Koordinaten der Area (609,391,822,421)
+    const x1 = 609, y1 = 391, x2 = 822, y2 = 421;
+    const centerX = (x1 + x2) / 2;
+    const centerY = (y1 + y2) / 2;
+
+    const scaleX = image.clientWidth / image.naturalWidth;
+    const scaleY = image.clientHeight / image.naturalHeight;
+
+    const offsetX = centerX * scaleX;
+    const offsetY = centerY * scaleY;
+
+    label.style.left = offsetX + "px";
+    label.style.top = offsetY + "px";
+    label.style.transform = "translate(-50%, -50%)";
+  }
+
+  window.addEventListener("load", () => {
+    positionClickText();
+    imageMapResize(); // falls du das Plugin nutzt
+  });
+
+  window.addEventListener("resize", positionClickText);
+
+  setTimeout(() => {
+    const el = document.getElementById("clickText");
+    if (el) el.remove();
+  }, 4500);
+</script>
       <map name="image-map">
         <!-- 🎓 Akademische Wurzeln -->
         <area shape="poly"
