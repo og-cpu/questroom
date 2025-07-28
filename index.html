@@ -69,25 +69,23 @@
 
 <div id="clickText" style="
   position: absolute;
-  top: 32.5%;
-  left: 50.7%;
+  top: 50.8%;
+  left: 59.6%;
   transform: translate(-50%, -50%);
-  background: rgba(255,255,255,0.85);
-  color: #003366;
+  background: transparent;
+  color: white;
   font-weight: bold;
   padding: 6px 12px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   font-size: 16px;
   z-index: 10;
   animation: pulseClick 1.5s ease-out 3;
   pointer-events: none;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 ">
   Click!
 </div>
 
 <script>
-  // Entfernt den "Click!"-Text nach 4.5 Sekunden (3 Animationen à 1.5s)
   setTimeout(() => {
     const el = document.getElementById("clickText");
     if (el) el.remove();
