@@ -43,7 +43,23 @@
   <div class="wrapper">
     <div class="image-container">
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
-
+<!-- CLICK!-Text über dem Bild -->
+<div id="clickText"
+     style="position: absolute;
+            top: 32.5%;
+            left: 50.7%;
+            transform: translate(-50%, -50%);
+            background: transparent;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 6px 12px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+            pointer-events: none;
+            animation: pulseClick 1.5s ease-out 3;
+            z-index: 10;">
+  Click!
+</div>
       <map name="image-map">
         <!-- 🎓 Akademische Wurzeln -->
         <area shape="poly"
@@ -278,6 +294,35 @@ function typeText(element, text, callback, delay = 40) {
 
     window.addEventListener("load", () => {
       imageMapResize();
+      window.addEventListener("load", () => {
+  positionClickText();
+  imageMapResize();
+});
+
+function positionClickText() {
+  const image = document.getElementById("imageMap");
+  const label = document.getElementById("clickText");
+
+  const x1 = 609, y1 = 391, x2 = 822, y2 = 421; // Laptop coords
+  const centerX = (x1 + x2) / 2;
+  const centerY = (y1 + y2) / 2;
+
+  const scaleX = image.clientWidth / image.naturalWidth;
+  const scaleY = image.clientHeight / image.naturalHeight;
+
+  const offsetX = centerX * scaleX;
+  const offsetY = centerY * scaleY;
+
+  label.style.left = offsetX + "px";
+  label.style.top = offsetY + "px";
+}
+
+// Entferne "Click!" nach 4.5 Sekunden
+setTimeout(() => {
+  const el = document.getElementById("clickText");
+  if (el) el.remove();
+}, 4500);
+
     });
   </script>
 </body>
