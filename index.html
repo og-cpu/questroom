@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Lebenslauf mit Animation – Tipp-Effekt</title>
+  <title>Lebenslauf mit interaktiven Popups</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
       margin: 0;
@@ -13,16 +14,14 @@
 
     .wrapper {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 15px;
-      gap: 20px;
+      justify-content: center;
+      padding: 20px;
     }
 
     .image-container {
+      position: relative;
       width: 100%;
       max-width: 1200px;
-      position: relative;
     }
 
     img {
@@ -30,144 +29,206 @@
       height: auto;
       display: block;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    area {
-      cursor: pointer;
     }
 
     .popup {
       position: absolute;
-      background: #e6f2ff;
-      border-radius: 12px;
-      padding: 16px;
-      max-width: 300px;
-      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
-      font-size: 15px;
-      line-height: 1.5;
-      color: #003366;
       display: none;
       z-index: 1000;
-      transition: all 0.2s ease-in-out;
-      white-space: pre-wrap;
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
   <div class="wrapper">
     <div class="image-container">
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
-<!-- CLICK!-Text über dem Bild -->
-<style>
-  @keyframes pulseClick {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-</style>
 
-<div id="clickText"
-     style="position: absolute;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 6px 12px;
-            background: transparent;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-            z-index: 10;
-            pointer-events: none;
-            animation: pulseClick 1.5s ease-out 3;">
-  Click!
-</div>
-
-<script>
-  function positionClickText() {
-    const image = document.getElementById("imageMap");
-    const label = document.getElementById("clickText");
-
-    // Koordinaten der Area (609,391,822,421)
-    const x1 = 609, y1 = 391, x2 = 822, y2 = 421;
-    const centerX = (x1 + x2) / 2;
-    const centerY = (y1 + y2) / 2;
-
-    const scaleX = image.clientWidth / image.naturalWidth;
-    const scaleY = image.clientHeight / image.naturalHeight;
-
-    const offsetX = centerX * scaleX;
-    const offsetY = centerY * scaleY;
-
-    label.style.left = offsetX + "px";
-    label.style.top = offsetY + "px";
-    label.style.transform = "translate(-50%, -50%)";
-  }
-
-  window.addEventListener("load", () => {
-    positionClickText();
-    imageMapResize(); // falls du das Plugin nutzt
-  });
-
-  window.addEventListener("resize", positionClickText);
-
-  setTimeout(() => {
-    const el = document.getElementById("clickText");
-    if (el) el.remove();
-  }, 4500);
-</script>
       <map name="image-map">
-        <!-- 🎓 Akademischer Bereich -->
-       <!-- 🎓 Akademischer Bereich -->
+        <!-- 🎓 Akademische Wurzeln -->
         <area shape="poly"
-              coords="316,429,350,480,427,486,442,486,438,455,442,436,467,426,393,398"
-              alt="cap"
-              onclick="showPopup(event, `
-                🎓 <strong>Akademische Wurzeln</strong><br>
-                Germanistik & Auslandsgermanistik:<br>
-                Von Czernowitz über Jena bis zur ZHAW – mit Fokus auf Spracherwerb, Didaktik und kulturelle Vielfalt.<br><br>
-                <a href='hochschulzeugnisse.pdf' target='_blank'
-                   style='display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; color: #b30000; text-decoration: none;'>
-                  <i class=&quot;fas fa-file-pdf&quot;></i> Hochschulzeugnisse
-                </a>
-              `);">
-        <!-- 💻 Laptop (Typing Effekt) -->
-        <area shape="rect" coords="613,392,826,518"
-              alt="laptop"
-              onclick="showPopup(event, ''); setTimeout(() => typeText(document.getElementById('popup'), '👋 Willkommen!\nSchön sind Sie da!.'), 100)">
+      coords="316,429,350,480,427,486,442,486,438,455,442,436,467,426,393,398"
+      alt="cap"
+      href="#"
+      onclick="showPopup(event, `
+        <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
+                    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5;
+                    color: #003366;'>
+          <div style='font-weight: bold; margin-bottom: 6px;'>🎓 <span>Akademische Wurzeln</span></div>
+          <div style='margin-bottom: 12px;'>
+            Germanistik & Auslandsgermanistik:<br>
+            Von Czernowitz über Jena bis zur ZHAW – mit Fokus auf Spracherwerb, Didaktik und kulturelle Vielfalt.
+          </div>
+          <a href='hochschulzeugnisse.pdf' target='_blank'
+             style='display: inline-flex; align-items: center; gap: 8px;
+                    font-size: 15px; font-weight: bold; color: #b30000;
+                    text-decoration: none;'>
+            <i class='fa-solid fa-file-arrow-down'></i> Hochschulzeugnisse herunterladen
+      </a>
+        </div>
+      `);">
 
-        <!-- 📕 Buch -->
-        <area shape="poly" coords="320,517,320,537,403,550,461,536,453,510"
-              alt="book"
-              onclick="showPopup(event, '📕 <strong>Übersetzen mit Feingefühl</strong><br>Für das Kulturmagazin <em>Saiten</em> und privat – aktuell ein Buch über Dekadenz.')">
-        
-        <area shape="poly" coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288"
-              alt="drawing"
-              onclick="showPopup(event, '🎨 <strong>Kreative Gestaltung</strong><br>Malen, Zeichnen, visuelles Denken – auch bei der Kursentwicklung.')">
-<area shape="poly" coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626"
-              alt="plant"
-              onclick="showPopup(event, '🪴 <strong>Interkulturelle Wurzeln</strong><br>Erfahrung als Sprachmittlerin und Dolmetscherin. Kommunikation über Kulturen hinweg.')">
-        <area shape="poly" coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687" alt="bag"
-              onclick="showPopup(event, '<strong>Kreative Gestaltung</strong><br>Malen, Zeichnen, visuelles Denken – auch bei der Kursentwicklung.')">
+        <!-- 📕 Rotes Buch -->
+<area shape="poly"
+      coords="320,517,320,537,403,550,461,536,453,510"
+      alt="book"
+      href="#"
+      onclick="showPopup(event, `
+        <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
+                    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5;
+                    color: #003366;'>
+          <div style='font-weight: bold; margin-bottom: 6px;'>📕 <span>Übersetzen mit Feingefühl</span></div>
+          <div>
+            Für das Kulturmagazin <em>Saiten</em> und privat –<br>
+            aktuell ein Buch über Dekadenz.
+          </div>
+        </div>
+      `);">
+
+        <!-- 🎨 Zeichnung an der Wand -->
+<area shape="poly"
+      coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288"
+      alt="drawing"
+      href="#"
+      onclick="showPopup(event, `
+        <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
+                    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5;
+                    color: #003366;'>
+          <div style='font-weight: bold; margin-bottom: 6px;'>🎨 <span>Kreative Gestaltung</span></div>
+          <div>
+            Malen, Zeichnen, visuelles Denken –<br>
+            auch bei der Konzeption digitaler Lernformate.
+          </div>
+        </div>
+      `);">
+
+        <!-- 💻 Laptop -->
+<area shape="rect"
+      coords="613,392,826,518"
+      alt="laptop"
+      href="#"
+      onclick="showPopup(event, `
+  <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
+              box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5;
+              color: #003366;'>
+    <div id='typeTarget' style='white-space: pre-line; margin-bottom: 12px;'></div>
+    <div id='downloadBtn' style='display: none;'>
+      <a href='lebenslauf.pdf' target='_blank'
+         style='display: inline-flex; align-items: center; gap: 8px;
+                font-size: 15px; font-weight: bold; color: #003366;
+                text-decoration: none;'>
+        <i class='fa-solid fa-file-arrow-down'></i> Lebenslauf herunterladen
+      </a>
+    </div>
+  </div>
+`); 
+setTimeout(() => {
+  const target = document.getElementById('typeTarget');
+  typeText(target, '👋 Willkommen!\nSchön, dass Sie hier sind. Ich arbeite gerne an didaktischen Konzepten – auch mit KI.', () => {
+    const btn = document.getElementById('downloadBtn');
+    if (btn) btn.style.display = 'block';
+  });
+}, 100);">
+        <!-- 🪴 Pflanze -->
+<area shape="poly"
+      coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626"
+      alt="plant"
+      href="#"
+      onclick="showPopup(event, `
+        <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
+                    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5;
+                    color: #003366;'>
+          <div style='font-weight: bold; margin-bottom: 6px;'>🪴 <span>Interkulturelle Wurzeln</span></div>
+          <div>
+            Als Sprachmittlerin und Dolmetscherin<br>
+            verbinde ich Menschen über Sprachgrenzen hinweg.
+          </div>
+        </div>
+      `);">
+
+        <!-- 💼 Tasche (mit Zeiger-Hand, hellblauem Popup & PDF-Link) -->
+<area shape="poly"
+      coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687"
+      alt="bag"
+      href="#"
+      onclick="showPopup(event, `
+        <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
+                    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5;
+                    color: #003366;'>
+          <div style='font-weight: bold; margin-bottom: 6px;'>💼 <span>Berufserfahrung</span></div>
+          <div style='margin-bottom: 12px;'>
+            Projektkoordination, Unterricht, Beratung und Qualitätssicherung –<br>
+            administrativ und menschlich versiert.
+          </div>
+          <a href='berufserfahrung.pdf' target='_blank'
+             style='display: inline-flex; align-items: center; gap: 8px;
+                    font-size: 15px; font-weight: bold; color: #b30000;
+                    text-decoration: none;'>
+            <i class='fa-solid fa-file-arrow-down'></i> Arbeitszeugnisse herunterladen
+</a>
+        </div>
+      `);">
       </map>
 
       <div id="popup" class="popup"></div>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
-    window.addEventListener('load', () => {
-      imageMapResize();
-    });
+    const academicPopup = `
+      <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5; color: #003366;'>
+        <div style='font-weight: bold; margin-bottom: 6px;'>🎓 <span>Akademische Wurzeln</span></div>
+        <div style='margin-bottom: 12px;'>Germanistik & Auslandsgermanistik:<br>Von Czernowitz über Jena bis zur ZHAW – mit Fokus auf Spracherwerb, Didaktik und kulturelle Vielfalt.</div>
+        <a href='hochschulzeugnisse.pdf' target='_blank' style='display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: bold; color: #b30000; text-decoration: none;'>
+          <i class='fa-solid fa-file-arrow-down'></i> Hochschulzeugnisse
+</a>
+      </div>
+    `;
+
+    const bookPopup = `
+      <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5; color: #003366;'>
+        <div style='font-weight: bold; margin-bottom: 6px;'>📕 <span>Feinsinn fürs Übersetzen</span></div>
+        <div>Für das Kulturmagazin <em>Saiten</em> und privat – aktuell ein Buch über Dekadenz.</div>
+      </div>
+    `;
+
+    const drawingPopup = `
+      <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5; color: #003366;'>
+        <div style='font-weight: bold; margin-bottom: 6px;'>🎨 <span>Kreativität</span></div>
+        <div>Malen, Zeichnen, visuelles Denken – auch bei der Kursentwicklung.</div>
+      </div>
+    `;
+
+    const laptopPopup = `
+      <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5; color: #003366;'>
+        <div style='font-weight: bold; margin-bottom: 6px;'>💻 <span>Digital willkommen</span></div>
+        <div>👋 Willkommen!<br>Schön, dass Sie hier sind. Ich arbeite gerne an didaktischen Konzepten – auch mit KI.</div>
+      </div>
+    `;
+
+    const plantPopup = `
+      <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5; color: #003366;'>
+        <div style='font-weight: bold; margin-bottom: 6px;'>🪴 <span>Interkulturelle Wurzeln</span></div>
+        <div>Sprachliche Integration, Dolmetschen und Kommunikation über Kulturen hinweg.</div>
+      </div>
+    `;
+
+    const bagPopup = `
+      <div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5; color: #003366;'>
+        <div style='font-weight: bold; margin-bottom: 6px;'>💼 <span>Berufserfahrung</span></div>
+        <div>Projektkoordination, Unterricht, Beratung und Qualitätssicherung – administrativ und menschlich versiert.</div>
+      </div>
+    `;
 
     function showPopup(e, html) {
       e.preventDefault();
-      const popup = document.getElementById('popup');
-      const container = document.querySelector('.image-container');
+      const popup = document.getElementById("popup");
+      const container = document.querySelector(".image-container");
       const containerRect = container.getBoundingClientRect();
 
       popup.innerHTML = html;
-      popup.style.display = 'block';
+      popup.style.display = "block";
 
       const pageX = e.pageX - containerRect.left + window.scrollX;
       const pageY = e.pageY - containerRect.top + window.scrollY;
@@ -185,27 +246,39 @@
         top = pageY + 20;
       }
 
-      popup.style.left = left + 'px';
-      popup.style.top = top + 'px';
+      popup.style.left = left + "px";
+      popup.style.top = top + "px";
     }
-
-    function typeText(element, text, delay = 40) {
-      element.innerHTML = "";
-      let i = 0;
-      const typing = setInterval(() => {
-        element.innerHTML += text.charAt(i);
-        i++;
-        if (i >= text.length) clearInterval(typing);
-      }, delay);
-    }
-
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('area')) {
-        document.getElementById('popup').style.display = 'none';
+function typeText(element, text, callback, delay = 40) {
+    element.innerHTML = "";
+    let i = 0;
+    const typing = setInterval(() => {
+      element.innerHTML += text.charAt(i);
+      i++;
+      if (i >= text.length) {
+        clearInterval(typing);
+        if (typeof callback === "function") callback();
+      }
+    }, delay);
+  }
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest("area")) {
+        document.getElementById("popup").style.display = "none";
       }
     });
-  </script>
 
+    window.addEventListener("load", () => {
+      imageMapResize();
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest("area")) {
+        document.getElementById("popup").style.display = "none";
+      }
+    });
+
+    window.addEventListener("load", () => {
+      imageMapResize();
+    });
+  </script>
 </body>
 </html>
-
