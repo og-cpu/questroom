@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Interaktiver Lebenslauf – Optimierte Popups</title>
+  <title>Lebenslauf mit Animation – Tipp-Effekt</title>
   <style>
     body {
       margin: 0;
@@ -50,6 +50,7 @@
       display: none;
       z-index: 1000;
       transition: all 0.2s ease-in-out;
+      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -60,36 +61,35 @@
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
 
       <map name="image-map">
+        <!-- 🎓 Hut -->
         <area shape="poly" coords="316,429,350,480,427,486,442,486,438,455,442,436,467,426,393,398"
               alt="cap"
               onclick="showPopup(event, '🎓 <strong>Akademische Wurzeln</strong><br>Germanistik & Auslandsgermanistik. Mein Weg führte mich von Czernowitz nach Jena – mit dem Fokus auf Spracherwerb, Didaktik und kulturelle Vielfalt.')">
 
-        <area shape="poly" coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626"
-              alt="plant"
-              onclick="showPopup(event, '🪴 <strong>Interkulturelle Wurzeln</strong><br>Erfahrung als Sprachmittlerin und Dolmetscherin. Kommunikation über Kulturen hinweg.')">
-
-        <area shape="poly" coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687"
-              alt="bag"
-              onclick="showPopup(event, '💼 <strong>Vielfältige Praxis</strong><br>Sprachkursleitung, Dolmetschen, Beratung – zwischen Menschen, Sprachen und Aufgaben.')">
-
+        <!-- 💻 Laptop (Typing Effekt) -->
         <area shape="rect" coords="613,392,826,518"
               alt="laptop"
-              onclick="showPopup(event, '💻 <strong>Digitale Kompetenz</strong><br>Moodle, KI-Projekte, didaktische Entwicklung – sicher im digitalen Raum unterwegs.')">
+              onclick="showPopup(event, ''); setTimeout(() => typeText(document.getElementById('popup'), '👋 Willkommen!\nSchön, dass du hier bist.'), 100)">
 
-        <area shape="poly" coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288"
-              alt="drawing"
-              onclick="showPopup(event, '🎨 <strong>Kreative Gestaltung</strong><br>Malen, Zeichnen, visuelles Denken – auch bei der Kursentwicklung.')">
-
+        <!-- 📕 Buch -->
         <area shape="poly" coords="320,517,320,537,403,550,461,536,453,510"
               alt="book"
               onclick="showPopup(event, '📕 <strong>Übersetzen mit Feingefühl</strong><br>Für das Kulturmagazin <em>Saiten</em> und privat – aktuell ein Buch über Dekadenz.')">
+        
+        <area shape="poly" coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288"
+              alt="drawing"
+              onclick="showPopup(event, '🎨 <strong>Kreative Gestaltung</strong><br>Malen, Zeichnen, visuelles Denken – auch bei der Kursentwicklung.')">
+<area shape="poly" coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626"
+              alt="plant"
+              onclick="showPopup(event, '🪴 <strong>Interkulturelle Wurzeln</strong><br>Erfahrung als Sprachmittlerin und Dolmetscherin. Kommunikation über Kulturen hinweg.')">
+        
       </map>
 
       <div id="popup" class="popup"></div>
     </div>
   </div>
 
-  <!-- Responsive image map script -->
+  <!-- Scripts -->
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
     window.addEventListener('load', () => {
@@ -123,6 +123,16 @@
 
       popup.style.left = left + 'px';
       popup.style.top = top + 'px';
+    }
+
+    function typeText(element, text, delay = 40) {
+      element.innerHTML = "";
+      let i = 0;
+      const typing = setInterval(() => {
+        element.innerHTML += text.charAt(i);
+        i++;
+        if (i >= text.length) clearInterval(typing);
+      }, delay);
     }
 
     document.addEventListener('click', (e) => {
