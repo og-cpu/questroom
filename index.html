@@ -9,35 +9,53 @@
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background: url('beige_paper_background.jpeg') no-repeat center center fixed;
-      background-size: cover;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transition: background-image 0.6s ease;
     }
+
+    /* Light ON: Beige background */
+    body.light-on {
+      background-image: url('beige_paper_background.jpeg');
+    }
+
+    /* Light OFF: Navy background */
+    body.light-off {
+      background-image: url('navy_paper_background.jpeg');
+    }
+
     .wrapper {
       width: 100%;
       max-width: 1200px;
       padding: 20px;
       position: relative;
     }
+
     .image-container {
       position: relative;
       width: 100%;
       max-width: 1200px;
     }
+
     .image-container img#imageMap {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 8px;
     }
+
     .popup {
       position: absolute;
       display: none;
       z-index: 1005;
     }
+
+    /* Overlay covers EVERYTHING when light is off */
     #overlay {
       position: absolute;
       top: 0;
@@ -45,8 +63,10 @@
       right: 0;
       bottom: 0;
       background: rgba(0, 0, 0, 0.7);
-      z-index: 999;
+      z-index: 1000; /* Above egg and chicken */
+      display: none; /* Hidden when light is on */
     }
+
     #switchImg {
       position: absolute;
       width: 40px;
@@ -54,6 +74,7 @@
       cursor: pointer;
       z-index: 1001;
     }
+
     #clickText {
       position: absolute;
       color: white;
@@ -67,11 +88,12 @@
       animation: pulseClick 1.5s ease-out 3;
       display: none;
     }
+
     @keyframes pulseClick {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
-    /* Chicken walks in, passes x=520, THEN starts fading */
+
     @keyframes walkThenFade {
       from {
         transform: translateX(0);
@@ -80,7 +102,6 @@
       10% {
         opacity: 1;
       }
-      /* Stay fully visible until past the mapped area */
       60% {
         opacity: 1;
       }
@@ -89,6 +110,7 @@
         opacity: 0;
       }
     }
+
     #chickenGif {
       position: absolute;
       bottom: 10px;
@@ -99,6 +121,7 @@
       z-index: 1004;
       pointer-events: none;
     }
+
     #redEgg {
       position: absolute;
       bottom: 40px;
@@ -111,18 +134,21 @@
     }
   </style>
 </head>
-<body>
+<body class="light-on">
   <div class="wrapper">
     <div class="image-container">
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
+      
+      <!-- Overlay: Covers EVERYTHING when light is off -->
       <div id="overlay"></div>
+      
       <img id="switchImg" src="switch_left.PNG" alt="Switch">
       <div id="clickText">Click!</div>
       
-      <!-- Use your yellow chicken image -->
+      <!-- Chicken image -->
       <img id="chickenGif" src="chicken_yellow.png" alt="Chicken">
       
-      <!-- Red egg appears after chicken walk starts -->
+      <!-- Red egg -->
       <img id="redEgg" src="red_egg.png" alt="Red Egg" 
            onclick="showPopup(event, 'egg'); event.stopPropagation();" 
            style="display: none;">
@@ -136,7 +162,6 @@
         <area shape="rect" coords="613,392,826,518" alt="laptop" href="#" onclick="showPopup(event, 'laptop')">
         <area shape="poly" coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626" alt="plant" href="#" onclick="showPopup(event, 'plant')">
         <area shape="poly" coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687" alt="bag" href="#" onclick="showPopup(event, 'bag')">
-        <!-- Chicken passes this area, THEN starts fading -->
         <area target="" alt="chicken" title="chicken" href="chicken" coords="520,948,426,854" shape="rect">
         <area alt="egg" title="egg" href="#" coords="661,863,779,946" shape="rect" onclick="showPopup(event, 'egg')">
       </map>
@@ -147,7 +172,6 @@
 
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
-    // Define popups
     const popups = {
       academic: {
         title: "🎓 Akademische Wurzeln",
@@ -182,7 +206,7 @@
       }
     };
 
-    let lightOn = false;
+    let lightOn = false; // Default: light is OFF
     let currentTyping = { interval: null, element: null, fullText: "", index: 0, running: false };
     const clickedAreas = new Set();
     let chickenTriggered = false;
@@ -236,12 +260,18 @@
       event?.preventDefault();
       lightOn = !lightOn;
       const overlay = document.getElementById("overlay");
+      const body = document.body;
       const clickText = document.getElementById("clickText");
+
       if (lightOn) {
-        overlay.style.display = "none";
+        overlay.style.display = "none"; // Hide overlay
+        body.classList.remove("light-off");
+        body.classList.add("light-on");
         clickText.style.display = "block";
       } else {
-        overlay.style.display = "block";
+        overlay.style.display = "block"; // Covers EVERYTHING
+        body.classList.remove("light-on");
+        body.classList.add("light-off");
         clickText.style.display = "none";
       }
     }
@@ -282,7 +312,7 @@
       const isClickOutsidePopup = !e.target.closest("#popup") && !e.target.closest("area");
       const isClickOnRedEgg = e.target.id === "redEgg";
 
-      // Stop typing early if clicking inside popup
+      // Stop typing if clicking inside popup
       if (e.target.closest("#popup") && currentTyping.running) {
         clearInterval(currentTyping.interval);
         currentTyping.element.innerHTML = currentTyping.fullText;
@@ -292,17 +322,17 @@
         e.stopPropagation();
       }
 
-      // Hide click hint
+      // Hide click hint on area click
       if (e.target.closest("area")) {
         document.getElementById("clickText").style.display = "none";
       }
 
-      // Close popup only if not clicking on egg
+      // Close popup if clicking outside (but not on egg)
       if (isClickOutsidePopup && !isClickOnRedEgg) {
         popup.style.display = "none";
       }
 
-      // Trigger chicken after 6 distinct non-egg areas are clicked
+      // Trigger chicken after 6 non-egg popups
       if (wasPopupOpen && isClickOutsidePopup && !chickenTriggered) {
         const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
         const clickedNonEgg = nonEggKeys.filter(key => clickedAreas.has(key));
@@ -314,7 +344,7 @@
           chicken.style.animation = "walkThenFade 5s ease-in-out forwards";
           chickenTriggered = true;
 
-          // Lay the egg after 2.5 seconds
+          // Egg appears after 2.5 seconds
           setTimeout(() => {
             egg.style.display = "block";
           }, 2500);
@@ -327,7 +357,24 @@
       imageMapResize();
       positionElement("switchImg", 1457, 485);
       positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
-      document.getElementById("overlay").style.display = lightOn ? "none" : "block";
+
+      const body = document.body;
+      const overlay = document.getElementById("overlay");
+      const clickText = document.getElementById("clickText");
+
+      // Set initial state
+      if (lightOn) {
+        body.classList.add("light-on");
+        body.classList.remove("light-off");
+        overlay.style.display = "none";
+        clickText.style.display = "block";
+      } else {
+        body.classList.add("light-off");
+        body.classList.remove("light-on");
+        overlay.style.display = "block";
+        clickText.style.display = "none";
+      }
+
       document.getElementById("switchImg").addEventListener("click", toggleLight);
     });
 
