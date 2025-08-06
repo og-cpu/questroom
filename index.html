@@ -18,43 +18,36 @@
       background-attachment: fixed;
       transition: background-image 0.6s ease;
     }
-
     /* Light ON: Beige background */
     body.light-on {
       background-image: url('beige_paper_background.jpeg');
     }
-
     /* Light OFF: Navy background */
     body.light-off {
       background-image: url('navy_paper_background.jpeg');
     }
-
     .wrapper {
       width: 100%;
       max-width: 1200px;
       padding: 20px;
       position: relative;
     }
-
     .image-container {
       position: relative;
       width: 100%;
       max-width: 1200px;
     }
-
     .image-container img#imageMap {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 8px;
     }
-
     .popup {
       position: absolute;
       display: none;
       z-index: 1005;
     }
-
     /* Overlay covers image and egg, but NOT switch */
     #overlay {
       position: absolute;
@@ -66,7 +59,6 @@
       z-index: 1005; /* Below switch */
       display: none;
     }
-
     #switchImg {
       position: absolute;
       width: 40px;
@@ -74,7 +66,6 @@
       cursor: pointer;
       z-index: 1007; /* Must be above overlay */
     }
-
     #clickText {
       position: absolute;
       color: white;
@@ -88,12 +79,10 @@
       animation: pulseClick 1.5s ease-out 3;
       display: none;
     }
-
     @keyframes pulseClick {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
-
     @keyframes walkThenFade {
       from {
         transform: translateX(0);
@@ -110,7 +99,6 @@
         opacity: 0;
       }
     }
-
     #chickenGif {
       position: absolute;
       bottom: 10px;
@@ -121,7 +109,6 @@
       z-index: 1004;
       pointer-events: none;
     }
-
     #redEgg {
       position: absolute;
       bottom: 40px;
@@ -138,23 +125,35 @@
   <div class="wrapper">
     <div class="image-container">
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
-      
       <!-- Overlay: Covers image and egg, but NOT switch -->
       <div id="overlay"></div>
-      
+      <!-- Anleitungstext: nur sichtbar wenn Licht aus -->
+      <div id="anleitungText" style="
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        width: 80%;
+        z-index: 1006;
+        pointer-events: none;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        display: none;
+      ">
+        Klicke auf Symbole im Bild, um mehr zu erfahren. Schalte das Licht mit dem Schalter oben rechts!
+      </div>
       <!-- Switch stays above overlay -->
       <img id="switchImg" src="switch_left.PNG" alt="Switch">
-      
       <div id="clickText">Click!</div>
-      
       <!-- Chicken -->
       <img id="chickenGif" src="chicken_yellow.png" alt="Chicken">
-      
       <!-- Red Egg -->
       <img id="redEgg" src="red_egg.png" alt="Red Egg" 
            onclick="showPopup(event, 'egg'); event.stopPropagation();" 
            style="display: none;">
-      
       <!-- Image Map -->
       <map name="image-map">
         <area alt="switch" title="switch" href="#" coords="1457,535,1500,485" shape="rect" onclick="toggleLight(event)">
@@ -167,11 +166,9 @@
         <area target="" alt="chicken" title="chicken" href="chicken" coords="520,948,426,854" shape="rect">
         <area alt="egg" title="egg" href="#" coords="661,863,779,946" shape="rect" onclick="showPopup(event, 'egg')">
       </map>
-
       <div id="popup" class="popup"></div>
     </div>
   </div>
-
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
     const popups = {
@@ -207,12 +204,10 @@
         text: "Thank you for your attention! This little egg is a fun surprise – just like life."
       }
     };
-
     let lightOn = false;
     let currentTyping = { interval: null, element: null, fullText: "", index: 0, running: false };
     const clickedAreas = new Set();
     let chickenTriggered = false;
-
     function showPopup(e, key) {
       e.preventDefault();
       clickedAreas.add(key);
@@ -248,7 +243,6 @@
       if (top < 0) top = pageY + 20;
       popup.style.left = left + "px";
       popup.style.top = top + "px";
-
       setTimeout(() => {
         const textEl = document.getElementById("popupText");
         typeText(textEl, data.text, () => {
@@ -257,27 +251,27 @@
         });
       }, 100);
     }
-
     function toggleLight(event) {
       event?.preventDefault();
       lightOn = !lightOn;
       const overlay = document.getElementById("overlay");
       const body = document.body;
       const clickText = document.getElementById("clickText");
-
+      const anleitungText = document.getElementById("anleitungText");
       if (lightOn) {
         overlay.style.display = "none";
         body.classList.remove("light-off");
         body.classList.add("light-on");
         clickText.style.display = "block";
+        anleitungText.style.display = "none";  // Text ausblenden
       } else {
         overlay.style.display = "block";
         body.classList.remove("light-on");
         body.classList.add("light-off");
         clickText.style.display = "none";
+        anleitungText.style.display = "block"; // Text einblenden
       }
     }
-
     function positionElement(elemId, x, y) {
       const img = document.getElementById("imageMap");
       const el = document.getElementById(elemId);
@@ -287,7 +281,6 @@
       el.style.top = (y * scaleY) + "px";
       el.style.transform = "translate(-50%, -50%)";
     }
-
     function typeText(element, text, callback, delay = 40) {
       if (!element) return;
       currentTyping.element = element;
@@ -306,13 +299,11 @@
         }
       }, delay);
     }
-
     document.addEventListener("click", (e) => {
       const popup = document.getElementById("popup");
       const wasPopupOpen = popup.style.display === "block";
       const isClickOutsidePopup = !e.target.closest("#popup") && !e.target.closest("area");
       const isClickOnRedEgg = e.target.id === "redEgg";
-
       if (e.target.closest("#popup") && currentTyping.running) {
         clearInterval(currentTyping.interval);
         currentTyping.element.innerHTML = currentTyping.fullText;
@@ -321,55 +312,48 @@
         if (btn) btn.style.display = "block";
         e.stopPropagation();
       }
-
       if (e.target.closest("area")) {
         document.getElementById("clickText").style.display = "none";
       }
-
       if (isClickOutsidePopup && !isClickOnRedEgg) {
         popup.style.display = "none";
       }
-
       if (wasPopupOpen && isClickOutsidePopup && !chickenTriggered) {
         const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
         const clickedNonEgg = nonEggKeys.filter(key => clickedAreas.has(key));
         if (clickedNonEgg.length >= 6) {
           const chicken = document.getElementById("chickenGif");
           const egg = document.getElementById("redEgg");
-
           chicken.style.display = "block";
           chicken.style.animation = "walkThenFade 5s ease-in-out forwards";
           chickenTriggered = true;
-
           setTimeout(() => {
             egg.style.display = "block";
           }, 2500);
         }
       }
     });
-
     window.addEventListener("load", () => {
       imageMapResize();
       positionElement("switchImg", 1457, 485);
       positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
-
       const body = document.body;
       const overlay = document.getElementById("overlay");
       const clickText = document.getElementById("clickText");
-
+      const anleitungText = document.getElementById("anleitungText");
       if (lightOn) {
         body.classList.add("light-on");
         overlay.style.display = "none";
         clickText.style.display = "block";
+        anleitungText.style.display = "none";
       } else {
         body.classList.add("light-off");
         overlay.style.display = "block";
         clickText.style.display = "none";
+        anleitungText.style.display = "block";
       }
-
       document.getElementById("switchImg").addEventListener("click", toggleLight);
     });
-
     window.addEventListener("resize", () => {
       positionElement("switchImg", 1457, 485);
       positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
