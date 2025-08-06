@@ -9,19 +9,25 @@
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background-color: #f8f8f8;
-    }
-    .wrapper {
+      background: url('beige_paper_background.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
+      align-items: center;
+    }
+    .wrapper {
+      width: 100%;
+      max-width: 1200px;
       padding: 20px;
+      position: relative;
     }
     .image-container {
       position: relative;
       width: 100%;
       max-width: 1200px;
     }
-    img {
+    .image-container img#imageMap {
       width: 100%;
       height: auto;
       display: block;
@@ -30,7 +36,76 @@
     .popup {
       position: absolute;
       display: none;
-      z-index: 1000;
+      z-index: 1005;
+    }
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+    #switchImg {
+      position: absolute;
+      width: 40px;
+      height: auto;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    #clickText {
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 6px 12px;
+      background: transparent;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+      z-index: 1002;
+      pointer-events: none;
+      animation: pulseClick 1.5s ease-out 3;
+      display: none;
+    }
+    @keyframes pulseClick {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    /* New animation: chicken walks 3 seconds and fades over target area */
+    @keyframes walkToFade {
+      from {
+        transform: translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      /* Fades out as it reaches the target area (around 520px left) */
+      to {
+        transform: translateX(-600px); /* Adjusted to land at ~520px */
+        opacity: 0;
+      }
+    }
+    #chickenGif {
+      position: absolute;
+      bottom: 10px;
+      left: 900px;
+      width: 180px;
+      height: auto;
+      display: none;
+      z-index: 1003;
+      pointer-events: none;
+      animation: walkToFade 3s ease-in-out forwards;
+    }
+    #redEgg {
+      position: absolute;
+      bottom: 40px;
+      left: 661px;
+      width: 59px;
+      height: auto;
+      display: none;
+      z-index: 1004;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -38,73 +113,26 @@
   <div class="wrapper">
     <div class="image-container">
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
-<style>
-  @keyframes pulseClick {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-</style>
-
-<div id="clickText"
-     style="position: absolute;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 6px 12px;
-            background: transparent;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-            z-index: 10;
-            pointer-events: none;
-            animation: pulseClick 1.5s ease-out 3;">
-  Click!
-</div>
-
-<script>
-  function positionClickText() {
-    const image = document.getElementById("imageMap");
-    const label = document.getElementById("clickText");
-
-    // Koordinaten der Area (609,391,822,421)
-    const x1 = 609, y1 = 391, x2 = 822, y2 = 421;
-    const centerX = (x1 + x2) / 2;
-    const centerY = (y1 + y2) / 2;
-
-    const scaleX = image.clientWidth / image.naturalWidth;
-    const scaleY = image.clientHeight / image.naturalHeight;
-
-    const offsetX = centerX * scaleX;
-    const offsetY = centerY * scaleY;
-
-    label.style.left = offsetX + "px";
-    label.style.top = offsetY + "px";
-    label.style.transform = "translate(-50%, -50%)";
-  }
-
-  window.addEventListener("load", () => {
-    positionClickText();
-    imageMapResize(); // falls du das Plugin nutzt
-  });
-
-  window.addEventListener("resize", positionClickText);
-
-  setTimeout(() => {
-    const el = document.getElementById("clickText");
-    if (el) el.remove();
-  }, 4500);
-</script>
+      <div id="overlay"></div>
+      <img id="switchImg" src="switch_left.png" alt="Switch">
+      <div id="clickText">Click!</div>
+      <!-- Static chicken image -->
+      <img id="chickenGif" src="chicken_yellow.png" alt="Chicken">
+      <!-- Red egg -->
+      <img id="redEgg" src="red_egg.png" alt="Red Egg" 
+           onclick="showPopup(event, 'egg'); event.stopPropagation();" 
+           style="display: none;">
       <map name="image-map">
-        <!-- 🎓 Akademische Wurzeln -->
+        <area alt="switch" title="switch" href="#" coords="1457,535,1500,485" shape="rect" onclick="toggleLight(event)">
         <area shape="poly" coords="316,429,350,480,427,486,442,486,438,455,442,436,467,426,393,398" alt="cap" href="#" onclick="showPopup(event, 'academic')">
-        <!-- 📕 Rotes Buch -->
         <area shape="poly" coords="320,517,320,537,403,550,461,536,453,510" alt="book" href="#" onclick="showPopup(event, 'book')">
-        <!-- 🎨 Zeichnung an der Wand -->
         <area shape="poly" coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288" alt="drawing" href="#" onclick="showPopup(event, 'drawing')">
-        <!-- 💻 Laptop -->
         <area shape="rect" coords="613,392,826,518" alt="laptop" href="#" onclick="showPopup(event, 'laptop')">
-        <!-- 🪴 Pflanze -->
         <area shape="poly" coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626" alt="plant" href="#" onclick="showPopup(event, 'plant')">
-        <!-- 💼 Tasche -->
         <area shape="poly" coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687" alt="bag" href="#" onclick="showPopup(event, 'bag')">
+        <!-- Target area where chicken should fade -->
+        <area target="" alt="chicken" title="chicken" href="chicken" coords="520,948,426,854" shape="rect">
+        <area alt="egg" title="egg" href="#" coords="661,863,779,946" shape="rect" onclick="showPopup(event, 'egg')">
       </map>
       <div id="popup" class="popup"></div>
     </div>
@@ -112,20 +140,6 @@
 
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
-    function typeText(element, text, callback, delay = 40) {
-      if (!element) return;
-      element.innerHTML = "";
-      let i = 0;
-      const typing = setInterval(() => {
-        element.innerHTML += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-          clearInterval(typing);
-          if (typeof callback === "function") callback();
-        }
-      }, delay);
-    }
-
     const popups = {
       academic: {
         title: "🎓 Akademische Wurzeln",
@@ -138,7 +152,7 @@
       },
       drawing: {
         title: "🎨 Kreative Gestaltung",
-        text: "Malen, Zeichnen, visuelles Denken –\nauch bei der Konzeption digitaler Lernformate."
+        text: "Malen, Zeichnen, visuelles Denken –\n auch bei der Konzeption digitaler Lernformate."
       },
       laptop: {
         title: "💻 Digital willkommen",
@@ -153,61 +167,30 @@
         title: "💼 Berufserfahrung",
         text: "Projektkoordination, Unterricht, Beratung und Qualitätssicherung –\nadministrativ und menschlich versiert.",
         link: { href: "https://drive.google.com/file/d/1K5vNyA7GU4LPTKdlZeAnovxYsAtU1fmC/view", label: "Arbeitszeugnisse herunterladen" }
+      },
+      egg: {
+        title: "🥚 Danke!",
+        text: "Thank you for your attention! This little egg is a fun surprise – just like life."
       }
     };
-let currentTyping = {
-  interval: null,
-  element: null,
-  fullText: "",
-  index: 0,
-  running: false
-};
 
-function typeText(element, text, callback, delay = 40) {
-  if (!element) return;
-  currentTyping.element = element;
-  currentTyping.fullText = text;
-  currentTyping.index = 0;
-  currentTyping.running = true;
+    let lightOn = false;
+    let currentTyping = { interval: null, element: null, fullText: "", index: 0, running: false };
+    const clickedAreas = new Set();
+    let chickenTriggered = false;
 
-  element.innerHTML = "";
-
-  clearInterval(currentTyping.interval);
-  currentTyping.interval = setInterval(() => {
-    element.innerHTML += text.charAt(currentTyping.index);
-    currentTyping.index++;
-    if (currentTyping.index >= text.length) {
-      clearInterval(currentTyping.interval);
-      currentTyping.running = false;
-      if (typeof callback === "function") callback();
-    }
-  }, delay);
-}
-
-// Klick auf Popup = sofort Text zeigen
-document.addEventListener("click", (e) => {
-  if (e.target.closest("#popup") && currentTyping.running) {
-    clearInterval(currentTyping.interval);
-    currentTyping.element.innerHTML = currentTyping.fullText;
-    currentTyping.running = false;
-    const btn = document.getElementById("popupBtn");
-    if (btn) btn.style.display = "block";
-    e.stopPropagation(); // verhindert Schließen
-  }
-});
     function showPopup(e, key) {
       e.preventDefault();
+      clickedAreas.add(key);
       const data = popups[key];
       const popup = document.getElementById("popup");
       const container = document.querySelector(".image-container");
       const containerRect = container.getBoundingClientRect();
-
       let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
-                    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); font-size: 15px; line-height: 1.5;
+                    box-shadow: 2px 4px 12px rgba(0,0,0,0.2); font-size: 15px; line-height: 1.5;
                     color: #003366;'>
         <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
         <div id="popupText" style="white-space: pre-line; margin-bottom: 12px;"></div>`;
-
       if (data.link) {
         html += `<div id="popupBtn" style="display:none;">
           <a href='${data.link.href}' target='_blank'
@@ -217,22 +200,18 @@ document.addEventListener("click", (e) => {
             <i class='fa-solid fa-file-arrow-down'></i> ${data.link.label}
           </a></div>`;
       }
-
       html += `</div>`;
-
       popup.innerHTML = html;
       popup.style.display = "block";
-
       const pageX = e.pageX - containerRect.left + window.scrollX;
       const pageY = e.pageY - containerRect.top + window.scrollY;
-
       let left = pageX - 30;
       let top = pageY - 100;
-
-      if (left + popup.offsetWidth > container.clientWidth) left = container.clientWidth - popup.offsetWidth - 10;
+      if (left + popup.offsetWidth > container.clientWidth) {
+        left = container.clientWidth - popup.offsetWidth - 10;
+      }
       if (left < 0) left = 10;
       if (top < 0) top = pageY + 20;
-
       popup.style.left = left + "px";
       popup.style.top = top + "px";
 
@@ -245,14 +224,101 @@ document.addEventListener("click", (e) => {
       }, 100);
     }
 
+    function toggleLight(event) {
+      event?.preventDefault();
+      lightOn = !lightOn;
+      const overlay = document.getElementById("overlay");
+      const clickText = document.getElementById("clickText");
+      if (lightOn) {
+        overlay.style.display = "none";
+        clickText.style.display = "block";
+      } else {
+        overlay.style.display = "block";
+        clickText.style.display = "none";
+      }
+    }
+
+    function positionElement(elemId, x, y) {
+      const img = document.getElementById("imageMap");
+      const el = document.getElementById(elemId);
+      const scaleX = img.clientWidth / img.naturalWidth;
+      const scaleY = img.clientHeight / img.naturalHeight;
+      el.style.left = (x * scaleX) + "px";
+      el.style.top = (y * scaleY) + "px";
+      el.style.transform = "translate(-50%, -50%)";
+    }
+
+    function typeText(element, text, callback, delay = 40) {
+      if (!element) return;
+      currentTyping.element = element;
+      currentTyping.fullText = text;
+      currentTyping.index = 0;
+      currentTyping.running = true;
+      element.innerHTML = "";
+      clearInterval(currentTyping.interval);
+      currentTyping.interval = setInterval(() => {
+        element.innerHTML += text.charAt(currentTyping.index);
+        currentTyping.index++;
+        if (currentTyping.index >= text.length) {
+          clearInterval(currentTyping.interval);
+          currentTyping.running = false;
+          if (typeof callback === "function") callback();
+        }
+      }, delay);
+    }
+
+    // Trigger chicken after 6 non-egg popups
     document.addEventListener("click", (e) => {
-      if (!e.target.closest("area") && !e.target.closest("#popup")) {
-        document.getElementById("popup").style.display = "none";
+      const popup = document.getElementById("popup");
+      const wasPopupOpen = popup.style.display === "block";
+      const isClickOutsidePopup = !e.target.closest("#popup") && !e.target.closest("area");
+      const isClickOnRedEgg = e.target.id === "redEgg";
+
+      if (e.target.closest("#popup") && currentTyping.running) {
+        clearInterval(currentTyping.interval);
+        currentTyping.element.innerHTML = currentTyping.fullText;
+        currentTyping.running = false;
+        const btn = document.getElementById("popupBtn");
+        if (btn) btn.style.display = "block";
+        e.stopPropagation();
+      }
+
+      if (e.target.closest("area")) {
+        document.getElementById("clickText").style.display = "none";
+      }
+
+      if (isClickOutsidePopup && !isClickOnRedEgg) {
+        popup.style.display = "none";
+      }
+
+      if (wasPopupOpen && isClickOutsidePopup && !chickenTriggered) {
+        const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
+        if (nonEggKeys.every(key => clickedAreas.has(key))) {
+          const chicken = document.getElementById("chickenGif");
+          const egg = document.getElementById("redEgg");
+
+          chicken.style.display = "block";
+          chicken.style.animation = "walkToFade 3s ease-in-out forwards"; // 3-second animation
+          chickenTriggered = true;
+
+          setTimeout(() => {
+            egg.style.display = "block";
+          }, 1500); // Egg appears halfway through
+        }
       }
     });
 
     window.addEventListener("load", () => {
       imageMapResize();
+      positionElement("switchImg", 1457, 485);
+      positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
+      document.getElementById("overlay").style.display = lightOn ? "none" : "block";
+      document.getElementById("switchImg").addEventListener("click", toggleLight);
+    });
+
+    window.addEventListener("resize", () => {
+      positionElement("switchImg", 1457, 485);
+      positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
     });
   </script>
 </body>
