@@ -55,7 +55,7 @@
       z-index: 1005;
     }
 
-    /* Overlay covers EVERYTHING when light is off */
+    /* Overlay covers image and egg, but NOT switch */
     #overlay {
       position: absolute;
       top: 0;
@@ -63,8 +63,8 @@
       right: 0;
       bottom: 0;
       background: rgba(0, 0, 0, 0.7);
-      z-index: 1000; /* Above egg and chicken */
-      display: none; /* Hidden when light is on */
+      z-index: 1005; /* Below switch */
+      display: none;
     }
 
     #switchImg {
@@ -72,7 +72,7 @@
       width: 40px;
       height: auto;
       cursor: pointer;
-      z-index: 1001;
+      z-index: 1007; /* Must be above overlay */
     }
 
     #clickText {
@@ -83,7 +83,7 @@
       padding: 6px 12px;
       background: transparent;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-      z-index: 1002;
+      z-index: 1001;
       pointer-events: none;
       animation: pulseClick 1.5s ease-out 3;
       display: none;
@@ -139,16 +139,18 @@
     <div class="image-container">
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
       
-      <!-- Overlay: Covers EVERYTHING when light is off -->
+      <!-- Overlay: Covers image and egg, but NOT switch -->
       <div id="overlay"></div>
       
+      <!-- Switch stays above overlay -->
       <img id="switchImg" src="switch_left.PNG" alt="Switch">
+      
       <div id="clickText">Click!</div>
       
-      <!-- Chicken image -->
+      <!-- Chicken -->
       <img id="chickenGif" src="chicken_yellow.png" alt="Chicken">
       
-      <!-- Red egg -->
+      <!-- Red Egg -->
       <img id="redEgg" src="red_egg.png" alt="Red Egg" 
            onclick="showPopup(event, 'egg'); event.stopPropagation();" 
            style="display: none;">
@@ -206,7 +208,7 @@
       }
     };
 
-    let lightOn = false; // Default: light is OFF
+    let lightOn = false;
     let currentTyping = { interval: null, element: null, fullText: "", index: 0, running: false };
     const clickedAreas = new Set();
     let chickenTriggered = false;
@@ -264,12 +266,12 @@
       const clickText = document.getElementById("clickText");
 
       if (lightOn) {
-        overlay.style.display = "none"; // Hide overlay
+        overlay.style.display = "none";
         body.classList.remove("light-off");
         body.classList.add("light-on");
         clickText.style.display = "block";
       } else {
-        overlay.style.display = "block"; // Covers EVERYTHING
+        overlay.style.display = "block";
         body.classList.remove("light-on");
         body.classList.add("light-off");
         clickText.style.display = "none";
@@ -305,14 +307,12 @@
       }, delay);
     }
 
-    // Trigger chicken after 6 non-egg areas are clicked
     document.addEventListener("click", (e) => {
       const popup = document.getElementById("popup");
       const wasPopupOpen = popup.style.display === "block";
       const isClickOutsidePopup = !e.target.closest("#popup") && !e.target.closest("area");
       const isClickOnRedEgg = e.target.id === "redEgg";
 
-      // Stop typing if clicking inside popup
       if (e.target.closest("#popup") && currentTyping.running) {
         clearInterval(currentTyping.interval);
         currentTyping.element.innerHTML = currentTyping.fullText;
@@ -322,17 +322,14 @@
         e.stopPropagation();
       }
 
-      // Hide click hint on area click
       if (e.target.closest("area")) {
         document.getElementById("clickText").style.display = "none";
       }
 
-      // Close popup if clicking outside (but not on egg)
       if (isClickOutsidePopup && !isClickOnRedEgg) {
         popup.style.display = "none";
       }
 
-      // Trigger chicken after 6 non-egg popups
       if (wasPopupOpen && isClickOutsidePopup && !chickenTriggered) {
         const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
         const clickedNonEgg = nonEggKeys.filter(key => clickedAreas.has(key));
@@ -344,7 +341,6 @@
           chicken.style.animation = "walkThenFade 5s ease-in-out forwards";
           chickenTriggered = true;
 
-          // Egg appears after 2.5 seconds
           setTimeout(() => {
             egg.style.display = "block";
           }, 2500);
@@ -352,7 +348,6 @@
       }
     });
 
-    // Initialize
     window.addEventListener("load", () => {
       imageMapResize();
       positionElement("switchImg", 1457, 485);
@@ -362,15 +357,12 @@
       const overlay = document.getElementById("overlay");
       const clickText = document.getElementById("clickText");
 
-      // Set initial state
       if (lightOn) {
         body.classList.add("light-on");
-        body.classList.remove("light-off");
         overlay.style.display = "none";
         clickText.style.display = "block";
       } else {
         body.classList.add("light-off");
-        body.classList.remove("light-on");
         overlay.style.display = "block";
         clickText.style.display = "none";
       }
@@ -378,7 +370,6 @@
       document.getElementById("switchImg").addEventListener("click", toggleLight);
     });
 
-    // Re-position on resize
     window.addEventListener("resize", () => {
       positionElement("switchImg", 1457, 485);
       positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
