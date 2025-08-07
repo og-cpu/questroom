@@ -143,7 +143,7 @@
         text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         display: none;
       ">
-        Diese digitale Bewerbungsmappe lädt Sie auf einen Rundgang ein. <br><br> Folgen Sie einfach den <span style="color: #ff4d4d;">roten</span> Gegenständen, um mehr zu erfahren. Finden Sie alle 6? <br><br>
+        Lernen beginnt mit Neugier – dieser Lebenslauf auch. <br><br> Folgen Sie einfach den <span style="color: #ff4d4d;">roten</span> Gegenständen, um mehr zu erfahren. Finden Sie alle 6? <br><br>
 <span style="font-weight: bold;">Aber erst das Licht einschalten – sonst bleibt’s dunkel.</span>
       </div>
       <!-- Switch stays above overlay -->
@@ -188,7 +188,7 @@
       },
       laptop: {
         title: "💻 Grüezi",
-        text: "👋 Ich bin Ol'ha Gneupel – \nLernfreude-Entfacherin, Ideen-Generatorin und Perspektiven-Geberin.\nIn meinem kleinen digitalen Atelier möchte ich mich etwas persönlicher vorstellen. Auch mit Einblicken, die im Lebenslauf keinen Platz gefunden haben. \nKommen Sie mit auf eine kleine Entdeckungstour: Fünf Stationen warten noch auf Sie. \nFalls Sie lieber direkt zum Wesentlichen wollen: Lebenslauf und Anschreiben sind gleich hier unten verlinkt.",
+        text: "👋 Ich bin Ol'ha Gneupel – Lernfreude-Entfacherin, Ideen-Generatorin und Perspektiven-Geberin.\nIn meinem kleinen digitalen Atelier möchte ich mich etwas persönlicher vorstellen. Auch mit Einblicken, die im Lebenslauf keinen Platz gefunden haben. Kommen Sie mit auf eine kleine Entdeckungstour: Fünf Stationen warten noch auf Sie.Falls Sie lieber direkt zum Wesentlichen wollen: Lebenslauf und Anschreiben sind gleich hier unten verlinkt.",
         link: { href: "https://drive.google.com/file/d/1m_dQ7KVMX24TMwthbXXtH7LZnI1ZgSBY/view", label: "Lebenslauf herunterladen" }
       },
       plant: {
@@ -218,8 +218,13 @@
       const containerRect = container.getBoundingClientRect();
       let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
                     box-shadow: 2px 4px 12px rgba(0,0,0,0.2); font-size: 15px; line-height: 1.5;
-                    color: #003366;'>
-        <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
+                    color: #003366; position: relative;'>
+    <div id="popupClose"
+     style="position: absolute; top: 8px; right: 10px; cursor: pointer; font-weight: bold; font-size: 18px; color: #666; display:none;"
+     onclick="closePopup()" aria-label="Popup schließen">
+  <i class="fa-solid fa-xmark"></i>
+</div>
+    <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
         <div id="popupText" style="white-space: pre-line; margin-bottom: 12px;"></div>`;
       if (data.link) {
         html += `<div id="popupBtn" style="display:none;">
@@ -233,6 +238,9 @@
       html += `</div>`;
       popup.innerHTML = html;
       popup.style.display = "block";
+// Sicherheitsnetz: X anfangs verstecken
+const closeXInit = document.getElementById("popupClose");
+if (closeXInit) closeXInit.style.display = "none";
       const pageX = e.pageX - containerRect.left + window.scrollX;
       const pageY = e.pageY - containerRect.top + window.scrollY;
       let left = pageX - 30;
@@ -245,12 +253,16 @@
       popup.style.left = left + "px";
       popup.style.top = top + "px";
       setTimeout(() => {
-        const textEl = document.getElementById("popupText");
-        typeText(textEl, data.text, () => {
-          const btn = document.getElementById("popupBtn");
-          if (btn) btn.style.display = "block";
-        });
-      }, 100);
+  const textEl = document.getElementById("popupText");
+  typeText(textEl, data.text, () => {
+    const btn = document.getElementById("popupBtn");
+    if (btn) btn.style.display = "block";
+
+    // X jetzt einblenden
+    const closeX = document.getElementById("popupClose");
+    if (closeX) closeX.style.display = "block";
+  });
+}, 100);
     }
     function toggleLight(event) {
       event?.preventDefault();
@@ -311,6 +323,8 @@
         currentTyping.running = false;
         const btn = document.getElementById("popupBtn");
         if (btn) btn.style.display = "block";
+const closeX = document.getElementById("popupClose");
+  if (closeX) closeX.style.display = "block";
         e.stopPropagation();
       }
       if (e.target.closest("area")) {
@@ -319,20 +333,20 @@
       if (isClickOutsidePopup && !isClickOnRedEgg) {
         popup.style.display = "none";
       }
-      if (wasPopupOpen && isClickOutsidePopup && !chickenTriggered) {
-        const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
-        const clickedNonEgg = nonEggKeys.filter(key => clickedAreas.has(key));
-        if (clickedNonEgg.length >= 6) {
-          const chicken = document.getElementById("chickenGif");
-          const egg = document.getElementById("redEgg");
-          chicken.style.display = "block";
-          chicken.style.animation = "walkThenFade 5s ease-in-out forwards";
-          chickenTriggered = true;
-          setTimeout(() => {
-            egg.style.display = "block";
-          }, 2500);
-        }
-      }
+      if (!chickenTriggered && document.getElementById("popup").style.display === "none") {
+  const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
+  const clickedNonEgg = nonEggKeys.filter(key => clickedAreas.has(key));
+  if (clickedNonEgg.length >= 6) {
+    const chicken = document.getElementById("chickenGif");
+    const egg = document.getElementById("redEgg");
+    chicken.style.display = "block";
+    chicken.style.animation = "walkThenFade 5s ease-in-out forwards";
+    chickenTriggered = true;
+    setTimeout(() => {
+      egg.style.display = "block";
+    }, 2500);
+  }
+}
     });
     window.addEventListener("load", () => {
       imageMapResize();
@@ -359,6 +373,9 @@
       positionElement("switchImg", 1457, 485);
       positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
     });
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
   </script>
 </body>
 </html>
