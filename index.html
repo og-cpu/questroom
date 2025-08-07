@@ -53,7 +53,7 @@
     .popup {
       position: absolute;
       display: none;
-      z-index: 1005;
+      z-index: 1009;
     }
     /* Overlay covers image and egg, but NOT switch */
     #overlay {
@@ -227,15 +227,26 @@
     const clickedAreas = new Set();
     let chickenTriggered = false;
     function showPopup(e, key) {
-      e.preventDefault();
-      clickedAreas.add(key);
-      const data = popups[key];
-      const popup = document.getElementById("popup");
-      const container = document.querySelector(".image-container");
-      const containerRect = container.getBoundingClientRect();
-      let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px; max-width: 320px;
-                    box-shadow: 2px 4px 12px rgba(0,0,0,0.2); font-size: 15px; line-height: 1.5;
-                    color: #003366; position: relative;'>
+  e.preventDefault();
+  clickedAreas.add(key);
+  const data = popups[key];
+  const popup = document.getElementById("popup");
+  const container = document.querySelector(".image-container");
+  const containerRect = container.getBoundingClientRect();
+  
+  // Start constructing the popup HTML
+  let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px;`;
+
+  // Apply min-width specifically for the "plant" and "laptop" popups
+  if (key === 'plant' || key === 'laptop') {
+    html += ' min-width: 480px;'; // Set min-width for the "plant" and "laptop" popups
+  } else {
+    html += ' max-width: 320px;'; // Default width for other popups
+  }
+
+  html += `
+                box-shadow: 2px 4px 12px rgba(0,0,0,0.2); font-size: 15px; line-height: 1.5;
+                color: #003366; position: relative;'>
     <div id="popupClose"
      style="position: absolute; top: 8px; right: 10px; cursor: pointer; font-weight: bold; font-size: 18px; color: #666; display:none;"
      onclick="closePopup()" aria-label="Popup schließen">
@@ -243,44 +254,60 @@
 </div>
     <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
         <div id="popupText" style="white-space: pre-line; margin-bottom: 12px;"></div>`;
-      if (data.link) {
-        html += `<div id="popupBtn" style="display:none;">
+
+  if (data.link) {
+    html += `<div id="popupBtn" style="display:none;">
           <a href='${data.link.href}' target='_blank'
              style='display: inline-flex; align-items: center; gap: 8px;
                     font-size: 15px; font-weight: bold; color: #b30000;
                     text-decoration: none;'>
             <i class='fa-solid fa-file-arrow-down'></i> ${data.link.label}
           </a></div>`;
-      }
-      html += `</div>`;
-      popup.innerHTML = html;
-      popup.style.display = "block";
-// Sicherheitsnetz: X anfangs verstecken
-const closeXInit = document.getElementById("popupClose");
-if (closeXInit) closeXInit.style.display = "none";
-      const pageX = e.pageX - containerRect.left + window.scrollX;
-      const pageY = e.pageY - containerRect.top + window.scrollY;
-      let left = pageX - 30;
-      let top = pageY - 100;
-      if (left + popup.offsetWidth > container.clientWidth) {
-        left = container.clientWidth - popup.offsetWidth - 10;
-      }
-      if (left < 0) left = 10;
-      if (top < 0) top = pageY + 20;
-      popup.style.left = left + "px";
-      popup.style.top = top + "px";
-      setTimeout(() => {
-  const textEl = document.getElementById("popupText");
-  typeText(textEl, data.text, () => {
-    const btn = document.getElementById("popupBtn");
-    if (btn) btn.style.display = "block";
+  }
+  html += `</div>`;
+  popup.innerHTML = html;
+  popup.style.display = "block";
 
-    // X jetzt einblenden
-    const closeX = document.getElementById("popupClose");
-    if (closeX) closeX.style.display = "block";
-  });
-}, 100);
-    }
+  // Hide close button initially
+  const closeXInit = document.getElementById("popupClose");
+  if (closeXInit) closeXInit.style.display = "none";
+
+  const pageX = e.pageX - containerRect.left + window.scrollX;
+  const pageY = e.pageY - containerRect.top + window.scrollY;
+  let left = pageX - 30;
+  let top = pageY - 100;
+
+  // Ensure the popup doesn't overflow the right edge
+  if (left + popup.offsetWidth > container.clientWidth) {
+    left = container.clientWidth - popup.offsetWidth - 10;
+  }
+
+  // Ensure the popup doesn't overflow the left edge
+  if (left < 0) {
+    left = 10;
+  }
+
+  // Ensure the popup doesn't overflow the top edge
+  if (top < 0) {
+    top = pageY + 20;
+  }
+
+  // Apply the adjusted position
+  popup.style.left = left + "px";
+  popup.style.top = top + "px";
+
+  setTimeout(() => {
+    const textEl = document.getElementById("popupText");
+    typeText(textEl, data.text, () => {
+      const btn = document.getElementById("popupBtn");
+      if (btn) btn.style.display = "block";
+
+      // Show close button now
+      const closeX = document.getElementById("popupClose");
+      if (closeX) closeX.style.display = "block";
+    });
+  }, 100);
+}
     function toggleLight(event) {
       event?.preventDefault();
       lightOn = !lightOn;
