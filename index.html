@@ -129,24 +129,33 @@
       <div id="overlay"></div>
       <!-- Anleitungstext: nur sichtbar wenn Licht aus -->
       <div id="anleitungText" style="
-        position: absolute;
-        top: 60px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: white;
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-        width: 80%;
-        z-index: 1006;
-        pointer-events: none;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-        display: none;
-      ">
-        Diese digitale Bewerbungsmappe lädt Sie auf einen Rundgang ein: <br><br> Folgen Sie einfach den <span style="color: #ff4d4d;">roten</span> Gegenständen, um mehr zu erfahren. Finden Sie alle 6? <br><br>Tipp: Popup doppelt anklicken = ganzer Text sofort.
-Schliessen: ausserhalb klicken oder aufs Kreuz.<br><br>
-<span style="font-weight: bold;">Aber erst das Licht einschalten – sonst bleibt’s dunkel.</span>
-      </div>
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  width: 80%;
+  z-index: 1006;
+  pointer-events: none;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  line-height: 1.6;
+  display: none;
+">
+  <span style="font-size: 20px;">🔍 Neugierig?</span><br>
+  Diese digitale Bewerbungsmappe lädt Sie auf einen Rundgang ein.<br><br>
+
+  Folgen Sie den <span style="color: #ff4d4d;">roten</span> Gegenständen<br>
+  und entdecken Sie alle <b>6 Stationen</b>.<br><br>
+
+  <span style="font-size: 16px; font-weight: normal;">
+    ⚡ Popup zweimal anklicken = Text sofort sehen.<br>
+    ❌ Schließen: Klick daneben oder aufs Kreuz.<br>
+    💡<span style="font-weight: bold;">Aber erst das Licht einschalten – sonst bleibt’s dunkel.</span>
+  </span>
+</div>
       <!-- Switch stays above overlay -->
       <img id="switchImg" src="switch_left.PNG" alt="Switch">
       <div id="clickText">Click!</div>
