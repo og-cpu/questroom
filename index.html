@@ -15,47 +15,51 @@
       align-items: center;
       transition: background-image 0.4s ease;
     }
+
     /* Light ON: Beige background */
     body.light-on {
-  background-color: #e0ddd5;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' width='56' height='28'%3E%3Cpath fill='%23d3d2c1' fill-opacity='0.74' d='M56 26v2h-7.75c2.3-1.27 4.94-2 7.75-2zm-26 2a2 2 0 1 0-4 0h-4.09A25.98 25.98 0 0 0 0 16v-2c.67 0 1.34.02 2 .07V14a2 2 0 0 0-2-2v-2a4 4 0 0 1 3.98 3.6 28.09 28.09 0 0 1 2.8-3.86A8 8 0 0 0 0 6V4a9.99 9.99 0 0 1 8.17 4.23c.94-.95 1.96-1.83 3.03-2.63A13.98 13.98 0 0 0 0 0h7.75c2 1.1 3.73 2.63 5.1 4.45 1.12-.72 2.3-1.37 3.53-1.93A20.1 20.1 0 0 0 14.28 0h2.7c.45.56.88 1.14 1.29 1.74 1.3-.48 2.63-.87 4-1.15-.11-.2-.23-.4-.36-.59H26v.07a28.4 28.4 0 0 1 4 0V0h4.09l-.37.59c1.38.28 2.72.67 4.01 1.15.4-.6.84-1.18 1.3-1.74h2.69a20.1 20.1 0 0 0-2.1 2.52c1.23.56 2.41 1.2 3.54 1.93A16.08 16.08 0 0 1 48.25 0H56c-4.58 0-8.65 2.2-11.2 5.6 1.07.8 2.09 1.68 3.03 2.63A9.99 9.99 0 0 1 56 4v2a8 8 0 0 0-6.77 3.74c1.03 1.2 1.97 2.5 2.79 3.86A4 4 0 0 1 56 10v2a2 2 0 0 0-2 2.07 28.4 28.4 0 0 1 2-.07v2c-9.2 0-17.3 4.78-21.91 12H30zM7.75 28H0v-2c2.81 0 5.46.73 7.75 2zM56 20v2c-5.6 0-10.65 2.3-14.28 6h-2.7c4.04-4.89 10.15-8 16.98-8zm-39.03 8h-2.69C10.65 24.3 5.6 22 0 22v-2c6.83 0 12.94 3.11 16.97 8zm15.01-.4a28.09 28.09 0 0 1 2.8-3.86 8 8 0 0 0-13.55 0c1.03 1.2 1.97 2.5 2.79 3.86a4 4 0 0 1 7.96 0zm14.29-11.86c1.3-.48 2.63-.87 4-1.15a25.99 25.99 0 0 0-44.55 0c1.38.28 2.72.67 4.01 1.15a21.98 21.98 0 0 1 36.54 0zm-5.43 2.71c1.13-.72 2.3-1.37 3.54-1.93a19.98 19.98 0 0 0-32.76 0c1.23.56 2.41 1.2 3.54 1.93a15.98 15.98 0 0 1 25.68 0zm-4.67 3.78c.94-.95 1.96-1.83 3.03-2.63a13.98 13.98 0 0 0-22.4 0c1.07.8 2.09 1.68 3.03 2.63a9.99 9.99 0 0 1 16.34 0z'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 56px 28px;   /* match SVG viewBox */
-  background-position: 0 0;
-  /* optional for parallax: background-attachment: fixed; */
-}
+      background-color: #e0ddd5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' width='56' height='28'%3E%3Cpath fill='%23d3d2c1' fill-opacity='0.74' d='M56 26v2h-7.75c2.3-1.27 4.94-2 7.75-2zm-26 2a2 2 0 1 0-4 0h-4.09A25.98 25.98 0 0 0 0 16v-2c.67 0 1.34.02 2 .07V14a2 2 0 0 0-2-2v-2a4 4 0 0 1 3.98 3.6 28.09 28.09 0 0 1 2.8-3.86A8 8 0 0 0 0 6V4a9.99 9.99 0 0 1 8.17 4.23c.94-.95 1.96-1.83 3.03-2.63A13.98 13.98 0 0 0 0 0h7.75c2 1.1 3.73 2.63 5.1 4.45 1.12-.72 2.3-1.37 3.53-1.93A20.1 20.1 0 0 0 14.28 0h2.7c.45.56.88 1.14 1.29 1.74 1.3-.48 2.63-.87 4-1.15-.11-.2-.23-.4-.36-.59H26v.07a28.4 28.4 0 0 1 4 0V0h4.09l-.37.59c1.38.28 2.72.67 4.01 1.15.4-.6.84-1.18 1.3-1.74h2.69a20.1 20.1 0 0 0-2.1 2.52c1.23.56 2.41 1.2 3.54 1.93A16.08 16.08 0 0 1 48.25 0H56c-4.58 0-8.65 2.2-11.2 5.6 1.07.8 2.09 1.68 3.03 2.63A9.99 9.99 0 0 1 56 4v2a8 8 0 0 0-6.77 3.74c1.03 1.2 1.97 2.5 2.79 3.86A4 4 0 0 1 56 10v2a2 2 0 0 0-2 2.07 28.4 28.4 0 0 1 2-.07v2c-9.2 0-17.3 4.78-21.91 12H30zM7.75 28H0v-2c2.81 0 5.46.73 7.75 2zM56 20v2c-5.6 0-10.65 2.3-14.28 6h-2.7c4.04-4.89 10.15-8 16.98-8zm-39.03 8h-2.69C10.65 24.3 5.6 22 0 22v-2c6.83 0 12.94 3.11 16.97 8zm15.01-.4a28.09 28.09 0 0 1 2.8-3.86 8 8 0 0 0-13.55 0c1.03 1.2 1.97 2.5 2.79 3.86a4 4 0 0 1 7.96 0zm14.29-11.86c1.3-.48 2.63-.87 4-1.15a25.99 25.99 0 0 0-44.55 0c1.38.28 2.72.67 4.01 1.15a21.98 21.98 0 0 1 36.54 0zm-5.43 2.71c1.13-.72 2.3-1.37 3.54-1.93a19.98 19.98 0 0 0-32.76 0c1.23.56 2.41 1.2 3.54 1.93a15.98 15.98 0 0 1 25.68 0zm-4.67 3.78c.94-.95 1.96-1.83 3.03-2.63a13.98 13.98 0 0 0-22.4 0c1.07.8 2.09 1.68 3.03 2.63a9.99 9.99 0 0 1 16.34 0z'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 56px 28px;
+      background-position: 0 0;
+    }
+
     /* Light OFF: Navy background */
     body.light-off {
-  background-color: #696b81;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' width='56' height='28'%3E%3Cpath fill='%232b3845' fill-opacity='0.74' d='M56 26v2h-7.75c2.3-1.27 4.94-2 7.75-2zm-26 2a2 2 0 1 0-4 0h-4.09A25.98 25.98 0 0 0 0 16v-2c.67 0 1.34.02 2 .07V14a2 2 0 0 0-2-2v-2a4 4 0 0 1 3.98 3.6 28.09 28.09 0 0 1 2.8-3.86A8 8 0 0 0 0 6V4a9.99 9.99 0 0 1 8.17 4.23c.94-.95 1.96-1.83 3.03-2.63A13.98 13.98 0 0 0 0 0h7.75c2 1.1 3.73 2.63 5.1 4.45 1.12-.72 2.3-1.37 3.53-1.93A20.1 20.1 0 0 0 14.28 0h2.7c.45.56.88 1.14 1.29 1.74 1.3-.48 2.63-.87 4-1.15-.11-.2-.23-.4-.36-.59H26v.07a28.4 28.4 0 0 1 4 0V0h4.09l-.37.59c1.38.28 2.72.67 4.01 1.15.4-.6.84-1.18 1.3-1.74h2.69a20.1 20.1 0 0 0-2.1 2.52c1.23.56 2.41 1.2 3.54 1.93A16.08 16.08 0 0 1 48.25 0H56c-4.58 0-8.65 2.2-11.2 5.6 1.07.8 2.09 1.68 3.03 2.63A9.99 9.99 0 0 1 56 4v2a8 8 0 0 0-6.77 3.74c1.03 1.2 1.97 2.5 2.79 3.86A4 4 0 0 1 56 10v2a2 2 0 0 0-2 2.07 28.4 28.4 0 0 1 2-.07v2c-9.2 0-17.3 4.78-21.91 12H30zM7.75 28H0v-2c2.81 0 5.46.73 7.75 2zM56 20v2c-5.6 0-10.65 2.3-14.28 6h-2.7c4.04-4.89 10.15-8 16.98-8zm-39.03 8h-2.69C10.65 24.3 5.6 22 0 22v-2c6.83 0 12.94 3.11 16.97 8zm15.01-.4a28.09 28.09 0 0 1 2.8-3.86 8 8 0 0 0-13.55 0c1.03 1.2 1.97 2.5 2.79 3.86a4 4 0 0 1 7.96 0zm14.29-11.86c1.3-.48 2.63-.87 4-1.15a25.99 25.99 0 0 0-44.55 0c1.38.28 2.72.67 4.01 1.15a21.98 21.98 0 0 1 36.54 0zm-5.43 2.71c1.13-.72 2.3-1.37 3.54-1.93a19.98 19.98 0 0 0-32.76 0c1.23.56 2.41 1.2 3.54 1.93a15.98 15.98 0 0 1 25.68 0zm-4.67 3.78c.94-.95 1.96-1.83 3.03-2.63a13.98 13.98 0 0 0-22.4 0c1.07.8 2.09 1.68 3.03 2.63a9.99 9.99 0 0 1 16.34 0z'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 56px 28px;
-  background-position: 0 0;
-  /* optional: background-attachment: fixed; */
-}
+      background-color: #696b81;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' width='56' height='28'%3E%3Cpath fill='%232b3845' fill-opacity='0.74' d='M56 26v2h-7.75c2.3-1.27 4.94-2 7.75-2zm-26 2a2 2 0 1 0-4 0h-4.09A25.98 25.98 0 0 0 0 16v-2c.67 0 1.34.02 2 .07V14a2 2 0 0 0-2-2v-2a4 4 0 0 1 3.98 3.6 28.09 28.09 0 0 1 2.8-3.86A8 8 0 0 0 0 6V4a9.99 9.99 0 0 1 8.17 4.23c.94-.95 1.96-1.83 3.03-2.63A13.98 13.98 0 0 0 0 0h7.75c2 1.1 3.73 2.63 5.1 4.45 1.12-.72 2.3-1.37 3.53-1.93A20.1 20.1 0 0 0 14.28 0h2.7c.45.56.88 1.14 1.29 1.74 1.3-.48 2.63-.87 4-1.15-.11-.2-.23-.4-.36-.59H26v.07a28.4 28.4 0 0 1 4 0V0h4.09l-.37.59c1.38.28 2.72.67 4.01 1.15.4-.6.84-1.18 1.3-1.74h2.69a20.1 20.1 0 0 0-2.1 2.52c1.23.56 2.41 1.2 3.54 1.93A16.08 16.08 0 0 1 48.25 0H56c-4.58 0-8.65 2.2-11.2 5.6 1.07.8 2.09 1.68 3.03 2.63A9.99 9.99 0 0 1 56 4v2a8 8 0 0 0-6.77 3.74c1.03 1.2 1.97 2.5 2.79 3.86A4 4 0 0 1 56 10v2a2 2 0 0 0-2 2.07 28.4 28.4 0 0 1 2-.07v2c-9.2 0-17.3 4.78-21.91 12H30zM7.75 28H0v-2c2.81 0 5.46.73 7.75 2zM56 20v2c-5.6 0-10.65 2.3-14.28 6h-2.7c4.04-4.89 10.15-8 16.98-8zm-39.03 8h-2.69C10.65 24.3 5.6 22 0 22v-2c6.83 0 12.94 3.11 16.97 8zm15.01-.4a28.09 28.09 0 0 1 2.8-3.86 8 8 0 0 0-13.55 0c1.03 1.2 1.97 2.5 2.79 3.86a4 4 0 0 1 7.96 0zm14.29-11.86c1.3-.48 2.63-.87 4-1.15a25.99 25.99 0 0 0-44.55 0c1.38.28 2.72.67 4.01 1.15a21.98 21.98 0 0 1 36.54 0zm-5.43 2.71c1.13-.72 2.3-1.37 3.54-1.93a19.98 19.98 0 0 0-32.76 0c1.23.56 2.41 1.2 3.54 1.93a15.98 15.98 0 0 1 25.68 0zm-4.67 3.78c.94-.95 1.96-1.83 3.03-2.63a13.98 13.98 0 0 0-22.4 0c1.07.8 2.09 1.68 3.03 2.63a9.99 9.99 0 0 1 16.34 0z'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 56px 28px;
+      background-position: 0 0;
+    }
+
     .wrapper {
       width: 100%;
       max-width: 1200px;
       padding: 20px;
       position: relative;
     }
+
     .image-container {
       position: relative;
       width: 100%;
       max-width: 1200px;
     }
+
     .image-container img#imageMap {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 8px;
     }
+
     .popup {
       position: absolute;
       display: none;
       z-index: 1009;
     }
-    /* Overlay covers image and egg, but NOT switch */
+
     #overlay {
       position: absolute;
       top: 0;
@@ -63,16 +67,18 @@
       right: 0;
       bottom: 0;
       background: rgba(20, 15, 40, 0.9);
-      z-index: 1005; /* Below switch */
+      z-index: 1005;
       display: none;
     }
+
     #switchImg {
       position: absolute;
       width: 40px;
       height: auto;
       cursor: pointer;
-      z-index: 1007; /* Must be above overlay */
+      z-index: 1007;
     }
+
     #clickText {
       position: absolute;
       color: white;
@@ -86,10 +92,12 @@
       animation: pulseClick 1.5s ease-out 3;
       display: none;
     }
+
     @keyframes pulseClick {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
+
     @keyframes walkThenFade {
       from {
         transform: translateX(0);
@@ -106,6 +114,7 @@
         opacity: 0;
       }
     }
+
     #chickenGif {
       position: absolute;
       bottom: 10px;
@@ -116,6 +125,7 @@
       z-index: 1004;
       pointer-events: none;
     }
+
     #redEgg {
       position: absolute;
       bottom: 40px;
@@ -132,46 +142,50 @@
   <div class="wrapper">
     <div class="image-container">
       <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
-      <!-- Overlay: Covers image and egg, but NOT switch -->
+
+      <!-- Overlay -->
       <div id="overlay"></div>
-      <!-- Anleitungstext: nur sichtbar wenn Licht aus -->
+
+      <!-- Instruction Text (shown when light is off) -->
       <div id="anleitungText" style="
-  position: absolute;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  width: 80%;
-  z-index: 1006;
-  pointer-events: none;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-  line-height: 1.6;
-  display: none;
-">
-  <span style="font-size: 20px;">🔍 Neugierig?</span><br>
-  Genau so startet dieser Lebenslauf.<br><br>
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        width: 80%;
+        z-index: 1006;
+        pointer-events: none;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        line-height: 1.6;
+        display: none;
+      ">
+        <span style="font-size: 20px;">🔍 Neugierig?</span><br>
+        Genau so startet dieser Lebenslauf.<br><br>
+        Folgen Sie den <span style="color: #ff4d4d;">roten</span> Gegenständen<br>
+        und entdecken Sie alle 6 Stationen.<br><br>
+        <span style="font-size: 16px; font-weight: normal;">
+          💡 Erst Licht einschalten – sonst bleibt’s dunkel.<br>
+          ⚡ Popup zweimal anklicken = Text sofort sehen.<br>
+          ❌ Schließen: Klick daneben oder aufs Kreuz.
+        </span>
+      </div>
 
-  Folgen Sie den <span style="color: #ff4d4d;">roten</span> Gegenständen<br>
-  und entdecken Sie alle 6 Stationen.<br><br>
-
-  <span style="font-size: 16px; font-weight: normal;">
-    💡 Erst Licht einschalten – sonst bleibt’s dunkel.<br>
-    ⚡ Popup zweimal anklicken = Text sofort sehen.<br>
-    ❌ Schließen: Klick daneben oder aufs Kreuz.
-  </span>
-</div>
-      <!-- Switch stays above overlay -->
+      <!-- Light Switch -->
       <img id="switchImg" src="switch_left.PNG" alt="Switch">
       <div id="clickText">Click!</div>
+
       <!-- Chicken -->
       <img id="chickenGif" src="chicken_yellow.png" alt="Chicken">
+
       <!-- Red Egg -->
       <img id="redEgg" src="red_egg.png" alt="Red Egg" 
            onclick="showPopup(event, 'egg'); event.stopPropagation();" 
            style="display: none;">
+
       <!-- Image Map -->
       <map name="image-map">
         <area alt="switch" title="switch" href="#" coords="1457,535,1500,485" shape="rect" onclick="toggleLight(event)">
@@ -184,16 +198,22 @@
         <area target="" alt="chicken" title="chicken" href="chicken" coords="520,948,426,854" shape="rect">
         <area alt="egg" title="egg" href="#" coords="661,863,779,946" shape="rect" onclick="showPopup(event, 'egg')">
       </map>
+
+      <!-- Popup Container -->
       <div id="popup" class="popup"></div>
     </div>
   </div>
+
+  <!-- Scripts -->
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
     const popups = {
       academic: {
         title: "🎓 Bildungshintergrund",
         text: "Germanistik & Erwachsenenbildung:\nVon Czernowitz über Jena bis nach St. Gallen. Meine Abschlüsse? Hier ein Blick in den Rucksack.",
-        link: { href: "https://drive.google.com/file/d/1JJLqK4BtKmJqM9-rjKj2LrFXo7Q4S0Kx/view", label: "Zeugnisse herunterladen" }
+        links: [
+          { href: "https://drive.google.com/file/d/1JJLqK4BtKmJqM9-rjKj2LrFXo7Q4S0Kx/view", label: "Zeugnisse herunterladen" }
+        ]
       },
       book: {
         title: "📕 Language matters",
@@ -205,8 +225,11 @@
       },
       laptop: {
         title: "💻 Grüezi",
-        text: "👋 Ich bin Ol'ha Gneupel – Lernfreude-Entfacherin, Ideen-Generatorin und Perspektiven-Geberin.\nIn meinem kleinen digitalen Atelier möchte ich mich etwas persönlicher vorstellen. Auch mit Einblicken, die im Lebenslauf keinen Platz gefunden haben. Kommen Sie mit auf eine kleine Entdeckungstour: Fünf Stationen warten noch auf Sie.Falls Sie lieber direkt zum Wesentlichen wollen: Lebenslauf und Anschreiben sind gleich hier unten verlinkt.",
-        link: { href: "https://drive.google.com/file/d/1m_dQ7KVMX24TMwthbXXtH7LZnI1ZgSBY/view", label: "Lebenslauf herunterladen" }
+        text: "👋 Ich bin Ol'ha Gneupel – Lernfreude-Entfacherin, Ideen-Generatorin und Perspektiven-Geberin.\nIn meinem kleinen digitalen Atelier möchte ich mich etwas persönlicher vorstellen. Auch mit Einblicken, die im Lebenslauf keinen Platz gefunden haben. Kommen Sie mit auf eine kleine Entdeckungstour: Fünf Stationen warten noch auf Sie.\nFalls Sie lieber direkt zum Wesentlichen wollen: Lebenslauf und Anschreiben sind gleich hier unten verlinkt.",
+        links: [
+          { href: "https://drive.google.com/file/d/1m_dQ7KVMX24TMwthbXXtH7LZnI1ZgSBY/view", label: "Lebenslauf herunterladen" },
+          { href: "https://drive.google.com/file/d/1abc123def456ghi789jklmnoPqrsTuvW/view", label: "Anschreiben herunterladen" }
+        ]
       },
       plant: {
         title: "🪴 Lernen und Wachsen",
@@ -215,99 +238,94 @@
       bag: {
         title: "💼 Berufserfahrung",
         text: "Ich bringe mich am liebsten dort ein, wo Bildung gestaltet, organisiert und weitergedacht wird. Ob vor der Klasse oder hinter den Kulissen. Deshalb habe ich beides gemacht: unterrichtet und im Hintergrund mitkoordiniert. Hier sind die Beweise.",
-        link: { href: "https://drive.google.com/file/d/1K5vNyA7GU4LPTKdlZeAnovxYsAtU1fmC/view", label: "Arbeitszeugnisse herunterladen" }
+        links: [
+          { href: "https://drive.google.com/file/d/1K5vNyA7GU4LPTKdlZeAnovxYsAtU1fmC/view", label: "Arbeitszeugnisse herunterladen" }
+        ]
       },
       egg: {
         title: "🥚 Sie haben das Easter Egg entdeckt!",
         text: "Das bedeutet: Sie haben alle Stationen erkundet – vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
       }
     };
+
     let lightOn = false;
     let currentTyping = { interval: null, element: null, fullText: "", index: 0, running: false };
     const clickedAreas = new Set();
     let chickenTriggered = false;
+
     function showPopup(e, key) {
-  e.preventDefault();
-  clickedAreas.add(key);
-  const data = popups[key];
-  const popup = document.getElementById("popup");
-  const container = document.querySelector(".image-container");
-  const containerRect = container.getBoundingClientRect();
-  
-  // Start constructing the popup HTML
-  let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px;`;
+      e.preventDefault();
+      clickedAreas.add(key);
+      const data = popups[key];
+      const popup = document.getElementById("popup");
+      const container = document.querySelector(".image-container");
+      const containerRect = container.getBoundingClientRect();
 
-  // Apply min-width specifically for the "plant" and "laptop" popups
-  if (key === 'plant' || key === 'laptop') {
-    html += ' min-width: 480px;'; // Set min-width for the "plant" and "laptop" popups
-  } else {
-    html += ' max-width: 320px;'; // Default width for other popups
-  }
-
-  html += `
+      let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px;`;
+      if (key === 'plant' || key === 'laptop') {
+        html += ' min-width: 480px;';
+      } else {
+        html += ' max-width: 320px;';
+      }
+      html += `
                 box-shadow: 2px 4px 12px rgba(0,0,0,0.2); font-size: 15px; line-height: 1.5;
                 color: #003366; position: relative;'>
-    <div id="popupClose"
-     style="position: absolute; top: 8px; right: 10px; cursor: pointer; font-weight: bold; font-size: 18px; color: #666; display:none;"
-     onclick="closePopup()" aria-label="Popup schließen">
-  <i class="fa-solid fa-xmark"></i>
-</div>
-    <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
+        <div id="popupClose"
+             style="position: absolute; top: 8px; right: 10px; cursor: pointer; font-weight: bold; font-size: 18px; color: #666; display:none;"
+             onclick="closePopup()" aria-label="Popup schließen">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
         <div id="popupText" style="white-space: pre-line; margin-bottom: 12px;"></div>`;
 
-  if (data.link) {
-    html += `<div id="popupBtn" style="display:none;">
-          <a href='${data.link.href}' target='_blank'
-             style='display: inline-flex; align-items: center; gap: 8px;
-                    font-size: 15px; font-weight: bold; color: #b30000;
-                    text-decoration: none;'>
-            <i class='fa-solid fa-file-arrow-down'></i> ${data.link.label}
-          </a></div>`;
-  }
-  html += `</div>`;
-  popup.innerHTML = html;
-  popup.style.display = "block";
+      // Render multiple links if present
+      if (data.links && Array.isArray(data.links)) {
+        html += `<div id="popupBtn" style="display:none;">`;
+        data.links.forEach(link => {
+          html += `<div style="margin-top: 6px;">
+                    <a href='${link.href}' target='_blank'
+                       style='display: inline-flex; align-items: center; gap: 8px;
+                              font-size: 15px; font-weight: bold; color: #b30000;
+                              text-decoration: none;'>
+                      <i class='fa-solid fa-file-arrow-down'></i> ${link.label}
+                    </a>
+                  </div>`;
+        });
+        html += `</div>`;
+      }
 
-  // Hide close button initially
-  const closeXInit = document.getElementById("popupClose");
-  if (closeXInit) closeXInit.style.display = "none";
+      html += `</div>`;
+      popup.innerHTML = html;
+      popup.style.display = "block";
 
-  const pageX = e.pageX - containerRect.left + window.scrollX;
-  const pageY = e.pageY - containerRect.top + window.scrollY;
-  let left = pageX - 30;
-  let top = pageY - 100;
+      const closeXInit = document.getElementById("popupClose");
+      if (closeXInit) closeXInit.style.display = "none";
 
-  // Ensure the popup doesn't overflow the right edge
-  if (left + popup.offsetWidth > container.clientWidth) {
-    left = container.clientWidth - popup.offsetWidth - 10;
-  }
+      const pageX = e.pageX - containerRect.left + window.scrollX;
+      const pageY = e.pageY - containerRect.top + window.scrollY;
+      let left = pageX - 30;
+      let top = pageY - 100;
 
-  // Ensure the popup doesn't overflow the left edge
-  if (left < 0) {
-    left = 10;
-  }
+      if (left + popup.offsetWidth > container.clientWidth) {
+        left = container.clientWidth - popup.offsetWidth - 10;
+      }
+      if (left < 0) left = 10;
+      if (top < 0) top = pageY + 20;
 
-  // Ensure the popup doesn't overflow the top edge
-  if (top < 0) {
-    top = pageY + 20;
-  }
+      popup.style.left = left + "px";
+      popup.style.top = top + "px";
 
-  // Apply the adjusted position
-  popup.style.left = left + "px";
-  popup.style.top = top + "px";
+      setTimeout(() => {
+        const textEl = document.getElementById("popupText");
+        typeText(textEl, data.text, () => {
+          const btn = document.getElementById("popupBtn");
+          if (btn) btn.style.display = "block";
+          const closeX = document.getElementById("popupClose");
+          if (closeX) closeX.style.display = "block";
+        });
+      }, 100);
+    }
 
-  setTimeout(() => {
-    const textEl = document.getElementById("popupText");
-    typeText(textEl, data.text, () => {
-      const btn = document.getElementById("popupBtn");
-      if (btn) btn.style.display = "block";
-
-      // Show close button now
-      const closeX = document.getElementById("popupClose");
-      if (closeX) closeX.style.display = "block";
-    });
-  }, 100);
-}
     function toggleLight(event) {
       event?.preventDefault();
       lightOn = !lightOn;
@@ -315,20 +333,22 @@
       const body = document.body;
       const clickText = document.getElementById("clickText");
       const anleitungText = document.getElementById("anleitungText");
+
       if (lightOn) {
         overlay.style.display = "none";
         body.classList.remove("light-off");
         body.classList.add("light-on");
         clickText.style.display = "block";
-        anleitungText.style.display = "none";  // Text ausblenden
+        anleitungText.style.display = "none";
       } else {
         overlay.style.display = "block";
         body.classList.remove("light-on");
         body.classList.add("light-off");
         clickText.style.display = "none";
-        anleitungText.style.display = "block"; // Text einblenden
+        anleitungText.style.display = "block";
       }
     }
+
     function positionElement(elemId, x, y) {
       const img = document.getElementById("imageMap");
       const el = document.getElementById(elemId);
@@ -338,6 +358,7 @@
       el.style.top = (y * scaleY) + "px";
       el.style.transform = "translate(-50%, -50%)";
     }
+
     function typeText(element, text, callback, delay = 40) {
       if (!element) return;
       currentTyping.element = element;
@@ -356,50 +377,57 @@
         }
       }, delay);
     }
+
     document.addEventListener("click", (e) => {
       const popup = document.getElementById("popup");
-      const wasPopupOpen = popup.style.display === "block";
       const isClickOutsidePopup = !e.target.closest("#popup") && !e.target.closest("area");
       const isClickOnRedEgg = e.target.id === "redEgg";
+
       if (e.target.closest("#popup") && currentTyping.running) {
         clearInterval(currentTyping.interval);
         currentTyping.element.innerHTML = currentTyping.fullText;
         currentTyping.running = false;
         const btn = document.getElementById("popupBtn");
         if (btn) btn.style.display = "block";
-const closeX = document.getElementById("popupClose");
-  if (closeX) closeX.style.display = "block";
+        const closeX = document.getElementById("popupClose");
+        if (closeX) closeX.style.display = "block";
         e.stopPropagation();
       }
+
       if (e.target.closest("area")) {
         document.getElementById("clickText").style.display = "none";
       }
+
       if (isClickOutsidePopup && !isClickOnRedEgg) {
         popup.style.display = "none";
       }
-      if (!chickenTriggered && document.getElementById("popup").style.display === "none") {
-  const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
-  const clickedNonEgg = nonEggKeys.filter(key => clickedAreas.has(key));
-  if (clickedNonEgg.length >= 6) {
-    const chicken = document.getElementById("chickenGif");
-    const egg = document.getElementById("redEgg");
-    chicken.style.display = "block";
-    chicken.style.animation = "walkThenFade 5s ease-in-out forwards";
-    chickenTriggered = true;
-    setTimeout(() => {
-      egg.style.display = "block";
-    }, 2500);
-  }
-}
+
+      if (!chickenTriggered && popup.style.display === "none") {
+        const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
+        const clickedNonEgg = nonEggKeys.filter(key => clickedAreas.has(key));
+        if (clickedNonEgg.length >= 6) {
+          const chicken = document.getElementById("chickenGif");
+          const egg = document.getElementById("redEgg");
+          chicken.style.display = "block";
+          chicken.style.animation = "walkThenFade 5s ease-in-out forwards";
+          chickenTriggered = true;
+          setTimeout(() => {
+            egg.style.display = "block";
+          }, 2500);
+        }
+      }
     });
+
     window.addEventListener("load", () => {
       imageMapResize();
       positionElement("switchImg", 1457, 485);
       positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
+
       const body = document.body;
       const overlay = document.getElementById("overlay");
       const clickText = document.getElementById("clickText");
       const anleitungText = document.getElementById("anleitungText");
+
       if (lightOn) {
         body.classList.add("light-on");
         overlay.style.display = "none";
@@ -411,15 +439,18 @@ const closeX = document.getElementById("popupClose");
         clickText.style.display = "none";
         anleitungText.style.display = "block";
       }
+
       document.getElementById("switchImg").addEventListener("click", toggleLight);
     });
+
     window.addEventListener("resize", () => {
       positionElement("switchImg", 1457, 485);
       positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
     });
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
   </script>
 </body>
 </html>
