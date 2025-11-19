@@ -2,38 +2,89 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ol'ha Gneupel - Digitales Dossier</title>
+  <meta name="description" content="Interaktives digitales Bewerbungsdossier von Ol'ha Gneupel">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
+    /* Reset & Base Styles */
+    * {
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: background-image 0.4s ease;
+      position: relative;
+    }
+
+    /* Skip Link for Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 0;
     }
 
     /* Light ON: Beige background */
     body.light-on {
       background-color: #e0ddd5;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' width='56' height='28'%3E%3Cpath fill='%23d3d2c1' fill-opacity='0.74' d='M56 26v2h-7.75c2.3-1.27 4.94-2 7.75-2zm-26 2a2 2 0 1 0-4 0h-4.09A25.98 25.98 0 0 0 0 16v-2c.67 0 1.34.02 2 .07V14a2 2 0 0 0-2-2v-2a4 4 0 0 1 3.98 3.6 28.09 28.09 0 0 1 2.8-3.86A8 8 0 0 0 0 6V4a9.99 9.99 0 0 1 8.17 4.23c.94-.95 1.96-1.83 3.03-2.63A13.98 13.98 0 0 0 0 0h7.75c2 1.1 3.73 2.63 5.1 4.45 1.12-.72 2.3-1.37 3.53-1.93A20.1 20.1 0 0 0 14.28 0h2.7c.45.56.88 1.14 1.29 1.74 1.3-.48 2.63-.87 4-1.15-.11-.2-.23-.4-.36-.59H26v.07a28.4 28.4 0 0 1 4 0V0h4.09l-.37.59c1.38.28 2.72.67 4.01 1.15.4-.6.84-1.18 1.3-1.74h2.69a20.1 20.1 0 0 0-2.1 2.52c1.23.56 2.41 1.2 3.54 1.93A16.08 16.08 0 0 1 48.25 0H56c-4.58 0-8.65 2.2-11.2 5.6 1.07.8 2.09 1.68 3.03 2.63A9.99 9.99 0 0 1 56 4v2a8 8 0 0 0-6.77 3.74c1.03 1.2 1.97 2.5 2.79 3.86A4 4 0 0 1 56 10v2a2 2 0 0 0-2 2.07 28.4 28.4 0 0 1 2-.07v2c-9.2 0-17.3 4.78-21.91 12H30zM7.75 28H0v-2c2.81 0 5.46.73 7.75 2zM56 20v2c-5.6 0-10.65 2.3-14.28 6h-2.7c4.04-4.89 10.15-8 16.98-8zm-39.03 8h-2.69C10.65 24.3 5.6 22 0 22v-2c6.83 0 12.94 3.11 16.97 8zm15.01-.4a28.09 28.09 0 0 1 2.8-3.86 8 8 0 0 0-13.55 0c1.03 1.2 1.97 2.5 2.79 3.86a4 4 0 0 1 7.96 0zm14.29-11.86c1.3-.48 2.63-.87 4-1.15a25.99 25.99 0 0 0-44.55 0c1.38.28 2.72.67 4.01 1.15a21.98 21.98 0 0 1 36.54 0zm-5.43 2.71c1.13-.72 2.3-1.37 3.54-1.93a19.98 19.98 0 0 0-32.76 0c1.23.56 2.41 1.2 3.54 1.93a15.98 15.98 0 0 1 25.68 0zm-4.67 3.78c.94-.95 1.96-1.83 3.03-2.63a13.98 13.98 0 0 0-22.4 0c1.07.8 2.09 1.68 3.03 2.63a9.99 9.99 0 0 1 16.34 0z'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 56px 28px;
-      background-position: 0 0;
     }
 
     /* Light OFF: Navy background */
     body.light-off {
       background-color: #696b81;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' width='56' height='28'%3E%3Cpath fill='%232b3845' fill-opacity='0.74' d='M56 26v2h-7.75c2.3-1.27 4.94-2 7.75-2zm-26 2a2 2 0 1 0-4 0h-4.09A25.98 25.98 0 0 0 0 16v-2c.67 0 1.34.02 2 .07V14a2 2 0 0 0-2-2v-2a4 4 0 0 1 3.98 3.6 28.09 28.09 0 0 1 2.8-3.86A8 8 0 0 0 0 6V4a9.99 9.99 0 0 1 8.17 4.23c.94-.95 1.96-1.83 3.03-2.63A13.98 13.98 0 0 0 0 0h7.75c2 1.1 3.73 2.63 5.1 4.45 1.12-.72 2.3-1.37 3.53-1.93A20.1 20.1 0 0 0 14.28 0h2.7c.45.56.88 1.14 1.29 1.74 1.3-.48 2.63-.87 4-1.15-.11-.2-.23-.4-.36-.59H26v.07a28.4 28.4 0 0 1 4 0V0h4.09l-.37.59c1.38.28 2.72.67 4.01 1.15.4-.6.84-1.18 1.3-1.74h2.69a20.1 20.1 0 0 0-2.1 2.52c1.23.56 2.41 1.2 3.54 1.93A16.08 16.08 0 0 1 48.25 0H56c-4.58 0-8.65 2.2-11.2 5.6 1.07.8 2.09 1.68 3.03 2.63A9.99 9.99 0 0 1 56 4v2a8 8 0 0 0-6.77 3.74c1.03 1.2 1.97 2.5 2.79 3.86A4 4 0 0 1 56 10v2a2 2 0 0 0-2 2.07 28.4 28.4 0 0 1 2-.07v2c-9.2 0-17.3 4.78-21.91 12H30zM7.75 28H0v-2c2.81 0 5.46.73 7.75 2zM56 20v2c-5.6 0-10.65 2.3-14.28 6h-2.7c4.04-4.89 10.15-8 16.98-8zm-39.03 8h-2.69C10.65 24.3 5.6 22 0 22v-2c6.83 0 12.94 3.11 16.97 8zm15.01-.4a28.09 28.09 0 0 1 2.8-3.86 8 8 0 0 0-13.55 0c1.03 1.2 1.97 2.5 2.79 3.86a4 4 0 0 1 7.96 0zm14.29-11.86c1.3-.48 2.63-.87 4-1.15a25.99 25.99 0 0 0-44.55 0c1.38.28 2.72.67 4.01 1.15a21.98 21.98 0 0 1 36.54 0zm-5.43 2.71c1.13-.72 2.3-1.37 3.54-1.93a19.98 19.98 0 0 0-32.76 0c1.23.56 2.41 1.2 3.54 1.93a15.98 15.98 0 0 1 25.68 0zm-4.67 3.78c.94-.95 1.96-1.83 3.03-2.63a13.98 13.98 0 0 0-22.4 0c1.07.8 2.09 1.68 3.03 2.63a9.99 9.99 0 0 1 16.34 0z'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 56px 28px;
-      background-position: 0 0;
     }
 
+    /* Progress Bar */
+    .progress-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1010;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-bar {
+      width: 150px;
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, #4CAF50, #8BC34A);
+      transition: width 0.3s ease;
+      border-radius: 3px;
+    }
+
+    /* Main Container */
     .wrapper {
       width: 100%;
       max-width: 1200px;
@@ -54,12 +105,51 @@
       border-radius: 8px;
     }
 
+    /* Interactive Elements Highlight */
+    .highlight-hint {
+      position: absolute;
+      border: 2px solid #ff4d4d;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      pointer-events: none;
+      display: none;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Popup Styles */
     .popup {
       position: absolute;
       display: none;
       z-index: 1009;
+      animation: fadeIn 0.3s ease;
     }
 
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Overlay */
     #overlay {
       position: absolute;
       top: 0;
@@ -71,14 +161,21 @@
       display: none;
     }
 
+    /* Switch */
     #switchImg {
       position: absolute;
       width: 40px;
       height: auto;
       cursor: pointer;
       z-index: 1007;
+      transition: transform 0.2s;
     }
 
+    #switchImg:hover {
+      transform: scale(1.1);
+    }
+
+    /* Click Text */
     #clickText {
       position: absolute;
       color: white;
@@ -98,6 +195,7 @@
       50% { opacity: 0.5; }
     }
 
+    /* Chicken Animation */
     @keyframes walkThenFade {
       from {
         transform: translateX(0);
@@ -115,12 +213,26 @@
       }
     }
 
+    @keyframes bounce {
+      0% {
+        transform: translateY(-20px) scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(5px) scale(1.05);
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
     #chickenGif {
       position: absolute;
-      bottom: 10px;
-      left: 900px;
       width: 180px;
       height: auto;
+      bottom: 10px;
+      left: 900px;
       display: none;
       z-index: 1004;
       pointer-events: none;
@@ -128,22 +240,177 @@
 
     #redEgg {
       position: absolute;
-      bottom: 40px;
-      left: 661px;
-      width: 59px;
+      bottom: 4.2%;
+      left: 55.1%;
+      width: 4.9%;
       height: auto;
       display: none;
       z-index: 1003;
       cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    #redEgg:hover {
+      transform: scale(1.1);
+    }
+    
+    #redEgg:focus {
+      outline: none;
+    }
+
+    /* Tutorial Modal */
+    .tutorial-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .tutorial-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      text-align: center;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .tutorial-content h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .tutorial-content p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .tutorial-button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .tutorial-button:hover {
+      background: #45a049;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 10px;
+      }
+
+      .progress-container {
+        font-size: 12px;
+        padding: 8px 15px;
+        top: 10px;
+      }
+
+      .progress-bar {
+        width: 100px;
+      }
+
+      #anleitungText {
+        font-size: 16px !important;
+        width: 90% !important;
+      }
+
+      .popup > div {
+        max-width: 90vw !important;
+        min-width: 280px !important;
+        font-size: 14px !important;
+      }
+
+      .tutorial-content {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      area {
+        cursor: pointer;
+      }
+    }
+
+    /* Accessibility: Focus styles - removed per request */
+    /* 
+    *:focus-visible {
+      outline: 3px solid #ff9800;
+      outline-offset: 2px;
+    }
+    */
+
+    /* Visited indicator */
+    .visited-indicator {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: #4CAF50;
+      border: 2px solid white;
+      border-radius: 50%;
+      display: none;
+      pointer-events: none;
+      z-index: 1002;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .visited-indicator::after {
+      content: "✓";
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body class="light-on">
-  <div class="wrapper">
-    <div class="image-container">
-      <img src="meincvbuero.png" usemap="#image-map" id="imageMap" alt="Lebenslauf Illustration">
+  <!-- Skip Link for Accessibility -->
+  <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
 
-      <!-- Overlay -->
+  <!-- Progress Bar -->
+  <div class="progress-container" role="status" aria-live="polite">
+    <span id="progressText">0 von 6 Stationen entdeckt</span>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="wrapper" id="main">
+    <div class="image-container">
+      <img src="meincvbuero.png" 
+           usemap="#image-map" 
+           id="imageMap" 
+           alt="Interaktives Büro mit 6 klickbaren Bereichen: Akademische Kappe, Buch, Zeichnung, Laptop, Pflanze und Tasche">
+
+      <!-- Overlay for light off -->
       <div id="overlay"></div>
 
       <!-- Instruction Text (shown when light is off) -->
@@ -162,296 +429,615 @@
         text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         line-height: 1.6;
         display: none;
-      ">
+      " role="alert">
         <span style="font-size: 20px;">🔍 Neugierig?</span><br>
-        Diese digitale Bewerbungsmappe lädt Sie zu einem Rundgang ein.<br><br>
+        Dieses digitale Atelier lädt Sie zu einem Rundgang ein.<br><br>
         Folgen Sie den <span style="color: #ff4d4d;">roten</span> Gegenständen<br>
-        und entdecken Sie alle 6 Stationen.<br><br>
+        und entdecken Sie alle 6 Stationen:<br>
+        <span style="font-size: 14px;">🎓 📕 🎨 💻 🪴 💼</span><br><br>
         <span style="font-size: 16px; font-weight: normal;">
           <b>Tipp:</b><br>
-          ⚡ Auf den tippenden Text klicken, um ihn sofort vollständig anzuzeigen.<br>
-          ❌ Schliessen: Klick daneben oder aufs Kreuz.<br>
-          💡 <b>Zum Starten Licht einschalten</b> – sonst bleibt’s dunkel.
+          ⚡ Auf den tippenden Text klicken für Schnellansicht<br>
+          ❌ Popup schliessen: Klick daneben oder aufs Kreuz<br>
+          💡 <b>Zum Starten Licht einschalten</b> – sonst bleibt's dunkel
         </span>
       </div>
 
       <!-- Light Switch -->
-      <img id="switchImg" src="switch_left.PNG" alt="Switch">
+      <img id="switchImg" 
+           src="switch_left.PNG" 
+           alt="Lichtschalter" 
+           tabindex="0"
+           role="button"
+           aria-pressed="false"
+           aria-label="Licht ein/ausschalten">
       <div id="clickText">Click!</div>
 
-      <!-- Chicken -->
-      <img id="chickenGif" src="chicken_yellow.png" alt="Chicken">
+      <!-- Visual hints for interactive areas -->
+      <div class="highlight-hint" id="hint1"></div>
+      <div class="highlight-hint" id="hint2"></div>
+      <div class="highlight-hint" id="hint3"></div>
+      <div class="highlight-hint" id="hint4"></div>
+      <div class="highlight-hint" id="hint5"></div>
+      <div class="highlight-hint" id="hint6"></div>
 
-      <!-- Red Egg -->
-      <img id="redEgg" src="red_egg.png" alt="Red Egg" 
-           onclick="showPopup(event, 'egg'); event.stopPropagation();" 
-           style="display: none;">
+      <!-- Visited indicators -->
+      <div class="visited-indicator" id="visited1"></div>
+      <div class="visited-indicator" id="visited2"></div>
+      <div class="visited-indicator" id="visited3"></div>
+      <div class="visited-indicator" id="visited4"></div>
+      <div class="visited-indicator" id="visited5"></div>
+      <div class="visited-indicator" id="visited6"></div>
 
-      <!-- Image Map -->
+      <!-- Chicken Easter Egg -->
+      <img id="chickenGif" src="chicken_yellow.png" alt="Huhn">
+      <img id="redEgg" 
+           src="red_egg.png" 
+           alt="Rotes Ei - Easter Egg" 
+           tabindex="0"
+           role="button"
+           aria-label="Easter Egg - Klicken für Überraschung">
+
+      <!-- Image Map with improved accessibility -->
       <map name="image-map">
-        <area alt="switch" title="switch" href="#" coords="1457,535,1500,485" shape="rect" onclick="toggleLight(event)">
-        <area shape="poly" coords="316,429,350,480,427,486,442,486,438,455,442,436,467,426,393,398" alt="cap" href="#" onclick="showPopup(event, 'academic')">
-        <area shape="poly" coords="320,517,320,537,403,550,461,536,453,510" alt="book" href="#" onclick="showPopup(event, 'book')">
-        <area shape="poly" coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288" alt="drawing" href="#" onclick="showPopup(event, 'drawing')">
-        <area shape="rect" coords="613,392,826,518" alt="laptop" href="#" onclick="showPopup(event, 'laptop')">
-        <area shape="poly" coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626" alt="plant" href="#" onclick="showPopup(event, 'plant')">
-        <area shape="poly" coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687" alt="bag" href="#" onclick="showPopup(event, 'bag')">
-        <area target="" alt="chicken" title="chicken" href="chicken" coords="520,948,426,854" shape="rect">
-        <area alt="egg" title="egg" href="#" coords="661,863,779,946" shape="rect" onclick="showPopup(event, 'egg')">
+        <area alt="Akademische Kappe - Bildungshintergrund" 
+              title="Bildungshintergrund anzeigen" 
+              href="#" 
+              coords="316,429,350,480,427,486,442,486,438,455,442,436,467,426,393,398" 
+              shape="poly" 
+              tabindex="0"
+              role="button"
+              data-key="academic">
+        
+        <area alt="Buch - Sprachprojekte" 
+              title="Language matters" 
+              href="#" 
+              coords="320,517,320,537,403,550,461,536,453,510" 
+              shape="poly" 
+              tabindex="0"
+              role="button"
+              data-key="book">
+        
+        <area alt="Zeichnung - Kreativität" 
+              title="Kreative Projekte" 
+              href="#" 
+              coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288" 
+              shape="poly" 
+              tabindex="0"
+              role="button"
+              data-key="drawing">
+        
+        <area alt="Laptop - Willkommen" 
+              title="Begrüssung und Einführung" 
+              href="#" 
+              coords="613,392,826,518" 
+              shape="rect" 
+              tabindex="0"
+              role="button"
+              data-key="laptop">
+        
+        <area alt="Pflanze - Lernen und Wachsen" 
+              title="Weiterbildung" 
+              href="#" 
+              coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626" 
+              shape="poly" 
+              tabindex="0"
+              role="button"
+              data-key="plant">
+        
+        <area alt="Tasche - Berufserfahrung" 
+              title="Arbeitszeugnisse" 
+              href="#" 
+              coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687" 
+              shape="poly" 
+              tabindex="0"
+              role="button"
+              data-key="bag">
+        
+        <area alt="Lichtschalter" 
+              title="Licht ein/ausschalten" 
+              href="#" 
+              coords="1457,535,1500,485" 
+              shape="rect"
+              tabindex="-1"
+              data-key="switch">
       </map>
 
       <!-- Popup Container -->
-      <div id="popup" class="popup"></div>
+      <div id="popup" class="popup" role="dialog" aria-label="Informationsfenster"></div>
+    </div>
+  </div>
+
+  <!-- Tutorial Modal -->
+  <div class="tutorial-modal" id="tutorialModal">
+    <div class="tutorial-content">
+      <h2>Willkommen im digitalen Atelier! 🎨</h2>
+      <p>
+        <strong>So funktioniert's:</strong><br><br>
+        🔍 Erkunden Sie das interaktive Büro<br>
+        🖱️ Klicken Sie auf die <span style="color: #ff4d4d;">roten Gegenstände</span><br>
+        📊 Verfolgen Sie Ihren Fortschritt oben<br>
+        🥚 Finden Sie alle 6 Stationen für eine Überraschung!<br><br>
+        <strong>Interaktive Elemente:</strong><br>
+        💡 Lichtschalter rechts im Bild<br>
+        🎓 📕 🎨 💻 🪴 💼 Die 6 Stationen<br><br>
+        <em>Tipp: Mit Tab durch die Bereiche navigieren</em>
+      </p>
+      <button class="tutorial-button" onclick="closeTutorial()">Los geht's!</button>
     </div>
   </div>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
-    const popups = {
-      academic: {
-        title: "🎓 Bildungshintergrund",
-        text: "Germanistik & Erwachsenenbildung:\nVon Czernowitz über Jena bis nach St. Gallen. Meine Abschlüsse? Hier ein Blick in den Rucksack.",
-        links: [
-          { href: "https://drive.google.com/file/d/1JJLqK4BtKmJqM9-rjKj2LrFXo7Q4S0Kx/view", label: "Zeugnisse herunterladen" }
-        ]
-      },
-      book: {
-        title: "📕 Language matters",
-        text: "Das ist nicht nur ein Spruch. Sprache ist für mich nicht nur Werkzeug, sondern auch Hobby. Aktuell arbeite ich an einem kleinen Herzensprojekt: Ich übersetze ein Buch ins Deutsche. Gelegentlich unterstütze ich auch das Kulturmagazin <em>Saiten</em> mit punktuellen Übersetzungen."
-      },
-      drawing: {
-        title: "🎨 Kreativität gehört dazu",
-        text: "Gestalterisches Arbeiten macht mir Freude, sei es privat bei kreativen Projekten oder beruflich bei der Entwicklung von Lernmaterialien. Ob analog oder digital bin ich mit Begeisterung dabei."
-      },
-      laptop: {
-        title: "👋 Grüezi",
-        text: "Ich bin Ol'ha Gneupel – Lernfreude-Entfacherin, Ideen-Generatorin und Perspektiven-Geberin.\nIn meinem kleinen digitalen Atelier möchte ich mich etwas persönlicher vorstellen. Auch mit Einblicken, die im Lebenslauf keinen Platz gefunden haben. \nKommen Sie mit auf eine kleine Entdeckungstour: Fünf Stationen warten noch auf Sie.\nFalls Sie lieber direkt zum Wesentlichen wollen: Lebenslauf und Anschreiben sind gleich hier unten verlinkt.",
-        links: [
-          { href: "https://drive.google.com/file/d/1k8WjsIFe0xMaUzd9doR8ICpblhya_QEM/view", label: "Lebenslauf anschauen" },
-          { href: "https://drive.google.com/file/d/1N3zF-F_qen4EzwubsGDfVz3xyZYdPB1n/view", label: "Anschreiben anschauen" }
-        ]
-      },
-      plant: {
-        title: "🪴 Lernen und Wachsen",
-        text: "Lernen begeistert mich, deshalb lerne ich selbst ständig weiter, oft im Selbststudium. Gleichzeitig weiss ich aus eigener Erfahrung: Noch schöner ist es, wenn man diese Neugier weitergeben kann. Deswegen vertiefe ich mich aktuell in den EdX-Kurs in Learning and Development Design."
-      },
-      bag: {
-        title: "💼 Berufserfahrung",
-        text: "Ich bringe mich am liebsten dort ein, wo Bildung gestaltet, organisiert und weitergedacht wird. Ob vor der Klasse oder hinter den Kulissen. Deshalb habe ich beides gemacht: Unterrichtet und im Hintergrund mitkoordiniert. Hier sind die Beweise.",
-        links: [
-          { href: "https://drive.google.com/file/d/1K5vNyA7GU4LPTKdlZeAnovxYsAtU1fmC/view", label: "Arbeitszeugnisse herunterladen" }
-        ]
-      },
-      egg: {
-        title: "🥚 Sie haben das Easter Egg entdeckt!",
-        text: "Das bedeutet: Sie haben alle Stationen erkundet – vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
+    // Portfolio Application Class
+    class PortfolioApp {
+      constructor() {
+        this.popups = {
+          academic: {
+            title: "🎓 Bildungshintergrund",
+            text: "Germanistik & Erwachsenenbildung:\nVon Czernowitz über Jena bis nach St. Gallen. Meine Abschlüsse? Hier ein Blick in den Rucksack.",
+            links: [
+              { href: "https://drive.google.com/file/d/1JJLqK4BtKmJqM9-rjKj2LrFXo7Q4S0Kx/view", label: "Zeugnisse herunterladen" }
+            ]
+          },
+          book: {
+            title: "📕 Language matters",
+            text: "Das ist nicht nur ein Spruch. Sprache ist für mich nicht nur Werkzeug, sondern auch Hobby. Aktuell arbeite ich an einem kleinen Herzensprojekt: Ich übersetze ein Buch ins Deutsche. Gelegentlich unterstütze ich auch das Kulturmagazin <em>Saiten</em> mit punktuellen Übersetzungen."
+          },
+          drawing: {
+            title: "🎨 Kreativität gehört dazu",
+            text: "Gestalterisches Arbeiten macht mir Freude, sei es privat bei kreativen Projekten oder beruflich bei der Entwicklung von Lernmaterialien. Ob analog oder digital bin ich mit Begeisterung dabei."
+          },
+          laptop: {
+            title: "👋 Grüezi",
+            text: "Ich bin Ol'ha Gneupel.\nIn meinem kleinen digitalen Atelier möchte ich mich etwas persönlicher vorstellen. Auch mit Einblicken, die im Lebenslauf keinen Platz gefunden haben.\nKommen Sie mit auf eine kleine Entdeckungstour: Fünf Stationen warten noch auf Sie."
+          },
+          plant: {
+            title: "🪴 Lernen und Wachsen",
+            text: "Lernen begeistert mich, deshalb lerne ich selbst ständig weiter, oft im Selbststudium. Gleichzeitig weiss ich aus eigener Erfahrung: Noch schöner ist es, wenn man diese Neugier weitergeben kann. Deswegen vertiefe ich mich aktuell in den EdX-Kurs in Learning and Development Design."
+          },
+          bag: {
+            title: "💼 Berufserfahrung",
+            text: "Ich bringe mich am liebsten dort ein, wo Bildung gestaltet, organisiert und weitergedacht wird. Ob vor der Klasse oder hinter den Kulissen. Deshalb habe ich beides gemacht: Unterrichtet und im Hintergrund mitkoordiniert. Hier sind die Beweise.",
+            links: [
+              { href: "https://drive.google.com/file/d/1K5vNyA7GU4LPTKdlZeAnovxYsAtU1fmC/view", label: "Arbeitszeugnisse herunterladen" }
+            ]
+          },
+          egg: {
+            title: "🥚 Sie haben das Easter Egg entdeckt!",
+            text: "Das bedeutet: Sie haben alle Stationen erkundet – vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
+          }
+        };
+
+        this.lightOn = false;
+        this.currentTyping = { interval: null, element: null, fullText: "", index: 0, running: false };
+        this.clickedAreas = new Set();
+        this.chickenTriggered = false;
+        this.allStationsVisited = false;
+        this.firstVisit = !localStorage.getItem('portfolio_visited');
+        
+        this.init();
       }
-    };
 
-    let lightOn = false;
-    let currentTyping = { interval: null, element: null, fullText: "", index: 0, running: false };
-    const clickedAreas = new Set();
-    let chickenTriggered = false;
-
-    function showPopup(e, key) {
-      e.preventDefault();
-      clickedAreas.add(key);
-      const data = popups[key];
-      const popup = document.getElementById("popup");
-      const container = document.querySelector(".image-container");
-      const containerRect = container.getBoundingClientRect();
-
-      let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px;`;
-      if (key === 'plant' || key === 'laptop') {
-        html += ' min-width: 480px;';
-      } else {
-        html += ' max-width: 320px;';
+      init() {
+        this.setupEventListeners();
+        this.preloadImages();
+        this.initializeUI();
+        
+        // Show tutorial on first visit
+        if (this.firstVisit) {
+          setTimeout(() => this.showTutorial(), 500);
+        }
       }
-      html += `
-                box-shadow: 2px 4px 12px rgba(0,0,0,0.2); font-size: 15px; line-height: 1.5;
-                color: #003366; position: relative;'>
-        <div id="popupClose"
-             style="position: absolute; top: 8px; right: 10px; cursor: pointer; font-weight: bold; font-size: 18px; color: #666; display:none;"
-             onclick="closePopup()" aria-label="Popup schließen">
-          <i class="fa-solid fa-xmark"></i>
-        </div>
-        <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
-        <div id="popupText" style="white-space: pre-line; margin-bottom: 12px;"></div>`;
 
-      // Render multiple links if present
-      if (data.links && Array.isArray(data.links)) {
-        html += `<div id="popupBtn" style="display:none;">`;
-        data.links.forEach(link => {
-          html += `<div style="margin-top: 6px;">
-                    <a href='${link.href}' target='_blank'
-                       style='display: inline-flex; align-items: center; gap: 8px;
-                              font-size: 15px; font-weight: bold; color: #b30000;
-                              text-decoration: none;'>
-                      <i class='fa-solid fa-file-arrow-down'></i> ${link.label}
-                    </a>
-                  </div>`;
+      preloadImages() {
+        const images = ['meincvbuero.png', 'chicken_yellow.png', 'red_egg.png', 'switch_left.PNG'];
+        images.forEach(src => {
+          const img = new Image();
+          img.src = src;
         });
+      }
+
+      setupEventListeners() {
+        // Area click handlers
+        document.querySelectorAll('area').forEach(area => {
+          area.addEventListener('click', (e) => this.handleAreaClick(e));
+          area.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              this.handleAreaClick(e);
+            }
+          });
+        });
+
+        // Switch handlers
+        const switchImg = document.getElementById('switchImg');
+        switchImg.addEventListener('click', (e) => this.toggleLight(e));
+        switchImg.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.toggleLight(e);
+          }
+        });
+
+        // Red egg handler
+        const redEgg = document.getElementById('redEgg');
+        redEgg.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.showPopup(e, 'egg');
+        });
+        redEgg.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.stopPropagation();
+            this.showPopup(e, 'egg');
+          }
+        });
+
+        // Global click handler for closing popups
+        document.addEventListener('click', (e) => this.handleGlobalClick(e));
+
+        // Window resize handler
+        window.addEventListener('resize', () => this.handleResize());
+      }
+
+      handleAreaClick(e) {
+        e.preventDefault();
+        const key = e.target.getAttribute('data-key');
+        if (key && key !== 'switch') {
+          this.showPopup(e, key);
+          document.getElementById('clickText').style.display = 'none';
+        }
+      }
+
+      showPopup(e, key) {
+        if (!this.popups[key]) return;
+        
+        this.clickedAreas.add(key);
+        this.updateProgress();
+        this.markAsVisited(key);
+        
+        const data = this.popups[key];
+        const popup = document.getElementById('popup');
+        const container = document.querySelector('.image-container');
+        const containerRect = container.getBoundingClientRect();
+
+        let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px;`;
+        if (key === 'plant' || key === 'laptop') {
+          html += ' min-width: 480px;';
+        } else {
+          html += ' max-width: 320px;';
+        }
+        html += `
+          box-shadow: 2px 4px 12px rgba(0,0,0,0.2); font-size: 15px; line-height: 1.5;
+          color: #003366; position: relative;'>
+          <button id="popupClose"
+                  style="position: absolute; top: 8px; right: 10px; cursor: pointer; 
+                         font-weight: bold; font-size: 18px; color: #666; 
+                         background: none; border: none; display:none;"
+                  onclick="app.closePopup()" 
+                  aria-label="Popup schließen">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
+          <div id="popupText" style="white-space: pre-line; margin-bottom: 12px;"></div>`;
+
+        if (data.links && Array.isArray(data.links)) {
+          html += `<div id="popupBtn" style="display:none;">`;
+          data.links.forEach(link => {
+            html += `<div style="margin-top: 6px;">
+                      <a href='${link.href}' target='_blank'
+                         style='display: inline-flex; align-items: center; gap: 8px;
+                                font-size: 15px; font-weight: bold; color: #b30000;
+                                text-decoration: none;'>
+                        <i class='fa-solid fa-file-arrow-down'></i> ${link.label}
+                      </a>
+                    </div>`;
+          });
+          html += `</div>`;
+        }
+
         html += `</div>`;
-      }
+        popup.innerHTML = html;
+        popup.style.display = "block";
 
-      html += `</div>`;
-      popup.innerHTML = html;
-      popup.style.display = "block";
+        // Position popup
+        const pageX = e.pageX || e.target.getBoundingClientRect().left;
+        const pageY = e.pageY || e.target.getBoundingClientRect().top;
+        let left = pageX - containerRect.left - 30;
+        let top = pageY - containerRect.top - 100;
 
-      const closeXInit = document.getElementById("popupClose");
-      if (closeXInit) closeXInit.style.display = "none";
-
-      const pageX = e.pageX - containerRect.left + window.scrollX;
-      const pageY = e.pageY - containerRect.top + window.scrollY;
-      let left = pageX - 30;
-      let top = pageY - 100;
-
-      if (left + popup.offsetWidth > container.clientWidth) {
-        left = container.clientWidth - popup.offsetWidth - 10;
-      }
-      if (left < 0) left = 10;
-      if (top < 0) top = pageY + 20;
-
-      popup.style.left = left + "px";
-      popup.style.top = top + "px";
-
-      setTimeout(() => {
-        const textEl = document.getElementById("popupText");
-        typeText(textEl, data.text, () => {
-          const btn = document.getElementById("popupBtn");
-          if (btn) btn.style.display = "block";
-          const closeX = document.getElementById("popupClose");
-          if (closeX) closeX.style.display = "block";
-        });
-      }, 100);
-    }
-
-    function toggleLight(event) {
-      event?.preventDefault();
-      lightOn = !lightOn;
-      const overlay = document.getElementById("overlay");
-      const body = document.body;
-      const clickText = document.getElementById("clickText");
-      const anleitungText = document.getElementById("anleitungText");
-
-      if (lightOn) {
-        overlay.style.display = "none";
-        body.classList.remove("light-off");
-        body.classList.add("light-on");
-        clickText.style.display = "block";
-        anleitungText.style.display = "none";
-      } else {
-        overlay.style.display = "block";
-        body.classList.remove("light-on");
-        body.classList.add("light-off");
-        clickText.style.display = "none";
-        anleitungText.style.display = "block";
-      }
-    }
-
-    function positionElement(elemId, x, y) {
-      const img = document.getElementById("imageMap");
-      const el = document.getElementById(elemId);
-      const scaleX = img.clientWidth / img.naturalWidth;
-      const scaleY = img.clientHeight / img.naturalHeight;
-      el.style.left = (x * scaleX) + "px";
-      el.style.top = (y * scaleY) + "px";
-      el.style.transform = "translate(-50%, -50%)";
-    }
-
-    function typeText(element, text, callback, delay = 40) {
-      if (!element) return;
-      currentTyping.element = element;
-      currentTyping.fullText = text;
-      currentTyping.index = 0;
-      currentTyping.running = true;
-      element.innerHTML = "";
-      clearInterval(currentTyping.interval);
-      currentTyping.interval = setInterval(() => {
-        element.innerHTML += text.charAt(currentTyping.index);
-        currentTyping.index++;
-        if (currentTyping.index >= text.length) {
-          clearInterval(currentTyping.interval);
-          currentTyping.running = false;
-          if (typeof callback === "function") callback();
+        if (left + popup.offsetWidth > container.clientWidth) {
+          left = container.clientWidth - popup.offsetWidth - 10;
         }
-      }, delay);
-    }
+        if (left < 0) left = 10;
+        if (top < 0) top = pageY - containerRect.top + 20;
 
-    document.addEventListener("click", (e) => {
-      const popup = document.getElementById("popup");
-      const isClickOutsidePopup = !e.target.closest("#popup") && !e.target.closest("area");
-      const isClickOnRedEgg = e.target.id === "redEgg";
+        popup.style.left = left + "px";
+        popup.style.top = top + "px";
 
-      if (e.target.closest("#popup") && currentTyping.running) {
-        clearInterval(currentTyping.interval);
-        currentTyping.element.innerHTML = currentTyping.fullText;
-        currentTyping.running = false;
-        const btn = document.getElementById("popupBtn");
-        if (btn) btn.style.display = "block";
-        const closeX = document.getElementById("popupClose");
-        if (closeX) closeX.style.display = "block";
-        e.stopPropagation();
+        // Start typing animation
+        setTimeout(() => {
+          const textEl = document.getElementById('popupText');
+          this.typeText(textEl, data.text, () => {
+            const btn = document.getElementById('popupBtn');
+            if (btn) btn.style.display = 'block';
+            const closeBtn = document.getElementById('popupClose');
+            if (closeBtn) closeBtn.style.display = 'block';
+          });
+        }, 100);
       }
 
-      if (e.target.closest("area")) {
-        document.getElementById("clickText").style.display = "none";
+      typeText(element, text, callback, delay = 40) {
+        if (!element) return;
+        
+        this.currentTyping.element = element;
+        this.currentTyping.fullText = text;
+        this.currentTyping.index = 0;
+        this.currentTyping.running = true;
+        element.innerHTML = "";
+        
+        clearInterval(this.currentTyping.interval);
+        
+        this.currentTyping.interval = setInterval(() => {
+          element.innerHTML += text.charAt(this.currentTyping.index);
+          this.currentTyping.index++;
+          
+          if (this.currentTyping.index >= text.length) {
+            clearInterval(this.currentTyping.interval);
+            this.currentTyping.running = false;
+            if (typeof callback === 'function') callback();
+          }
+        }, delay);
       }
 
-      if (isClickOutsidePopup && !isClickOnRedEgg) {
-        popup.style.display = "none";
+      toggleLight(event) {
+        event?.preventDefault();
+        this.lightOn = !this.lightOn;
+        
+        const overlay = document.getElementById('overlay');
+        const body = document.body;
+        const clickText = document.getElementById('clickText');
+        const anleitungText = document.getElementById('anleitungText');
+        const switchImg = document.getElementById('switchImg');
+
+        if (this.lightOn) {
+          overlay.style.display = 'none';
+          body.classList.remove('light-off');
+          body.classList.add('light-on');
+          clickText.style.display = 'block';
+          anleitungText.style.display = 'none';
+          switchImg.setAttribute('aria-pressed', 'true');
+        } else {
+          overlay.style.display = 'block';
+          body.classList.remove('light-on');
+          body.classList.add('light-off');
+          clickText.style.display = 'none';
+          anleitungText.style.display = 'block';
+          switchImg.setAttribute('aria-pressed', 'false');
+        }
       }
 
-      if (!chickenTriggered && popup.style.display === "none") {
-        const nonEggKeys = Object.keys(popups).filter(key => key !== 'egg');
-        const clickedNonEgg = nonEggKeys.filter(key => clickedAreas.has(key));
-        if (clickedNonEgg.length >= 6) {
-          const chicken = document.getElementById("chickenGif");
-          const egg = document.getElementById("redEgg");
-          chicken.style.display = "block";
-          chicken.style.animation = "walkThenFade 5s ease-in-out forwards";
-          chickenTriggered = true;
+      updateProgress() {
+        const nonEggKeys = Object.keys(this.popups).filter(key => key !== 'egg');
+        const visitedCount = nonEggKeys.filter(key => this.clickedAreas.has(key)).length;
+        const totalCount = nonEggKeys.length;
+        
+        const progressText = document.getElementById('progressText');
+        const progressFill = document.getElementById('progressFill');
+        
+        // Only update text if chicken hasn't been triggered yet
+        if (!this.chickenTriggered) {
+          progressText.textContent = `${visitedCount} von ${totalCount} Stationen entdeckt`;
+          progressText.style.color = ''; // Reset to default color
+        }
+        
+        progressFill.style.width = `${(visitedCount / totalCount) * 100}%`;
+
+        // Mark that all stations have been visited (but don't trigger chicken yet)
+        if (!this.allStationsVisited && visitedCount >= totalCount) {
+          this.allStationsVisited = true;
+        }
+      }
+
+      markAsVisited(key) {
+        const areaIndex = ['academic', 'book', 'drawing', 'laptop', 'plant', 'bag'].indexOf(key);
+        if (areaIndex !== -1) {
+          const indicator = document.getElementById(`visited${areaIndex + 1}`);
+          if (indicator) {
+            // Get center coordinates for each area
+            let centerX, centerY;
+            
+            switch(key) {
+              case 'academic': // Cap
+                centerX = 390;
+                centerY = 442;
+                break;
+              case 'book': // Book
+                centerX = 390;
+                centerY = 528;
+                break;
+              case 'drawing': // Drawing on wall
+                centerX = 960;
+                centerY = 269;
+                break;
+              case 'laptop': // Laptop
+                centerX = 720;
+                centerY = 455;
+                break;
+              case 'plant': // Plant
+                centerX = 1312;
+                centerY = 668;
+                break;
+              case 'bag': // Bag
+                centerX = 970;
+                centerY = 760;
+                break;
+              default:
+                return;
+            }
+            
+            this.positionElement(indicator.id, centerX, centerY);
+            indicator.style.display = 'block';
+          }
+        }
+      }
+
+      triggerChicken() {
+        const chicken = document.getElementById('chickenGif');
+        const egg = document.getElementById('redEgg');
+        
+        // Optional: Show a congratulations message
+        const progressText = document.getElementById('progressText');
+        progressText.innerHTML = ' Alle Stationen entdeckt! ';
+        progressText.style.color = '#4CAF50';
+        
+        chicken.style.display = 'block';
+        chicken.style.animation = 'walkThenFade 5s ease-in-out forwards';
+        this.chickenTriggered = true;
+        
+        setTimeout(() => {
+          egg.style.display = 'block';
+          // Add a small bounce animation to the egg
+          egg.style.animation = 'bounce 0.5s ease-out';
+        }, 2500);
+      }
+
+      showTutorial() {
+        document.getElementById('tutorialModal').style.display = 'flex';
+        localStorage.setItem('portfolio_visited', 'true');
+      }
+
+      closeTutorial() {
+        document.getElementById('tutorialModal').style.display = 'none';
+      }
+
+      closePopup() {
+        document.getElementById('popup').style.display = 'none';
+        
+        // Trigger chicken after closing popup if all stations visited
+        if (this.allStationsVisited && !this.chickenTriggered) {
           setTimeout(() => {
-            egg.style.display = "block";
-          }, 2500);
+            this.triggerChicken();
+          }, 800); // Slight delay for better UX
         }
       }
-    });
 
-    window.addEventListener("load", () => {
-      imageMapResize();
-      positionElement("switchImg", 1457, 485);
-      positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
+      handleGlobalClick(e) {
+        const popup = document.getElementById('popup');
+        const isClickOutsidePopup = !e.target.closest('#popup') && !e.target.closest('area');
+        const isClickOnRedEgg = e.target.id === 'redEgg';
 
-      const body = document.body;
-      const overlay = document.getElementById("overlay");
-      const clickText = document.getElementById("clickText");
-      const anleitungText = document.getElementById("anleitungText");
+        // Complete typing on popup click
+        if (e.target.closest('#popup') && this.currentTyping.running) {
+          clearInterval(this.currentTyping.interval);
+          this.currentTyping.element.innerHTML = this.currentTyping.fullText;
+          this.currentTyping.running = false;
+          const btn = document.getElementById('popupBtn');
+          if (btn) btn.style.display = 'block';
+          const closeBtn = document.getElementById('popupClose');
+          if (closeBtn) closeBtn.style.display = 'block';
+          e.stopPropagation();
+        }
 
-      if (lightOn) {
-        body.classList.add("light-on");
-        overlay.style.display = "none";
-        clickText.style.display = "block";
-        anleitungText.style.display = "none";
-      } else {
-        body.classList.add("light-off");
-        overlay.style.display = "block";
-        clickText.style.display = "none";
-        anleitungText.style.display = "block";
+        // Close popup on outside click
+        if (isClickOutsidePopup && !isClickOnRedEgg) {
+          popup.style.display = 'none';
+          
+          // Trigger chicken after closing popup if all stations visited
+          if (this.allStationsVisited && !this.chickenTriggered) {
+            setTimeout(() => {
+              this.triggerChicken();
+            }, 800); // Slight delay for better UX
+          }
+        }
       }
 
-      document.getElementById("switchImg").addEventListener("click", toggleLight);
-    });
+      positionElement(elemId, x, y) {
+        // Skip egg and chicken - they have fixed positions in CSS
+        if (elemId === 'redEgg' || elemId === 'chickenGif') {
+          return;
+        }
+        
+        const img = document.getElementById('imageMap');
+        const el = document.getElementById(elemId);
+        if (!img || !el) return;
+        
+        const scaleX = img.clientWidth / img.naturalWidth;
+        const scaleY = img.clientHeight / img.naturalHeight;
+        el.style.left = (x * scaleX) + 'px';
+        el.style.top = (y * scaleY) + 'px';
+        
+        // Apply transform for centering to specific elements
+        if (elemId.includes('visited') || elemId === 'switchImg' || elemId === 'clickText') {
+          el.style.transform = 'translate(-50%, -50%)';
+        }
+      }
 
-    window.addEventListener("resize", () => {
-      positionElement("switchImg", 1457, 485);
-      positionElement("clickText", (609 + 822) / 2, (391 + 421) / 2);
-    });
+      handleResize() {
+        this.positionElement('switchImg', 1457, 485);
+        this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
+        
+        // Don't reposition egg or chicken - they have fixed CSS positions
+        
+        // Reposition visited indicators with proper coordinates
+        this.clickedAreas.forEach(key => {
+          if (key !== 'egg') {
+            this.markAsVisited(key);
+          }
+        });
+      }
 
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
+      initializeUI() {
+        // Initialize image map resizer
+        if (typeof imageMapResize === 'function') {
+          imageMapResize();
+        }
+        
+        // Position elements
+        this.positionElement('switchImg', 1457, 485);
+        this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
+        
+        // Egg and chicken sizes are fixed in CSS now
+
+        // Set initial state
+        const body = document.body;
+        const overlay = document.getElementById('overlay');
+        const clickText = document.getElementById('clickText');
+        const anleitungText = document.getElementById('anleitungText');
+
+        if (this.lightOn) {
+          body.classList.add('light-on');
+          overlay.style.display = 'none';
+          clickText.style.display = 'block';
+          anleitungText.style.display = 'none';
+        } else {
+          body.classList.add('light-off');
+          overlay.style.display = 'block';
+          clickText.style.display = 'none';
+          anleitungText.style.display = 'block';
+        }
+      }
     }
+
+    // Global functions for inline handlers
+    function closeTutorial() {
+      document.getElementById('tutorialModal').style.display = 'none';
+    }
+
+    // Initialize app when DOM is ready
+    let app;
+    document.addEventListener('DOMContentLoaded', () => {
+      app = new PortfolioApp();
+    });
+
+    // Fallback for load event
+    window.addEventListener('load', () => {
+      if (!app) {
+        app = new PortfolioApp();
+      }
+    });
   </script>
 </body>
 </html>
