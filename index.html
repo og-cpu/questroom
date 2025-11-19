@@ -263,103 +263,80 @@
       outline: none;
     }
 
-    /* Landscape Orientation Prompt */
-    .orientation-prompt {
-      display: none;
+    /* Tutorial Modal */
+    .tutorial-modal {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: #696b81;
-      color: white;
-      z-index: 3000;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
       justify-content: center;
       align-items: center;
+      z-index: 2000;
+    }
+
+    .tutorial-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
       text-align: center;
-      padding: 20px;
-      flex-direction: column;
+      animation: slideIn 0.3s ease;
     }
-    
-    .orientation-prompt i {
-      font-size: 48px;
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .tutorial-content h2 {
+      color: #333;
       margin-bottom: 20px;
-      animation: rotate 2s ease-in-out infinite;
-    }
-    
-    @keyframes rotate {
-      0%, 100% { transform: rotate(-90deg); }
-      50% { transform: rotate(0deg); }
     }
 
-    /* Portrait Mobile: Hinweis zeigen, Inhalt aber nicht verstecken */
-    @media (max-width: 768px) and (orientation: portrait) {
-      .orientation-prompt {
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        top: auto;
-        height: auto;
-        padding: 10px 20px;
-        font-size: 14px;
-        background: rgba(105, 107, 129, 0.95);
-      }
-      
-      .wrapper,
-      .progress-container {
-        display: block;
-      }
-    }
-    
-    /* Mobile Landscape Optimization */
-    @media (max-width: 768px) and (orientation: landscape) {
-      .wrapper {
-        padding: 5px;
-      }
-      
-      .image-container {
-        max-height: 90vh;
-      }
-      
-      .progress-container {
-        top: 10px;
-        padding: 5px 15px;
-        font-size: 12px;
-      }
-      
-      #chickenGif {
-        width: 100px;
-        bottom: 5px;
-        left: 70%;
-      }
-      
-      #redEgg {
-        width: 35px;
-        bottom: 3%;
-        left: 56%;
-      }
-      
-      #switchImg {
-        right: 3%;
-        top: 47%;
-        width: 30px;
-      }
+    .tutorial-content p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
-    /* Mobile Responsive */
+    .tutorial-button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .tutorial-button:hover {
+      background: #45a049;
+    }
+
+    /* Mobile Responsive - Simplified */
     @media (max-width: 768px) {
       .wrapper {
         padding: 10px;
       }
 
       .progress-container {
-        font-size: 11px;
-        padding: 6px 12px;
+        font-size: 12px;
+        padding: 8px 15px;
         top: 10px;
       }
 
       .progress-bar {
-        width: 80px;
+        width: 100px;
       }
 
       #anleitungText {
@@ -371,104 +348,58 @@
       .popup > div {
         max-width: 90vw !important;
         min-width: 280px !important;
-        font-size: 13px !important;
-        padding: 12px !important;
+        font-size: 14px !important;
+      }
+
+      .tutorial-content {
+        margin: 20px;
+        padding: 20px;
       }
 
       area {
         cursor: pointer;
       }
       
-      /* VERBESSERTE Mobile-Positionierung für Ei und Huhn */
+      /* Simplify on mobile - no percentage scaling */
       #chickenGif {
-        width: 90px;
-        bottom: 2%;
-        left: auto;
-        right: 5%;
+        display: none !important; /* Hide chicken animation on mobile */
       }
       
       #redEgg {
-        width: 30px;
-        height: auto;
-        bottom: 2%;
-        left: 55%;
-        transform: translateX(-50%);
+        width: 40px !important;
+        left: auto !important;
+        right: 50px !important;
+        bottom: 20px !important;
       }
       
-      /* VERBESSERTE Mobile Position für Lichtschalter */
+      /* Adjust switch for mobile */
       #switchImg {
-        right: 2%;
-        top: 46%;
-        width: 28px;
-        transform: translate(0, -50%);
+        width: 30px;
       }
       
-      #switchImg:hover {
-        transform: translate(0, -50%) scale(1.1);
+      /* Fix popup position on mobile - center it */
+      .popup {
+        position: fixed !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        max-width: 90vw;
+        z-index: 1020 !important;
       }
       
-      /* Visited indicators kleiner auf mobile */
+      /* Hide visited indicators on mobile - too cluttered */
       .visited-indicator {
-        width: 18px;
-        height: 18px;
-      }
-      
-      .visited-indicator::after {
-        font-size: 11px;
-      }
-      
-      /* Click text verstecken auf mobile */
-      #clickText {
-        display: none !important;
-      }
-      
-      /* Highlight hints verstecken auf mobile */
-      .highlight-hint {
         display: none !important;
       }
     }
 
-    /* Extra small screens */
-    @media (max-width: 480px) {
-      .progress-container {
-        top: 5px;
-        padding: 4px 8px;
-        font-size: 10px;
-      }
-      
-      .progress-bar {
-        width: 60px;
-        height: 5px;
-      }
-      
-      #anleitungText {
-        font-size: 12px !important;
-        top: 30px !important;
-      }
-      
-      .popup > div {
-        font-size: 12px !important;
-        padding: 10px !important;
-      }
-      
-      /* Noch kleinere Elemente auf sehr kleinen Bildschirmen */
-      #chickenGif {
-        width: 70px;
-      }
-      
-      #redEgg {
-        width: 25px;
-      }
-      
-      #switchImg {
-        width: 25px;
-      }
-      
-      .mobile-nav button {
-        padding: 5px 10px;
-        font-size: 11px;
-      }
+    /* Accessibility: Focus styles - removed per request */
+    /* 
+    *:focus-visible {
+      outline: 3px solid #ff9800;
+      outline-offset: 2px;
     }
+    */
 
     /* Visited indicator */
     .visited-indicator {
@@ -495,46 +426,9 @@
       font-size: 14px;
       font-weight: bold;
     }
-
-    /* Mobile Fallback Navigation */
-    .mobile-nav {
-      display: none;
-      margin-top: 10px;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: center;
-    }
-
-    .mobile-nav button {
-      border: none;
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 13px;
-      cursor: pointer;
-      background: rgba(0,0,0,0.06);
-    }
-
-    @media (max-width: 768px) {
-      .mobile-nav {
-        display: flex;
-      }
-    }
-
-    /* Better touch behaviour */
-    area {
-      touch-action: manipulation;
-    }
   </style>
 </head>
 <body class="light-on">
-  <!-- Orientation Prompt for Mobile -->
-  <div class="orientation-prompt">
-    <i class="fa-solid fa-mobile-screen-button"></i>
-    <h2>Bitte drehen Sie Ihr Gerät</h2>
-    <p>Dieses digitale Atelier ist für die horizontale Ansicht optimiert.<br>
-       Drehen Sie Ihr Gerät für das beste Erlebnis.</p>
-  </div>
-  
   <!-- Skip Link for Accessibility -->
   <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
 
@@ -583,7 +477,7 @@
           <b>Tipp:</b><br>
           ⚡ Auf den tippenden Text klicken für Schnellansicht<br>
           ❌ Popup schliessen: Klick daneben oder aufs Kreuz<br>
-          💡 <b>Zum Starten Licht einschalten</b> - sonst bleibt's dunkel
+          💡 <b>Zum Starten Licht einschalten</b> – sonst bleibt's dunkel
         </span>
       </div>
 
@@ -687,18 +581,27 @@
               data-key="switch">
       </map>
 
-      <!-- Mobile Fallback Navigation -->
-      <div class="mobile-nav">
-        <button data-key="laptop">👋 Begrüssung</button>
-        <button data-key="academic">🎓 Bildung</button>
-        <button data-key="book">📕 Sprache</button>
-        <button data-key="drawing">🎨 Kreativ</button>
-        <button data-key="plant">🪴 Lernen</button>
-        <button data-key="bag">💼 Erfahrung</button>
-      </div>
-
       <!-- Popup Container -->
       <div id="popup" class="popup" role="dialog" aria-label="Informationsfenster"></div>
+    </div>
+  </div>
+
+  <!-- Tutorial Modal -->
+  <div class="tutorial-modal" id="tutorialModal">
+    <div class="tutorial-content">
+      <h2>Willkommen im digitalen Atelier! 🎨</h2>
+      <p>
+        <strong>So funktioniert's:</strong><br><br>
+        🔍 Erkunden Sie das interaktive Büro<br>
+        🖱️ Klicken Sie auf die <span style="color: #ff4d4d;">roten Gegenstände</span><br>
+        📊 Verfolgen Sie Ihren Fortschritt oben<br>
+        🥚 Finden Sie alle 6 Stationen für eine Überraschung!<br><br>
+        <strong>Interaktive Elemente:</strong><br>
+        💡 Lichtschalter rechts im Bild<br>
+        🎓 📕 🎨 💻 🪴 💼 Die 6 Stationen<br><br>
+        <em>Tipp: Mit Tab durch die Bereiche navigieren</em>
+      </p>
+      <button class="tutorial-button" onclick="closeTutorial()">Los geht's!</button>
     </div>
   </div>
 
@@ -741,7 +644,7 @@
           },
           egg: {
             title: "🥚 Sie haben das Easter Egg entdeckt!",
-            text: "Das bedeutet: Sie haben alle Stationen erkundet - vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
+            text: "Das bedeutet: Sie haben alle Stationen erkundet – vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
           }
         };
 
@@ -750,7 +653,7 @@
         this.clickedAreas = new Set();
         this.chickenTriggered = false;
         this.allStationsVisited = false;
-        this.isMobile = window.innerWidth <= 768;
+        this.firstVisit = !localStorage.getItem('portfolio_visited');
         
         this.init();
       }
@@ -759,6 +662,11 @@
         this.setupEventListeners();
         this.preloadImages();
         this.initializeUI();
+        
+        // Show tutorial on first visit
+        if (this.firstVisit) {
+          setTimeout(() => this.showTutorial(), 500);
+        }
       }
 
       preloadImages() {
@@ -805,22 +713,11 @@
           }
         });
 
-        // Mobile Nav Buttons
-        document.querySelectorAll('.mobile-nav button').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const key = btn.getAttribute('data-key');
-            this.openPopupCentered(key);
-          });
-        });
-
         // Global click handler for closing popups
         document.addEventListener('click', (e) => this.handleGlobalClick(e));
 
         // Window resize handler
-        window.addEventListener('resize', () => {
-          this.isMobile = window.innerWidth <= 768;
-          this.handleResize();
-        });
+        window.addEventListener('resize', () => this.handleResize());
       }
 
       handleAreaClick(e) {
@@ -830,10 +727,6 @@
           this.showPopup(e, key);
           document.getElementById('clickText').style.display = 'none';
         }
-      }
-
-      openPopupCentered(key) {
-        this.showPopup(null, key);
       }
 
       showPopup(e, key) {
@@ -862,7 +755,7 @@
                          font-weight: bold; font-size: 18px; color: #666; 
                          background: none; border: none; display:none;"
                   onclick="app.closePopup()" 
-                  aria-label="Popup schliessen">
+                  aria-label="Popup schließen">
             <i class="fa-solid fa-xmark"></i>
           </button>
           <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
@@ -887,37 +780,17 @@
         popup.innerHTML = html;
         popup.style.display = "block";
 
-        // VERBESSERTE Position popup - besonders für mobile
-        let left, top;
+        // Position popup
+        const pageX = e.pageX || e.target.getBoundingClientRect().left;
+        const pageY = e.pageY || e.target.getBoundingClientRect().top;
+        let left = pageX - containerRect.left - 30;
+        let top = pageY - containerRect.top - 100;
 
-        if (this.isMobile) {
-          // Auf mobile: Zentriert im sichtbaren Bereich
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const viewportHeight = window.innerHeight;
-          
-          left = containerRect.width / 2 - popup.offsetWidth / 2;
-          top = scrollTop + (viewportHeight / 2) - containerRect.top - 100;
-          
-          // Sicherstellen, dass Popup im sichtbaren Bereich ist
-          if (top < 10) top = 10;
-          if (top + popup.offsetHeight > containerRect.height) {
-            top = containerRect.height - popup.offsetHeight - 10;
-          }
-        } else {
-          // Desktop: Bei Klickposition
-          let pageX = e ? (e.pageX || e.target.getBoundingClientRect().left) : containerRect.left + containerRect.width / 2;
-          let pageY = e ? (e.pageY || e.target.getBoundingClientRect().top) : containerRect.top + containerRect.height / 2;
-
-          left = pageX - containerRect.left - 30;
-          top = pageY - containerRect.top - 100;
-
-          // Bounds checking
-          if (left + popup.offsetWidth > container.clientWidth) {
-            left = container.clientWidth - popup.offsetWidth - 10;
-          }
-          if (left < 10) left = 10;
-          if (top < 10) top = 10;
+        if (left + popup.offsetWidth > container.clientWidth) {
+          left = container.clientWidth - popup.offsetWidth - 10;
         }
+        if (left < 0) left = 10;
+        if (top < 0) top = pageY - containerRect.top + 20;
 
         popup.style.left = left + "px";
         popup.style.top = top + "px";
@@ -971,9 +844,7 @@
           overlay.style.display = 'none';
           body.classList.remove('light-off');
           body.classList.add('light-on');
-          if (!this.isMobile) {
-            clickText.style.display = 'block';
-          }
+          clickText.style.display = 'block';
           anleitungText.style.display = 'none';
           switchImg.setAttribute('aria-pressed', 'true');
         } else {
@@ -994,15 +865,15 @@
         const progressText = document.getElementById('progressText');
         const progressFill = document.getElementById('progressFill');
         
-        // Only update text if chicken has not been triggered yet
+        // Only update text if chicken hasn't been triggered yet
         if (!this.chickenTriggered) {
           progressText.textContent = `${visitedCount} von ${totalCount} Stationen entdeckt`;
-          progressText.style.color = '';
+          progressText.style.color = ''; // Reset to default color
         }
         
         progressFill.style.width = `${(visitedCount / totalCount) * 100}%`;
 
-        // Mark that all stations have been visited (but do not trigger chicken yet)
+        // Mark that all stations have been visited (but don't trigger chicken yet)
         if (!this.allStationsVisited && visitedCount >= totalCount) {
           this.allStationsVisited = true;
         }
@@ -1071,6 +942,15 @@
         }, 2500);
       }
 
+      showTutorial() {
+        document.getElementById('tutorialModal').style.display = 'flex';
+        localStorage.setItem('portfolio_visited', 'true');
+      }
+
+      closeTutorial() {
+        document.getElementById('tutorialModal').style.display = 'none';
+      }
+
       closePopup() {
         document.getElementById('popup').style.display = 'none';
         
@@ -1078,7 +958,7 @@
         if (this.allStationsVisited && !this.chickenTriggered) {
           setTimeout(() => {
             this.triggerChicken();
-          }, 800);
+          }, 800); // Slight delay for better UX
         }
       }
 
@@ -1107,7 +987,7 @@
           if (this.allStationsVisited && !this.chickenTriggered) {
             setTimeout(() => {
               this.triggerChicken();
-            }, 800);
+            }, 800); // Slight delay for better UX
           }
         }
       }
@@ -1127,14 +1007,19 @@
         el.style.left = (x * scaleX) + 'px';
         el.style.top = (y * scaleY) + 'px';
         
+        // Apply transform for centering to specific elements
         if (elemId.includes('visited') || elemId === 'clickText') {
           el.style.transform = 'translate(-50%, -50%)';
         }
       }
 
       handleResize() {
+        // Only position clickText - switch is now CSS positioned
         this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
         
+        // Don't reposition egg, chicken, or switch - they have fixed CSS positions
+        
+        // Reposition visited indicators with proper coordinates
         this.clickedAreas.forEach(key => {
           if (key !== 'egg') {
             this.markAsVisited(key);
@@ -1143,12 +1028,17 @@
       }
 
       initializeUI() {
+        // Initialize image map resizer
         if (typeof imageMapResize === 'function') {
           imageMapResize();
         }
         
+        // Only position clickText - switch is now CSS positioned
         this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
+        
+        // Egg and chicken sizes are fixed in CSS now
 
+        // Set initial state
         const body = document.body;
         const overlay = document.getElementById('overlay');
         const clickText = document.getElementById('clickText');
@@ -1157,9 +1047,7 @@
         if (this.lightOn) {
           body.classList.add('light-on');
           overlay.style.display = 'none';
-          if (!this.isMobile) {
-            clickText.style.display = 'block';
-          }
+          clickText.style.display = 'block';
           anleitungText.style.display = 'none';
         } else {
           body.classList.add('light-off');
@@ -1168,6 +1056,11 @@
           anleitungText.style.display = 'block';
         }
       }
+    }
+
+    // Global functions for inline handlers
+    function closeTutorial() {
+      document.getElementById('tutorialModal').style.display = 'none';
     }
 
     // Initialize app when DOM is ready
