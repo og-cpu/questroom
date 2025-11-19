@@ -351,15 +351,23 @@
       0%, 100% { transform: rotate(-90deg); }
       50% { transform: rotate(0deg); }
     }
-    
-    /* Show prompt only on portrait mobile */
+
+    /* Portrait Mobile: Hinweis zeigen, Inhalt aber nicht verstecken */
     @media (max-width: 768px) and (orientation: portrait) {
       .orientation-prompt {
         display: flex;
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        height: auto;
+        padding: 10px 20px;
+        font-size: 14px;
+        background: rgba(105, 107, 129, 0.95);
       }
       
-      .wrapper, .progress-container {
-        display: none;
+      .wrapper,
+      .progress-container {
+        display: block;
       }
     }
     
@@ -455,6 +463,18 @@
       }
     }
 
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .progress-container {
+        top: 6px;
+        padding: 4px 10px;
+        font-size: 11px;
+      }
+      .progress-bar {
+        width: 80px;
+      }
+    }
+
     /* Accessibility: Focus styles - removed per request */
     /* 
     *:focus-visible {
@@ -488,15 +508,44 @@
       font-size: 14px;
       font-weight: bold;
     }
+
+    /* Mobile Fallback Navigation */
+    .mobile-nav {
+      display: none;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .mobile-nav button {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      background: rgba(0,0,0,0.06);
+    }
+
+    @media (max-width: 768px) {
+      .mobile-nav {
+        display: flex;
+      }
+    }
+
+    /* Better touch behaviour */
+    area {
+      touch-action: manipulation;
+    }
   </style>
 </head>
 <body class="light-on">
   <!-- Orientation Prompt for Mobile -->
   <div class="orientation-prompt">
     <i class="fa-solid fa-mobile-screen-button"></i>
-    <h2>Bitte drehen Sie Ihr Gerät</h2>
-    <p>Dieses digitale Atelier ist für die horizontale Ansicht optimiert.<br>
-       Drehen Sie Ihr Gerät für das beste Erlebnis.</p>
+    <h2>Bitte drehen Sie Ihr Geraet</h2>
+    <p>Dieses digitale Atelier ist fuer die horizontale Ansicht optimiert.<br>
+       Drehen Sie Ihr Geraet fuer das beste Erlebnis.</p>
   </div>
   
   <!-- Skip Link for Accessibility -->
@@ -516,7 +565,7 @@
       <img src="meincvbuero.png" 
            usemap="#image-map" 
            id="imageMap" 
-           alt="Interaktives Büro mit 6 klickbaren Bereichen: Akademische Kappe, Buch, Zeichnung, Laptop, Pflanze und Tasche">
+           alt="Interaktives Buero mit 6 klickbaren Bereichen: Akademische Kappe, Buch, Zeichnung, Laptop, Pflanze und Tasche">
 
       <!-- Overlay for light off -->
       <div id="overlay"></div>
@@ -539,15 +588,15 @@
         display: none;
       " role="alert">
         <span style="font-size: 20px;">🔍 Neugierig?</span><br>
-        Dieses digitale Atelier lädt Sie zu einem Rundgang ein.<br><br>
-        Folgen Sie den <span style="color: #ff4d4d;">roten</span> Gegenständen<br>
+        Dieses digitale Atelier laedt Sie zu einem Rundgang ein.<br><br>
+        Folgen Sie den <span style="color: #ff4d4d;">roten</span> Gegenstaenden<br>
         und entdecken Sie alle 6 Stationen:<br>
         <span style="font-size: 14px;">🎓 📕 🎨 💻 🪴 💼</span><br><br>
         <span style="font-size: 16px; font-weight: normal;">
           <b>Tipp:</b><br>
-          ⚡ Auf den tippenden Text klicken für Schnellansicht<br>
+          ⚡ Auf den tippenden Text klicken fuer Schnellansicht<br>
           ❌ Popup schliessen: Klick daneben oder aufs Kreuz<br>
-          💡 <b>Zum Starten Licht einschalten</b> – sonst bleibt's dunkel
+          💡 <b>Zum Starten Licht einschalten</b> - sonst bleibt's dunkel
         </span>
       </div>
 
@@ -584,7 +633,7 @@
            alt="Rotes Ei - Easter Egg" 
            tabindex="0"
            role="button"
-           aria-label="Easter Egg - Klicken für Überraschung">
+           aria-label="Easter Egg - Klicken fuer Ueberraschung">
 
       <!-- Image Map with improved accessibility -->
       <map name="image-map">
@@ -606,7 +655,7 @@
               role="button"
               data-key="book">
         
-        <area alt="Zeichnung - Kreativität" 
+        <area alt="Zeichnung - Kreativitaet" 
               title="Kreative Projekte" 
               href="#" 
               coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288" 
@@ -616,7 +665,7 @@
               data-key="drawing">
         
         <area alt="Laptop - Willkommen" 
-              title="Begrüssung und Einführung" 
+              title="Begruessung und Einfuehrung" 
               href="#" 
               coords="613,392,826,518" 
               shape="rect" 
@@ -651,6 +700,16 @@
               data-key="switch">
       </map>
 
+      <!-- Mobile Fallback Navigation -->
+      <div class="mobile-nav">
+        <button data-key="laptop">👋 Begruessung</button>
+        <button data-key="academic">🎓 Bildung</button>
+        <button data-key="book">📕 Sprache</button>
+        <button data-key="drawing">🎨 Kreativ</button>
+        <button data-key="plant">🪴 Lernen</button>
+        <button data-key="bag">💼 Erfahrung</button>
+      </div>
+
       <!-- Popup Container -->
       <div id="popup" class="popup" role="dialog" aria-label="Informationsfenster"></div>
     </div>
@@ -662,10 +721,10 @@
       <h2>Willkommen im digitalen Atelier! 🎨</h2>
       <p>
         <strong>So funktioniert's:</strong><br><br>
-        🔍 Erkunden Sie das interaktive Büro<br>
-        🖱️ Klicken Sie auf die <span style="color: #ff4d4d;">roten Gegenstände</span><br>
+        🔍 Erkunden Sie das interaktive Buero<br>
+        🖱️ Klicken Sie auf die <span style="color: #ff4d4d;">roten Gegenstaende</span><br>
         📊 Verfolgen Sie Ihren Fortschritt oben<br>
-        🥚 Finden Sie alle 6 Stationen für eine Überraschung!<br><br>
+        🥚 Finden Sie alle 6 Stationen fuer eine Ueberraschung!<br><br>
         <strong>Interaktive Elemente:</strong><br>
         💡 Lichtschalter rechts im Bild<br>
         🎓 📕 🎨 💻 🪴 💼 Die 6 Stationen<br><br>
@@ -684,26 +743,26 @@
         this.popups = {
           academic: {
             title: "🎓 Bildungshintergrund",
-            text: "Germanistik & Erwachsenenbildung:\nVon Czernowitz über Jena bis nach St. Gallen. Meine Abschlüsse? Hier ein Blick in den Rucksack.",
+            text: "Germanistik & Erwachsenenbildung:\nVon Czernowitz ueber Jena bis nach St. Gallen. Meine Abschluesse? Hier ein Blick in den Rucksack.",
             links: [
               { href: "https://drive.google.com/file/d/1JJLqK4BtKmJqM9-rjKj2LrFXo7Q4S0Kx/view", label: "Zeugnisse herunterladen" }
             ]
           },
           book: {
             title: "📕 Language matters",
-            text: "Das ist nicht nur ein Spruch. Sprache ist für mich nicht nur Werkzeug, sondern auch Hobby. Aktuell arbeite ich an einem kleinen Herzensprojekt: Ich übersetze ein Buch ins Deutsche. Gelegentlich unterstütze ich auch das Kulturmagazin <em>Saiten</em> mit punktuellen Übersetzungen."
+            text: "Das ist nicht nur ein Spruch. Sprache ist fuer mich nicht nur Werkzeug, sondern auch Hobby. Aktuell arbeite ich an einem kleinen Herzensprojekt: Ich uebersetze ein Buch ins Deutsche. Gelegentlich unterstuetze ich auch das Kulturmagazin <em>Saiten</em> mit punktuellen Uebersetzungen."
           },
           drawing: {
-            title: "🎨 Kreativität gehört dazu",
+            title: "🎨 Kreativitaet gehoert dazu",
             text: "Gestalterisches Arbeiten macht mir Freude, sei es privat bei kreativen Projekten oder beruflich bei der Entwicklung von Lernmaterialien. Ob analog oder digital bin ich mit Begeisterung dabei."
           },
           laptop: {
-            title: "👋 Grüezi",
-            text: "Ich bin Ol'ha Gneupel.\nIn meinem kleinen digitalen Atelier möchte ich mich etwas persönlicher vorstellen. Auch mit Einblicken, die im Lebenslauf keinen Platz gefunden haben.\nKommen Sie mit auf eine kleine Entdeckungstour: Fünf Stationen warten noch auf Sie."
+            title: "👋 Grueezi",
+            text: "Ich bin Ol'ha Gneupel.\nIn meinem kleinen digitalen Atelier moechte ich mich etwas persoenlicher vorstellen. Auch mit Einblicken, die im Lebenslauf keinen Platz gefunden haben.\nKommen Sie mit auf eine kleine Entdeckungstour: Fuenf Stationen warten noch auf Sie."
           },
           plant: {
             title: "🪴 Lernen und Wachsen",
-            text: "Lernen begeistert mich, deshalb lerne ich selbst ständig weiter, oft im Selbststudium. Gleichzeitig weiss ich aus eigener Erfahrung: Noch schöner ist es, wenn man diese Neugier weitergeben kann. Deswegen vertiefe ich mich aktuell in den EdX-Kurs in Learning and Development Design."
+            text: "Lernen begeistert mich, deshalb lerne ich selbst staendig weiter, oft im Selbststudium. Gleichzeitig weiss ich aus eigener Erfahrung: Noch schoener ist es, wenn man diese Neugier weitergeben kann. Deswegen vertiefe ich mich aktuell in den EdX-Kurs in Learning and Development Design."
           },
           bag: {
             title: "💼 Berufserfahrung",
@@ -714,7 +773,7 @@
           },
           egg: {
             title: "🥚 Sie haben das Easter Egg entdeckt!",
-            text: "Das bedeutet: Sie haben alle Stationen erkundet – vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
+            text: "Das bedeutet: Sie haben alle Stationen erkundet - vielen Dank fuer Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
           }
         };
 
@@ -783,6 +842,14 @@
           }
         });
 
+        // Mobile Nav Buttons
+        document.querySelectorAll('.mobile-nav button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const key = btn.getAttribute('data-key');
+            this.openPopupCentered(key);
+          });
+        });
+
         // Global click handler for closing popups
         document.addEventListener('click', (e) => this.handleGlobalClick(e));
 
@@ -797,6 +864,10 @@
           this.showPopup(e, key);
           document.getElementById('clickText').style.display = 'none';
         }
+      }
+
+      openPopupCentered(key) {
+        this.showPopup(null, key);
       }
 
       showPopup(e, key) {
@@ -825,7 +896,7 @@
                          font-weight: bold; font-size: 18px; color: #666; 
                          background: none; border: none; display:none;"
                   onclick="app.closePopup()" 
-                  aria-label="Popup schließen">
+                  aria-label="Popup schliessen">
             <i class="fa-solid fa-xmark"></i>
           </button>
           <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
@@ -851,16 +922,26 @@
         popup.style.display = "block";
 
         // Position popup
-        const pageX = e.pageX || e.target.getBoundingClientRect().left;
-        const pageY = e.pageY || e.target.getBoundingClientRect().top;
+        let pageX;
+        let pageY;
+
+        if (e) {
+          pageX = e.pageX || e.target.getBoundingClientRect().left;
+          pageY = e.pageY || e.target.getBoundingClientRect().top;
+        } else {
+          // Zentriert im Bild, wenn kein Event vorhanden (z. B. Mobile Button)
+          pageX = containerRect.left + containerRect.width / 2;
+          pageY = containerRect.top + containerRect.height / 2;
+        }
+
         let left = pageX - containerRect.left - 30;
         let top = pageY - containerRect.top - 100;
 
         if (left + popup.offsetWidth > container.clientWidth) {
           left = container.clientWidth - popup.offsetWidth - 10;
         }
-        if (left < 0) left = 10;
-        if (top < 0) top = pageY - containerRect.top + 20;
+        if (left < 10) left = 10;
+        if (top < 10) top = 10;
 
         popup.style.left = left + "px";
         popup.style.top = top + "px";
@@ -935,15 +1016,15 @@
         const progressText = document.getElementById('progressText');
         const progressFill = document.getElementById('progressFill');
         
-        // Only update text if chicken hasn't been triggered yet
+        // Only update text if chicken has not been triggered yet
         if (!this.chickenTriggered) {
           progressText.textContent = `${visitedCount} von ${totalCount} Stationen entdeckt`;
-          progressText.style.color = ''; // Reset to default color
+          progressText.style.color = '';
         }
         
         progressFill.style.width = `${(visitedCount / totalCount) * 100}%`;
 
-        // Mark that all stations have been visited (but don't trigger chicken yet)
+        // Mark that all stations have been visited (but do not trigger chicken yet)
         if (!this.allStationsVisited && visitedCount >= totalCount) {
           this.allStationsVisited = true;
         }
@@ -1028,7 +1109,7 @@
         if (this.allStationsVisited && !this.chickenTriggered) {
           setTimeout(() => {
             this.triggerChicken();
-          }, 800); // Slight delay for better UX
+          }, 800);
         }
       }
 
@@ -1057,7 +1138,7 @@
           if (this.allStationsVisited && !this.chickenTriggered) {
             setTimeout(() => {
               this.triggerChicken();
-            }, 800); // Slight delay for better UX
+            }, 800);
           }
         }
       }
@@ -1077,19 +1158,14 @@
         el.style.left = (x * scaleX) + 'px';
         el.style.top = (y * scaleY) + 'px';
         
-        // Apply transform for centering to specific elements
         if (elemId.includes('visited') || elemId === 'clickText') {
           el.style.transform = 'translate(-50%, -50%)';
         }
       }
 
       handleResize() {
-        // Only position clickText - switch is now CSS positioned
         this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
         
-        // Don't reposition egg, chicken, or switch - they have fixed CSS positions
-        
-        // Reposition visited indicators with proper coordinates
         this.clickedAreas.forEach(key => {
           if (key !== 'egg') {
             this.markAsVisited(key);
@@ -1098,17 +1174,12 @@
       }
 
       initializeUI() {
-        // Initialize image map resizer
         if (typeof imageMapResize === 'function') {
           imageMapResize();
         }
         
-        // Only position clickText - switch is now CSS positioned
         this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
-        
-        // Egg and chicken sizes are fixed in CSS now
 
-        // Set initial state
         const body = document.body;
         const overlay = document.getElementById('overlay');
         const clickText = document.getElementById('clickText');
