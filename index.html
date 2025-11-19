@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
   <title>Ol'ha Gneupel - Digitales Dossier</title>
   <meta name="description" content="Interaktives digitales Bewerbungsdossier von Ol'ha Gneupel">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -46,7 +46,7 @@
     /* ========================= */
     /* Background States */
     /* ========================= */
-    
+
     /* Light ON: Beige background */
     body.light-on {
       background-color: #e0ddd5;
@@ -120,7 +120,7 @@
     /* ========================= */
     /* Interactive Elements */
     /* ========================= */
-    
+
     /* Highlight Hints (Desktop only) */
     .highlight-hint {
       position: absolute;
@@ -167,7 +167,6 @@
       cursor: pointer;
       z-index: 1007;
       transition: transform 0.2s;
-      /* Responsive positioning */
       right: 8%;
       top: 48%;
       transform: translate(50%, -50%);
@@ -214,19 +213,21 @@
       text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
       line-height: 1.6;
       display: none;
+      background: rgba(20, 24, 60, 0.95);
+      padding: 14px 18px;
+      border-radius: 12px;
     }
 
     /* ========================= */
     /* Easter Egg Elements */
     /* ========================= */
-    
+
     /* Chicken - Responsive positioning */
     #chickenGif {
       position: absolute;
       width: 180px;
       height: auto;
       bottom: 2%;
-      /* Use percentage for responsive positioning */
       left: 65%;
       display: none;
       z-index: 1004;
@@ -269,14 +270,13 @@
       transition: transform 0.2s;
       transform-origin: center bottom;
     }
-    
+
     #redEgg:hover {
       transform: scale(1.1);
     }
-    
+
     #redEgg:focus {
-      outline: 2px solid #ff4d4d;
-      outline-offset: 2px;
+      outline: none;
     }
 
     /* Bounce animation for egg */
@@ -479,34 +479,34 @@
         width: 18px;
         height: 18px;
       }
-      
+
       .visited-indicator::after {
         font-size: 11px;
       }
-      
+
       /* Hide desktop-only elements */
       #clickText {
         display: none !important;
       }
-      
+
       .highlight-hint {
         display: none !important;
       }
-      
+
       /* Light switch Mobile */
       #switchImg {
         width: 30px;
         right: 5%;
         top: 50%;
       }
-      
+
       /* Chicken Mobile - Better positioning */
       #chickenGif {
         width: 120px;
         left: 50%;
         bottom: 5px;
       }
-      
+
       /* Red Egg Mobile */
       #redEgg {
         width: 35px;
@@ -545,18 +545,18 @@
         top: 8px;
         gap: 6px;
       }
-      
+
       .progress-bar {
         width: 60px;
         height: 4px;
       }
-      
+
       #anleitungText {
         font-size: 12px;
         top: 35px;
         width: 95%;
       }
-      
+
       .popup-content {
         font-size: 12px;
         padding: 10px;
@@ -566,15 +566,15 @@
       .popup-title {
         font-size: 13px;
       }
-      
+
       #switchImg {
         width: 25px;
       }
-      
+
       #chickenGif {
         width: 100px;
       }
-      
+
       #redEgg {
         width: 30px;
         min-width: 30px;
@@ -590,6 +590,17 @@
       }
     }
 
+    /* Mobile portrait: Anleitung etwas groesser und zentrierter */
+    @media (max-width: 768px) and (orientation: portrait) {
+      #anleitungText {
+        width: 90%;
+        max-width: 90%;
+        top: 55px;
+        padding: 18px 22px;
+        font-size: 14px;
+      }
+    }
+
     /* ========================= */
     /* Accessibility Improvements */
     /* ========================= */
@@ -601,13 +612,12 @@
       }
     }
 
-    /* Focus styles for keyboard navigation */
+    /* Fokusrahmen komplett deaktivieren */
     area:focus,
     #switchImg:focus,
     #redEgg:focus,
     .popup-close:focus {
-      outline: 2px solid #ff4d4d;
-      outline-offset: 2px;
+      outline: none;
     }
 
     /* High contrast mode support */
@@ -615,7 +625,7 @@
       .progress-container {
         border: 2px solid black;
       }
-      
+
       .popup-content {
         border: 2px solid black;
       }
@@ -637,9 +647,9 @@
   <!-- Main Content -->
   <div class="wrapper" id="main">
     <div class="image-container">
-      <img src="meincvbuero.png" 
-           usemap="#image-map" 
-           id="imageMap" 
+      <img src="meincvbuero.png"
+           usemap="#image-map"
+           id="imageMap"
            alt="Interaktives Büro mit 6 klickbaren Bereichen: Akademische Kappe, Buch, Zeichnung, Laptop, Pflanze und Tasche">
 
       <!-- Overlay for light off -->
@@ -661,14 +671,14 @@
       </div>
 
       <!-- Light Switch -->
-      <img id="switchImg" 
-           src="switch_left.PNG" 
-           alt="Lichtschalter" 
+      <img id="switchImg"
+           src="switch_left.PNG"
+           alt="Lichtschalter"
            tabindex="0"
            role="button"
            aria-pressed="false"
            aria-label="Licht ein/ausschalten">
-      
+
       <!-- Click hint text -->
       <div id="clickText">Click!</div>
 
@@ -690,73 +700,73 @@
 
       <!-- Easter Egg Elements -->
       <img id="chickenGif" src="chicken_yellow.png" alt="Huhn" aria-hidden="true">
-      <img id="redEgg" 
-           src="red_egg.png" 
-           alt="Rotes Ei - Easter Egg" 
+      <img id="redEgg"
+           src="red_egg.png"
+           alt="Rotes Ei - Easter Egg"
            tabindex="0"
            role="button"
            aria-label="Easter Egg - Klicken für Überraschung">
 
       <!-- Image Map with improved accessibility -->
       <map name="image-map">
-        <area alt="Akademische Kappe - Bildungshintergrund" 
-              title="Bildungshintergrund anzeigen" 
-              href="#" 
-              coords="316,429,350,480,427,486,442,486,438,455,442,436,467,426,393,398" 
-              shape="poly" 
+        <area alt="Akademische Kappe - Bildungshintergrund"
+              title="Bildungshintergrund anzeigen"
+              href="#"
+              coords="316,429,350,480,427,486,442,486,438,455,442,436,467,426,393,398"
+              shape="poly"
               tabindex="0"
               role="button"
               data-key="academic">
-        
-        <area alt="Buch - Sprachprojekte" 
-              title="Language matters" 
-              href="#" 
-              coords="320,517,320,537,403,550,461,536,453,510" 
-              shape="poly" 
+
+        <area alt="Buch - Sprachprojekte"
+              title="Language matters"
+              href="#"
+              coords="320,517,320,537,403,550,461,536,453,510"
+              shape="poly"
               tabindex="0"
               role="button"
               data-key="book">
-        
-        <area alt="Zeichnung - Kreativität" 
-              title="Kreative Projekte" 
-              href="#" 
-              coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288" 
-              shape="poly" 
+
+        <area alt="Zeichnung - Kreativität"
+              title="Kreative Projekte"
+              href="#"
+              coords="925,262,951,216,967,227,968,250,983,254,995,267,993,286,995,308,989,320,967,322,940,314,925,288"
+              shape="poly"
               tabindex="0"
               role="button"
               data-key="drawing">
-        
-        <area alt="Laptop - Willkommen" 
-              title="Begrüßung und Einführung" 
-              href="#" 
-              coords="613,392,826,518" 
-              shape="rect" 
+
+        <area alt="Laptop - Willkommen"
+              title="Begrüßung und Einführung"
+              href="#"
+              coords="613,392,826,518"
+              shape="rect"
               tabindex="0"
               role="button"
               data-key="laptop">
-        
-        <area alt="Pflanze - Lernen und Wachsen" 
-              title="Weiterbildung" 
-              href="#" 
-              coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626" 
-              shape="poly" 
+
+        <area alt="Pflanze - Lernen und Wachsen"
+              title="Weiterbildung"
+              href="#"
+              coords="1242,650,1243,678,1253,707,1285,710,1380,711,1382,692,1380,674,1383,657,1352,631,1306,626"
+              shape="poly"
               tabindex="0"
               role="button"
               data-key="plant">
-        
-        <area alt="Tasche - Berufserfahrung" 
-              title="Arbeitszeugnisse" 
-              href="#" 
-              coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687" 
-              shape="poly" 
+
+        <area alt="Tasche - Berufserfahrung"
+              title="Arbeitszeugnisse"
+              href="#"
+              coords="887,687,879,748,881,810,888,828,968,834,1040,833,1055,810,1050,737,1048,699,1012,687,932,687"
+              shape="poly"
               tabindex="0"
               role="button"
               data-key="bag">
-        
-        <area alt="Lichtschalter" 
-              title="Licht ein/ausschalten" 
-              href="#" 
-              coords="1457,535,1500,485" 
+
+        <area alt="Lichtschalter"
+              title="Licht ein/ausschalten"
+              href="#"
+              coords="1457,535,1500,485"
               shape="rect"
               tabindex="-1"
               data-key="switch">
@@ -771,12 +781,7 @@
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
     /**
-     * Portfolio Application - Improved Version
-     * Features:
-     * - Responsive animations that work on all devices
-     * - Better mobile positioning
-     * - Accessibility improvements
-     * - Performance optimizations
+     * Portfolio Application
      */
     class PortfolioApp {
       constructor() {
@@ -820,19 +825,19 @@
 
         // State management
         this.lightOn = false;
-        this.currentTyping = { 
-          interval: null, 
-          element: null, 
-          fullText: "", 
-          index: 0, 
-          running: false 
+        this.currentTyping = {
+          interval: null,
+          element: null,
+          fullText: "",
+          index: 0,
+          running: false
         };
         this.clickedAreas = new Set();
         this.chickenTriggered = false;
         this.allStationsVisited = false;
         this.isMobile = window.innerWidth <= 768;
         this.isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        
+
         this.init();
       }
 
@@ -852,11 +857,9 @@
       }
 
       setupAccessibility() {
-        // Set up ARIA live regions
         const progressContainer = document.querySelector('.progress-container');
         progressContainer.setAttribute('aria-live', 'polite');
-        
-        // Add keyboard navigation hints
+
         if (!this.isTouch) {
           const areas = document.querySelectorAll('area');
           areas.forEach(area => {
@@ -874,7 +877,6 @@
       }
 
       showHintForArea(key) {
-        // Implementation for showing hints on focus
         const hintMap = {
           'academic': 'hint1',
           'book': 'hint2',
@@ -883,7 +885,7 @@
           'plant': 'hint5',
           'bag': 'hint6'
         };
-        
+
         const hintId = hintMap[key];
         if (hintId && !this.isMobile) {
           const hint = document.getElementById(hintId);
@@ -902,20 +904,16 @@
       }
 
       setupEventListeners() {
-        // Area click/touch handlers with improved mobile support
         document.querySelectorAll('area').forEach(area => {
-          // Click event for desktop
           area.addEventListener('click', (e) => this.handleAreaClick(e));
-          
-          // Touch event for mobile
+
           if (this.isTouch) {
             area.addEventListener('touchend', (e) => {
               e.preventDefault();
               this.handleAreaClick(e);
             });
           }
-          
-          // Keyboard support
+
           area.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
@@ -924,17 +922,16 @@
           });
         });
 
-        // Switch handlers with improved touch support
         const switchImg = document.getElementById('switchImg');
         switchImg.addEventListener('click', (e) => this.toggleLight(e));
-        
+
         if (this.isTouch) {
           switchImg.addEventListener('touchend', (e) => {
             e.preventDefault();
             this.toggleLight(e);
           });
         }
-        
+
         switchImg.addEventListener('keypress', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -942,13 +939,12 @@
           }
         });
 
-        // Red egg handler
         const redEgg = document.getElementById('redEgg');
         redEgg.addEventListener('click', (e) => {
           e.stopPropagation();
           this.showPopup(e, 'egg');
         });
-        
+
         if (this.isTouch) {
           redEgg.addEventListener('touchend', (e) => {
             e.preventDefault();
@@ -956,7 +952,7 @@
             this.showPopup(e, 'egg');
           });
         }
-        
+
         redEgg.addEventListener('keypress', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -965,32 +961,29 @@
           }
         });
 
-        // Global click handler for closing popups
         document.addEventListener('click', (e) => this.handleGlobalClick(e));
-        
+
         if (this.isTouch) {
           document.addEventListener('touchend', (e) => {
-            if (!e.target.closest('#popup') && !e.target.closest('area') && !e.target.id === 'redEgg') {
+            if (!e.target.closest('#popup') && !e.target.closest('area') && e.target.id !== 'redEgg') {
               this.closePopup();
             }
           });
         }
 
-        // Window resize handler with debouncing
         let resizeTimeout;
         window.addEventListener('resize', () => {
           clearTimeout(resizeTimeout);
           resizeTimeout = setTimeout(() => {
             const wasMobile = this.isMobile;
             this.isMobile = window.innerWidth <= 768;
-            
+
             if (wasMobile !== this.isMobile) {
               this.handleResize();
             }
           }, 250);
         });
 
-        // Handle orientation change for mobile
         window.addEventListener('orientationchange', () => {
           setTimeout(() => {
             this.handleResize();
@@ -1009,26 +1002,24 @@
 
       showPopup(e, key) {
         if (!this.popups[key]) return;
-        
-        // Track visited areas
+
         if (key !== 'egg') {
           this.clickedAreas.add(key);
           this.updateProgress();
           this.markAsVisited(key);
         }
-        
+
         const data = this.popups[key];
         const popup = document.getElementById('popup');
         const container = document.querySelector('.image-container');
         const containerRect = container.getBoundingClientRect();
 
-        // Build popup HTML with better structure
         let html = `<div class="popup-content">
-          <button class="popup-close" 
-                  id="popupClose"
-                  onclick="app.closePopup()" 
-                  aria-label="Popup schließen"
-                  style="display: none;">
+          <button class="popup-close"
+                   id="popupClose"
+                   onclick="app.closePopup()"
+                   aria-label="Popup schliessen"
+                   style="display: none;">
             <i class="fa-solid fa-xmark"></i>
           </button>
           <div class="popup-title">${data.title}</div>
@@ -1038,11 +1029,11 @@
           html += `<div class="popup-links" id="popupBtn">`;
           data.links.forEach(link => {
             html += `<div style="margin-top: 6px;">
-                      <a href='${link.href}' 
+                      <a href='${link.href}'
                          target='_blank'
                          rel="noopener noreferrer"
                          class="popup-link">
-                        <i class='fa-solid fa-file-arrow-down'></i> 
+                        <i class='fa-solid fa-file-arrow-down'></i>
                         ${link.label}
                       </a>
                     </div>`;
@@ -1054,10 +1045,8 @@
         popup.innerHTML = html;
         popup.style.display = "block";
 
-        // Position popup - responsive positioning
         this.positionPopup(popup, e, containerRect);
 
-        // Start typing animation
         setTimeout(() => {
           const textEl = document.getElementById('popupText');
           this.typeText(textEl, data.text, () => {
@@ -1068,7 +1057,6 @@
           });
         }, 100);
 
-        // Set focus for accessibility
         popup.setAttribute('tabindex', '-1');
         popup.focus();
       }
@@ -1079,16 +1067,13 @@
         const popupHeight = popup.offsetHeight || 200;
 
         if (this.isMobile) {
-          // Center popup on mobile
           left = (containerRect.width - popupWidth) / 2;
-          
-          // Position vertically in viewport center
+
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           const viewportHeight = window.innerHeight;
-          
+
           top = scrollTop + (viewportHeight / 3) - containerRect.top;
-          
-          // Ensure popup stays within bounds
+
           if (top < 10) top = 10;
           if (top + popupHeight > containerRect.height - 10) {
             top = containerRect.height - popupHeight - 10;
@@ -1098,14 +1083,12 @@
             left = containerRect.width - popupWidth - 10;
           }
         } else {
-          // Desktop positioning near cursor
           const pageX = e.pageX || (e.target.getBoundingClientRect().left + window.scrollX);
           const pageY = e.pageY || (e.target.getBoundingClientRect().top + window.scrollY);
 
           left = pageX - containerRect.left - 30;
           top = pageY - containerRect.top - 100;
 
-          // Boundary checks
           if (left + popupWidth > containerRect.width) {
             left = containerRect.width - popupWidth - 20;
           }
@@ -1122,21 +1105,19 @@
 
       typeText(element, text, callback, delay = 35) {
         if (!element) return;
-        
-        // Clear any existing typing
+
         if (this.currentTyping.interval) {
           clearInterval(this.currentTyping.interval);
         }
-        
+
         this.currentTyping.element = element;
         this.currentTyping.fullText = text;
         this.currentTyping.index = 0;
         this.currentTyping.running = true;
         element.innerHTML = "";
-        
-        // Slightly faster on mobile for better UX
+
         const typingDelay = this.isMobile ? 25 : delay;
-        
+
         this.currentTyping.interval = setInterval(() => {
           if (this.currentTyping.index < text.length) {
             element.innerHTML += text.charAt(this.currentTyping.index);
@@ -1144,7 +1125,7 @@
           } else {
             clearInterval(this.currentTyping.interval);
             this.currentTyping.running = false;
-            element.innerHTML = text; // Ensure complete text
+            element.innerHTML = text;
             if (typeof callback === 'function') callback();
           }
         }, typingDelay);
@@ -1153,7 +1134,7 @@
       toggleLight(event) {
         event?.preventDefault();
         this.lightOn = !this.lightOn;
-        
+
         const overlay = document.getElementById('overlay');
         const body = document.body;
         const clickText = document.getElementById('clickText');
@@ -1169,8 +1150,7 @@
           }
           anleitungText.style.display = 'none';
           switchImg.setAttribute('aria-pressed', 'true');
-          
-          // Announce state change for screen readers
+
           this.announceToScreenReader('Licht eingeschaltet');
         } else {
           overlay.style.display = 'block';
@@ -1179,7 +1159,7 @@
           clickText.style.display = 'none';
           anleitungText.style.display = 'block';
           switchImg.setAttribute('aria-pressed', 'false');
-          
+
           this.announceToScreenReader('Licht ausgeschaltet');
         }
       }
@@ -1192,7 +1172,7 @@
         announcement.style.left = '-10000px';
         announcement.textContent = message;
         document.body.appendChild(announcement);
-        
+
         setTimeout(() => {
           document.body.removeChild(announcement);
         }, 1000);
@@ -1202,25 +1182,21 @@
         const nonEggKeys = Object.keys(this.popups).filter(key => key !== 'egg');
         const visitedCount = nonEggKeys.filter(key => this.clickedAreas.has(key)).length;
         const totalCount = nonEggKeys.length;
-        
+
         const progressText = document.getElementById('progressText');
         const progressFill = document.getElementById('progressFill');
         const progressBar = document.querySelector('.progress-bar');
-        
-        // Update text
+
         if (!this.chickenTriggered) {
           progressText.textContent = `${visitedCount} von ${totalCount} Stationen`;
           progressText.style.color = '';
         }
-        
-        // Update progress bar
+
         const percentage = (visitedCount / totalCount) * 100;
         progressFill.style.width = `${percentage}%`;
-        
-        // Update ARIA attributes
+
         progressBar.setAttribute('aria-valuenow', percentage);
 
-        // Check if all stations visited
         if (!this.allStationsVisited && visitedCount >= totalCount) {
           this.allStationsVisited = true;
           this.announceToScreenReader('Glückwunsch! Alle Stationen besucht!');
@@ -1230,66 +1206,52 @@
       markAsVisited(key) {
         const areaIndex = ['academic', 'book', 'drawing', 'laptop', 'plant', 'bag'].indexOf(key);
         if (areaIndex === -1) return;
-        
+
         const indicator = document.getElementById(`visited${areaIndex + 1}`);
         if (!indicator) return;
-        
-        // Position mapping with responsive values
+
         const positions = {
-          'academic': { x: 390, y: 442, mobileX: 26, mobileY: 57 },
-          'book': { x: 390, y: 528, mobileX: 26, mobileY: 68 },
-          'drawing': { x: 960, y: 269, mobileX: 64, mobileY: 35 },
-          'laptop': { x: 720, y: 455, mobileX: 48, mobileY: 59 },
-          'plant': { x: 1312, y: 668, mobileX: 87, mobileY: 86 },
-          'bag': { x: 970, y: 760, mobileX: 65, mobileY: 98 }
+          academic: { x: 390,  y: 440 },
+          book:     { x: 410,  y: 530 },
+          drawing:  { x: 965,  y: 270 },
+          laptop:   { x: 720,  y: 455 },
+          plant:    { x: 1330, y: 665 },
+          bag:      { x: 970,  y: 760 }
         };
-        
+
         const pos = positions[key];
         if (!pos) return;
-        
-        if (this.isMobile) {
-          // Use percentage-based positioning for mobile
-          indicator.style.left = `${pos.mobileX}%`;
-          indicator.style.top = `${pos.mobileY}%`;
-        } else {
-          // Use pixel-based positioning for desktop
-          this.positionElement(indicator.id, pos.x, pos.y);
-        }
-        
+
+        this.positionElement(indicator.id, pos.x, pos.y);
         indicator.style.display = 'block';
       }
 
       triggerChicken() {
         if (this.chickenTriggered) return;
-        
+
         const chicken = document.getElementById('chickenGif');
         const egg = document.getElementById('redEgg');
-        
-        // Update progress text
+
         const progressText = document.getElementById('progressText');
         progressText.innerHTML = '🎉 Alle entdeckt! 🎉';
         progressText.style.color = '#4CAF50';
-        
-        // Show and animate chicken with responsive positioning
+
         chicken.style.display = 'block';
-        
-        // Adjust animation based on screen size
+
         if (this.isMobile) {
           chicken.style.animation = 'walkThenFade 4s ease-in-out forwards';
         } else {
           chicken.style.animation = 'walkThenFade 5s ease-in-out forwards';
         }
-        
+
         this.chickenTriggered = true;
-        
-        // Show egg after delay
+
         setTimeout(() => {
           egg.style.display = 'block';
           egg.style.animation = 'bounce 0.5s ease-out';
           this.announceToScreenReader('Ein Easter Egg ist erschienen!');
         }, this.isMobile ? 2000 : 2500);
-        
-        // Hide chicken after animation
+
         setTimeout(() => {
           chicken.style.display = 'none';
         }, this.isMobile ? 4500 : 5500);
@@ -1298,16 +1260,14 @@
       closePopup() {
         const popup = document.getElementById('popup');
         if (popup.style.display === 'none') return;
-        
-        // Clear typing animation if running
+
         if (this.currentTyping.interval) {
           clearInterval(this.currentTyping.interval);
           this.currentTyping.running = false;
         }
-        
+
         popup.style.display = 'none';
-        
-        // Trigger chicken animation if all stations visited
+
         if (this.allStationsVisited && !this.chickenTriggered) {
           setTimeout(() => {
             this.triggerChicken();
@@ -1321,25 +1281,23 @@
         const isClickOnArea = e.target.closest('area');
         const isClickOnRedEgg = e.target.id === 'redEgg';
 
-        // Skip typing animation on popup click
         if (isClickInsidePopup && this.currentTyping.running) {
           clearInterval(this.currentTyping.interval);
           if (this.currentTyping.element && this.currentTyping.fullText) {
             this.currentTyping.element.innerHTML = this.currentTyping.fullText;
           }
           this.currentTyping.running = false;
-          
+
           const btn = document.getElementById('popupBtn');
           if (btn) btn.style.display = 'block';
-          
+
           const closeBtn = document.getElementById('popupClose');
           if (closeBtn) closeBtn.style.display = 'block';
-          
+
           e.stopPropagation();
           return;
         }
 
-        // Close popup on outside click
         if (!isClickInsidePopup && !isClickOnArea && !isClickOnRedEgg) {
           this.closePopup();
         }
@@ -1349,38 +1307,33 @@
         const img = document.getElementById('imageMap');
         const el = document.getElementById(elemId);
         if (!img || !el) return;
-        
+
         const scaleX = img.clientWidth / img.naturalWidth;
         const scaleY = img.clientHeight / img.naturalHeight;
-        
+
         el.style.left = (x * scaleX) + 'px';
         el.style.top = (y * scaleY) + 'px';
       }
 
       handleResize() {
-        // Recalculate click text position
         if (!this.isMobile) {
           this.positionElement('clickText', 720, 455);
         }
-        
-        // Reposition visited indicators
+
         this.clickedAreas.forEach(key => {
           if (key !== 'egg') {
             this.markAsVisited(key);
           }
         });
-        
-        // Close popup on significant resize
+
         this.closePopup();
       }
 
       initializeUI() {
-        // Initialize image map resizer
         if (typeof imageMapResize === 'function') {
           imageMapResize();
         }
-        
-        // Position click text
+
         if (!this.isMobile) {
           this.positionElement('clickText', 720, 455);
         }
@@ -1390,7 +1343,6 @@
         const clickText = document.getElementById('clickText');
         const anleitungText = document.getElementById('anleitungText');
 
-        // Set initial state
         if (this.lightOn) {
           body.classList.add('light-on');
           overlay.style.display = 'none';
@@ -1404,45 +1356,37 @@
           clickText.style.display = 'none';
           anleitungText.style.display = 'block';
         }
-        
-        // Set up progress bar
+
         this.updateProgress();
       }
     }
 
-    // Initialize app when DOM is ready
     let app;
-    
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         app = new PortfolioApp();
-        window.app = app; // Make available globally for onclick handlers
+        window.app = app;
       });
     } else {
-      // DOM already loaded
       app = new PortfolioApp();
       window.app = app;
     }
 
-    // Performance optimization: Load non-critical resources after page load
     window.addEventListener('load', () => {
-      // Ensure app is initialized
       if (!app) {
         app = new PortfolioApp();
         window.app = app;
       }
-      
-      // Log performance metrics if available
+
       if (window.performance && window.performance.timing) {
         const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
         console.log(`Page load time: ${loadTime}ms`);
       }
     });
 
-    // Handle errors gracefully
     window.addEventListener('error', (e) => {
       console.error('Application error:', e.error);
-      // Could implement error reporting here
     });
   </script>
 </body>
