@@ -167,6 +167,7 @@
       cursor: pointer;
       z-index: 1007;
       transition: transform 0.2s;
+      /* wie in deiner Version */
       right: 8%;
       top: 48%;
       transform: translate(50%, -50%);
@@ -432,7 +433,6 @@
         padding: 10px;
       }
 
-      /* Progress Bar Mobile */
       .progress-container {
         font-size: 11px;
         padding: 6px 12px;
@@ -445,7 +445,6 @@
         height: 5px;
       }
 
-      /* Instruction Text Mobile */
       #anleitungText {
         font-size: 14px;
         width: 90%;
@@ -460,7 +459,6 @@
         font-size: 12px;
       }
 
-      /* Popup Mobile */
       .popup-content {
         max-width: 90vw;
         min-width: 260px;
@@ -472,7 +470,6 @@
         font-size: 14px;
       }
 
-      /* Visited indicators Mobile */
       .visited-indicator {
         width: 18px;
         height: 18px;
@@ -482,26 +479,22 @@
         font-size: 11px;
       }
       
-      /* Hide desktop-only hints */
       .highlight-hint {
         display: none !important;
       }
       
-      /* Light switch Mobile */
       #switchImg {
         width: 30px;
         right: 5%;
         top: 50%;
       }
       
-      /* Chicken Mobile - Better positioning */
       #chickenGif {
         width: 120px;
         left: 50%;
         bottom: 5px;
       }
       
-      /* Red Egg Mobile */
       #redEgg {
         width: 35px;
         min-width: 35px;
@@ -510,7 +503,12 @@
         bottom: 3%;
       }
 
-      /* Adjusted walking animation for mobile */
+      /* Mobile Position fuer Click!-Text, ohne JS-Override */
+      #clickText {
+        top: 52%;
+        left: 52%;
+      }
+
       @keyframes walkThenFade {
         0% {
           transform: translateX(80px);
@@ -531,7 +529,6 @@
       }
     }
 
-    /* Extra small screens */
     @media (max-width: 480px) {
       .progress-container {
         font-size: 10px;
@@ -595,9 +592,8 @@
       }
     }
 
-    /* Focus styles for keyboard navigation */
+    /* Fokusrahmen: Schalter AUSGENOMMEN */
     area:focus,
-    #switchImg:focus,
     #redEgg:focus,
     .popup-close:focus {
       outline: 2px solid #ff4d4d;
@@ -617,10 +613,8 @@
   </style>
 </head>
 <body class="light-on">
-  <!-- Skip Link for Accessibility -->
   <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
 
-  <!-- Progress Bar -->
   <div class="progress-container" role="status" aria-live="polite" aria-label="Fortschrittsanzeige">
     <span id="progressText">0 von 6 Stationen</span>
     <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
@@ -628,7 +622,6 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <div class="wrapper" id="main">
     <div class="image-container">
       <img src="meincvbuero.png" 
@@ -636,10 +629,8 @@
            id="imageMap" 
            alt="Interaktives Büro mit 6 klickbaren Bereichen: Akademische Kappe, Buch, Zeichnung, Laptop, Pflanze und Tasche">
 
-      <!-- Overlay for light off -->
       <div id="overlay"></div>
 
-      <!-- Instruction Text (shown when light is off) -->
       <div id="anleitungText" role="alert">
         <span style="font-size: 20px;">🔍 Neugierig?</span><br>
         Dieses digitale Atelier lädt Sie zu einem Rundgang ein.<br><br>
@@ -654,7 +645,6 @@
         </span>
       </div>
 
-      <!-- Light Switch -->
       <img id="switchImg" 
            src="switch_left.PNG" 
            alt="Lichtschalter" 
@@ -663,10 +653,8 @@
            aria-pressed="false"
            aria-label="Licht ein/ausschalten">
       
-      <!-- Click hint text -->
       <div id="clickText">Click!</div>
 
-      <!-- Visual hints for interactive areas (desktop only) -->
       <div class="highlight-hint" id="hint1"></div>
       <div class="highlight-hint" id="hint2"></div>
       <div class="highlight-hint" id="hint3"></div>
@@ -674,7 +662,6 @@
       <div class="highlight-hint" id="hint5"></div>
       <div class="highlight-hint" id="hint6"></div>
 
-      <!-- Visited indicators -->
       <div class="visited-indicator" id="visited1" aria-hidden="true"></div>
       <div class="visited-indicator" id="visited2" aria-hidden="true"></div>
       <div class="visited-indicator" id="visited3" aria-hidden="true"></div>
@@ -682,7 +669,6 @@
       <div class="visited-indicator" id="visited5" aria-hidden="true"></div>
       <div class="visited-indicator" id="visited6" aria-hidden="true"></div>
 
-      <!-- Easter Egg Elements -->
       <img id="chickenGif" src="chicken_yellow.png" alt="Huhn" aria-hidden="true">
       <img id="redEgg" 
            src="red_egg.png" 
@@ -691,7 +677,6 @@
            role="button"
            aria-label="Easter Egg klicken für Überraschung">
 
-      <!-- Image Map -->
       <map name="image-map">
         <area alt="Akademische Kappe - Bildungshintergrund" 
               title="Bildungshintergrund anzeigen" 
@@ -756,12 +741,10 @@
               data-key="switch">
       </map>
 
-      <!-- Popup Container -->
       <div id="popup" class="popup" role="dialog" aria-label="Informationsfenster" aria-modal="true"></div>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
     class PortfolioApp {
@@ -769,7 +752,7 @@
         this.popups = {
           academic: {
             title: "🎓 Bildungshintergrund",
-            text: "Germanistik & Erwachsenenbildung:\nVon Czernowitz über Jena bis nach St. Gallen. Meine Abschlüsse? Hier ein Blick in den Rucksack.",
+            text: "Germanistik & Erwachsenenbildung:\nVon Czernowitz über Jena bis nach St. Gallen. Meine Abschluesse? Hier ein Blick in den Rucksack.",
             links: [
               { href: "https://drive.google.com/file/d/1JJLqK4BtKmJqM9-rjKj2LrFXo7Q4S0Kx/view", label: "Zeugnisse herunterladen" }
             ]
@@ -956,11 +939,7 @@
           resizeTimeout = setTimeout(() => {
             const wasMobile = this.isMobile;
             this.isMobile = window.innerWidth <= 768;
-            if (wasMobile !== this.isMobile) {
-              this.handleResize();
-            } else {
-              this.handleResize();
-            }
+            this.handleResize();
           }, 250);
         });
 
@@ -1185,12 +1164,12 @@
         if (!indicator) return;
 
         const positions = {
-          academic: { x: 390, y: 442 },  // Kappe
-          book:     { x: 390, y: 528 },  // Buch
-          drawing:  { x: 960, y: 269 },  // Zeichnung
-          laptop:   { x: 720, y: 455 },  // Laptop
-          plant:    { x: 1312, y: 668 }, // Pflanze
-          bag:      { x: 970, y: 760 }   // Tasche
+          academic: { x: 390, y: 442 },
+          book:     { x: 390, y: 528 },
+          drawing:  { x: 960, y: 269 },
+          laptop:   { x: 720, y: 455 },
+          plant:    { x: 1312, y: 668 },
+          bag:      { x: 970, y: 760 }
         };
 
         const pos = positions[key];
@@ -1282,7 +1261,6 @@
         const el = document.getElementById(elemId);
         if (!img || !el) return;
         
-        // Referenzmasse des Originalbilds (an Koordinaten angepasst)
         const BASE_WIDTH = 1500;
         const BASE_HEIGHT = 900;
 
@@ -1294,7 +1272,9 @@
       }
 
       handleResize() {
-        this.positionElement('clickText', 720, 455);
+        if (!this.isMobile) {
+          this.positionElement('clickText', 720, 455);
+        }
         
         this.clickedAreas.forEach(key => {
           if (key !== 'egg') {
@@ -1310,7 +1290,9 @@
           imageMapResize();
         }
         
-        this.positionElement('clickText', 720, 455);
+        if (!this.isMobile) {
+          this.positionElement('clickText', 720, 455);
+        }
 
         const body = document.body;
         const overlay = document.getElementById('overlay');
