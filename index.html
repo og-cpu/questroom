@@ -1280,10 +1280,14 @@
       positionElement(elemId, x, y) {
         const img = document.getElementById('imageMap');
         const el = document.getElementById(elemId);
-        if (!img || !el || !img.naturalWidth || !img.naturalHeight) return;
+        if (!img || !el) return;
         
-        const scaleX = img.clientWidth / img.naturalWidth;
-        const scaleY = img.clientHeight / img.naturalHeight;
+        // Referenzmasse des Originalbilds (an Koordinaten angepasst)
+        const BASE_WIDTH = 1500;
+        const BASE_HEIGHT = 900;
+
+        const scaleX = img.clientWidth / BASE_WIDTH;
+        const scaleY = img.clientHeight / BASE_HEIGHT;
         
         el.style.left = (x * scaleX) + 'px';
         el.style.top = (y * scaleY) + 'px';
