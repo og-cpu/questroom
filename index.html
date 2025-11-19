@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="screen-orientation" content="landscape">
   <title>Ol'ha Gneupel - Digitales Dossier</title>
   <meta name="description" content="Interaktives digitales Bewerbungsdossier von Ol'ha Gneupel">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -170,7 +169,6 @@
       cursor: pointer;
       z-index: 1007;
       transition: transform 0.2s;
-      /* Fixed position relative to image container */
       right: 8%;
       top: 48%;
       transform: translate(50%, -50%);
@@ -232,6 +230,7 @@
       }
     }
 
+    /* Huhn - Desktop und Mobile gleich */
     #chickenGif {
       position: absolute;
       width: 180px;
@@ -243,6 +242,7 @@
       pointer-events: none;
     }
 
+    /* Ei - Desktop und Mobile gleich */
     #redEgg {
       position: absolute;
       bottom: 4.2%;
@@ -263,80 +263,24 @@
       outline: none;
     }
 
-    /* Tutorial Modal */
-    .tutorial-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    .tutorial-content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 500px;
-      text-align: center;
-      animation: slideIn 0.3s ease;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .tutorial-content h2 {
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    .tutorial-content p {
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .tutorial-button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .tutorial-button:hover {
-      background: #45a049;
-    }
-
-    /* Mobile Responsive - Simplified */
+    /* Mobile Responsive */
     @media (max-width: 768px) {
       .wrapper {
         padding: 10px;
       }
 
+      /* VERBESSERTER Progress Bar für Mobile */
       .progress-container {
-        font-size: 12px;
-        padding: 8px 15px;
-        top: 10px;
+        font-size: 10px;
+        padding: 5px 10px;
+        top: 5px;
+        gap: 6px;
+        white-space: nowrap;
       }
 
       .progress-bar {
-        width: 100px;
+        width: 60px;
+        height: 5px;
       }
 
       #anleitungText {
@@ -348,58 +292,77 @@
       .popup > div {
         max-width: 90vw !important;
         min-width: 280px !important;
-        font-size: 14px !important;
-      }
-
-      .tutorial-content {
-        margin: 20px;
-        padding: 20px;
+        font-size: 13px !important;
+        padding: 12px !important;
       }
 
       area {
         cursor: pointer;
       }
       
-      /* Simplify on mobile - no percentage scaling */
-      #chickenGif {
-        display: none !important; /* Hide chicken animation on mobile */
+      /* Visited indicators kleiner auf mobile */
+      .visited-indicator {
+        width: 18px;
+        height: 18px;
       }
       
-      #redEgg {
-        width: 40px !important;
-        left: auto !important;
-        right: 50px !important;
-        bottom: 20px !important;
+      .visited-indicator::after {
+        font-size: 11px;
       }
       
-      /* Adjust switch for mobile */
+      /* Click text verstecken auf mobile */
+      #clickText {
+        display: none !important;
+      }
+      
+      /* Highlight hints verstecken auf mobile */
+      .highlight-hint {
+        display: none !important;
+      }
+      
+      /* Lichtschalter kleiner auf mobile */
       #switchImg {
         width: 30px;
       }
       
-      /* Fix popup position on mobile - center it */
-      .popup {
-        position: fixed !important;
-        left: 50% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        max-width: 90vw;
-        z-index: 1020 !important;
-      }
-      
-      /* Hide visited indicators on mobile - too cluttered */
-      .visited-indicator {
-        display: none !important;
+      /* Huhn kleiner auf mobile */
+      #chickenGif {
+        width: 120px;
       }
     }
 
-    /* Accessibility: Focus styles - removed per request */
-    /* 
-    *:focus-visible {
-      outline: 3px solid #ff9800;
-      outline-offset: 2px;
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .progress-container {
+        font-size: 9px;
+        padding: 4px 8px;
+        top: 3px;
+        gap: 4px;
+      }
+      
+      .progress-bar {
+        width: 50px;
+        height: 4px;
+      }
+      
+      #anleitungText {
+        font-size: 12px !important;
+        top: 30px !important;
+      }
+      
+      .popup > div {
+        font-size: 12px !important;
+        padding: 10px !important;
+      }
+      
+      #switchImg {
+        width: 25px;
+      }
+      
+      #chickenGif {
+        width: 100px;
+      }
     }
-    */
 
     /* Visited indicator */
     .visited-indicator {
@@ -426,6 +389,11 @@
       font-size: 14px;
       font-weight: bold;
     }
+
+    /* Better touch behaviour */
+    area {
+      touch-action: manipulation;
+    }
   </style>
 </head>
 <body class="light-on">
@@ -434,7 +402,7 @@
 
   <!-- Progress Bar -->
   <div class="progress-container" role="status" aria-live="polite">
-    <span id="progressText">0 von 6 Stationen entdeckt</span>
+    <span id="progressText">0 von 6 Stationen</span>
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill" style="width: 0%"></div>
     </div>
@@ -476,8 +444,8 @@
         <span style="font-size: 16px; font-weight: normal;">
           <b>Tipp:</b><br>
           ⚡ Auf den tippenden Text klicken für Schnellansicht<br>
-          ❌ Popup schliessen: Klick daneben oder aufs Kreuz<br>
-          💡 <b>Zum Starten Licht einschalten</b> – sonst bleibt's dunkel
+          ❌ Popup schließen: Klick daneben oder aufs Kreuz<br>
+          💡 <b>Zum Starten Licht einschalten</b> - sonst bleibt's dunkel
         </span>
       </div>
 
@@ -546,7 +514,7 @@
               data-key="drawing">
         
         <area alt="Laptop - Willkommen" 
-              title="Begrüssung und Einführung" 
+              title="Begrüßung und Einführung" 
               href="#" 
               coords="613,392,826,518" 
               shape="rect" 
@@ -586,25 +554,6 @@
     </div>
   </div>
 
-  <!-- Tutorial Modal -->
-  <div class="tutorial-modal" id="tutorialModal">
-    <div class="tutorial-content">
-      <h2>Willkommen im digitalen Atelier! 🎨</h2>
-      <p>
-        <strong>So funktioniert's:</strong><br><br>
-        🔍 Erkunden Sie das interaktive Büro<br>
-        🖱️ Klicken Sie auf die <span style="color: #ff4d4d;">roten Gegenstände</span><br>
-        📊 Verfolgen Sie Ihren Fortschritt oben<br>
-        🥚 Finden Sie alle 6 Stationen für eine Überraschung!<br><br>
-        <strong>Interaktive Elemente:</strong><br>
-        💡 Lichtschalter rechts im Bild<br>
-        🎓 📕 🎨 💻 🪴 💼 Die 6 Stationen<br><br>
-        <em>Tipp: Mit Tab durch die Bereiche navigieren</em>
-      </p>
-      <button class="tutorial-button" onclick="closeTutorial()">Los geht's!</button>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
@@ -633,7 +582,7 @@
           },
           plant: {
             title: "🪴 Lernen und Wachsen",
-            text: "Lernen begeistert mich, deshalb lerne ich selbst ständig weiter, oft im Selbststudium. Gleichzeitig weiss ich aus eigener Erfahrung: Noch schöner ist es, wenn man diese Neugier weitergeben kann. Deswegen vertiefe ich mich aktuell in den EdX-Kurs in Learning and Development Design."
+            text: "Lernen begeistert mich, deshalb lerne ich selbst ständig weiter, oft im Selbststudium. Gleichzeitig weiß ich aus eigener Erfahrung: Noch schöner ist es, wenn man diese Neugier weitergeben kann. Deswegen vertiefe ich mich aktuell in den EdX-Kurs in Learning and Development Design."
           },
           bag: {
             title: "💼 Berufserfahrung",
@@ -644,7 +593,7 @@
           },
           egg: {
             title: "🥚 Sie haben das Easter Egg entdeckt!",
-            text: "Das bedeutet: Sie haben alle Stationen erkundet – vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
+            text: "Das bedeutet: Sie haben alle Stationen erkundet - vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
           }
         };
 
@@ -653,7 +602,7 @@
         this.clickedAreas = new Set();
         this.chickenTriggered = false;
         this.allStationsVisited = false;
-        this.firstVisit = !localStorage.getItem('portfolio_visited');
+        this.isMobile = window.innerWidth <= 768;
         
         this.init();
       }
@@ -662,11 +611,6 @@
         this.setupEventListeners();
         this.preloadImages();
         this.initializeUI();
-        
-        // Show tutorial on first visit
-        if (this.firstVisit) {
-          setTimeout(() => this.showTutorial(), 500);
-        }
       }
 
       preloadImages() {
@@ -717,7 +661,10 @@
         document.addEventListener('click', (e) => this.handleGlobalClick(e));
 
         // Window resize handler
-        window.addEventListener('resize', () => this.handleResize());
+        window.addEventListener('resize', () => {
+          this.isMobile = window.innerWidth <= 768;
+          this.handleResize();
+        });
       }
 
       handleAreaClick(e) {
@@ -780,17 +727,33 @@
         popup.innerHTML = html;
         popup.style.display = "block";
 
-        // Position popup
-        const pageX = e.pageX || e.target.getBoundingClientRect().left;
-        const pageY = e.pageY || e.target.getBoundingClientRect().top;
-        let left = pageX - containerRect.left - 30;
-        let top = pageY - containerRect.top - 100;
+        // Position popup - zentriert für mobile
+        let left, top;
 
-        if (left + popup.offsetWidth > container.clientWidth) {
-          left = container.clientWidth - popup.offsetWidth - 10;
+        if (this.isMobile) {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const viewportHeight = window.innerHeight;
+          
+          left = containerRect.width / 2 - popup.offsetWidth / 2;
+          top = scrollTop + (viewportHeight / 2) - containerRect.top - 100;
+          
+          if (top < 10) top = 10;
+          if (top + popup.offsetHeight > containerRect.height) {
+            top = containerRect.height - popup.offsetHeight - 10;
+          }
+        } else {
+          let pageX = e ? (e.pageX || e.target.getBoundingClientRect().left) : containerRect.left + containerRect.width / 2;
+          let pageY = e ? (e.pageY || e.target.getBoundingClientRect().top) : containerRect.top + containerRect.height / 2;
+
+          left = pageX - containerRect.left - 30;
+          top = pageY - containerRect.top - 100;
+
+          if (left + popup.offsetWidth > container.clientWidth) {
+            left = container.clientWidth - popup.offsetWidth - 10;
+          }
+          if (left < 10) left = 10;
+          if (top < 10) top = 10;
         }
-        if (left < 0) left = 10;
-        if (top < 0) top = pageY - containerRect.top + 20;
 
         popup.style.left = left + "px";
         popup.style.top = top + "px";
@@ -844,7 +807,9 @@
           overlay.style.display = 'none';
           body.classList.remove('light-off');
           body.classList.add('light-on');
-          clickText.style.display = 'block';
+          if (!this.isMobile) {
+            clickText.style.display = 'block';
+          }
           anleitungText.style.display = 'none';
           switchImg.setAttribute('aria-pressed', 'true');
         } else {
@@ -865,15 +830,13 @@
         const progressText = document.getElementById('progressText');
         const progressFill = document.getElementById('progressFill');
         
-        // Only update text if chicken hasn't been triggered yet
         if (!this.chickenTriggered) {
-          progressText.textContent = `${visitedCount} von ${totalCount} Stationen entdeckt`;
-          progressText.style.color = ''; // Reset to default color
+          progressText.textContent = `${visitedCount} von ${totalCount} Stationen`;
+          progressText.style.color = '';
         }
         
         progressFill.style.width = `${(visitedCount / totalCount) * 100}%`;
 
-        // Mark that all stations have been visited (but don't trigger chicken yet)
         if (!this.allStationsVisited && visitedCount >= totalCount) {
           this.allStationsVisited = true;
         }
@@ -884,31 +847,30 @@
         if (areaIndex !== -1) {
           const indicator = document.getElementById(`visited${areaIndex + 1}`);
           if (indicator) {
-            // Get center coordinates for each area
             let centerX, centerY;
             
             switch(key) {
-              case 'academic': // Cap
+              case 'academic':
                 centerX = 390;
                 centerY = 442;
                 break;
-              case 'book': // Book
+              case 'book':
                 centerX = 390;
                 centerY = 528;
                 break;
-              case 'drawing': // Drawing on wall
+              case 'drawing':
                 centerX = 960;
                 centerY = 269;
                 break;
-              case 'laptop': // Laptop
+              case 'laptop':
                 centerX = 720;
                 centerY = 455;
                 break;
-              case 'plant': // Plant
+              case 'plant':
                 centerX = 1312;
                 centerY = 668;
                 break;
-              case 'bag': // Bag
+              case 'bag':
                 centerX = 970;
                 centerY = 760;
                 break;
@@ -926,9 +888,8 @@
         const chicken = document.getElementById('chickenGif');
         const egg = document.getElementById('redEgg');
         
-        // Optional: Show a congratulations message
         const progressText = document.getElementById('progressText');
-        progressText.innerHTML = '🎉 Alle Stationen entdeckt! 🎉';
+        progressText.innerHTML = '🎉 Alle entdeckt! 🎉';
         progressText.style.color = '#4CAF50';
         
         chicken.style.display = 'block';
@@ -937,28 +898,17 @@
         
         setTimeout(() => {
           egg.style.display = 'block';
-          // Add a small bounce animation to the egg
           egg.style.animation = 'bounce 0.5s ease-out';
         }, 2500);
-      }
-
-      showTutorial() {
-        document.getElementById('tutorialModal').style.display = 'flex';
-        localStorage.setItem('portfolio_visited', 'true');
-      }
-
-      closeTutorial() {
-        document.getElementById('tutorialModal').style.display = 'none';
       }
 
       closePopup() {
         document.getElementById('popup').style.display = 'none';
         
-        // Trigger chicken after closing popup if all stations visited
         if (this.allStationsVisited && !this.chickenTriggered) {
           setTimeout(() => {
             this.triggerChicken();
-          }, 800); // Slight delay for better UX
+          }, 800);
         }
       }
 
@@ -967,7 +917,6 @@
         const isClickOutsidePopup = !e.target.closest('#popup') && !e.target.closest('area');
         const isClickOnRedEgg = e.target.id === 'redEgg';
 
-        // Complete typing on popup click
         if (e.target.closest('#popup') && this.currentTyping.running) {
           clearInterval(this.currentTyping.interval);
           this.currentTyping.element.innerHTML = this.currentTyping.fullText;
@@ -979,21 +928,18 @@
           e.stopPropagation();
         }
 
-        // Close popup on outside click
         if (isClickOutsidePopup && !isClickOnRedEgg) {
           popup.style.display = 'none';
           
-          // Trigger chicken after closing popup if all stations visited
           if (this.allStationsVisited && !this.chickenTriggered) {
             setTimeout(() => {
               this.triggerChicken();
-            }, 800); // Slight delay for better UX
+            }, 800);
           }
         }
       }
 
       positionElement(elemId, x, y) {
-        // Skip egg, chicken, and switch - they have fixed/percentage positions in CSS
         if (elemId === 'redEgg' || elemId === 'chickenGif' || elemId === 'switchImg') {
           return;
         }
@@ -1007,19 +953,14 @@
         el.style.left = (x * scaleX) + 'px';
         el.style.top = (y * scaleY) + 'px';
         
-        // Apply transform for centering to specific elements
         if (elemId.includes('visited') || elemId === 'clickText') {
           el.style.transform = 'translate(-50%, -50%)';
         }
       }
 
       handleResize() {
-        // Only position clickText - switch is now CSS positioned
         this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
         
-        // Don't reposition egg, chicken, or switch - they have fixed CSS positions
-        
-        // Reposition visited indicators with proper coordinates
         this.clickedAreas.forEach(key => {
           if (key !== 'egg') {
             this.markAsVisited(key);
@@ -1028,17 +969,12 @@
       }
 
       initializeUI() {
-        // Initialize image map resizer
         if (typeof imageMapResize === 'function') {
           imageMapResize();
         }
         
-        // Only position clickText - switch is now CSS positioned
         this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
-        
-        // Egg and chicken sizes are fixed in CSS now
 
-        // Set initial state
         const body = document.body;
         const overlay = document.getElementById('overlay');
         const clickText = document.getElementById('clickText');
@@ -1047,7 +983,9 @@
         if (this.lightOn) {
           body.classList.add('light-on');
           overlay.style.display = 'none';
-          clickText.style.display = 'block';
+          if (!this.isMobile) {
+            clickText.style.display = 'block';
+          }
           anleitungText.style.display = 'none';
         } else {
           body.classList.add('light-off');
@@ -1056,11 +994,6 @@
           anleitungText.style.display = 'block';
         }
       }
-    }
-
-    // Global functions for inline handlers
-    function closeTutorial() {
-      document.getElementById('tutorialModal').style.display = 'none';
     }
 
     // Initialize app when DOM is ready
