@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="screen-orientation" content="landscape">
   <title>Ol'ha Gneupel - Digitales Dossier</title>
   <meta name="description" content="Interaktives digitales Bewerbungsdossier von Ol'ha Gneupel">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    /* ========================= */
     /* Reset & Base Styles */
+    /* ========================= */
     * {
       margin: 0;
       padding: 0;
@@ -23,6 +24,7 @@
       align-items: center;
       transition: background-image 0.4s ease;
       position: relative;
+      overflow-x: hidden;
     }
 
     /* Skip Link for Accessibility */
@@ -41,6 +43,10 @@
       top: 0;
     }
 
+    /* ========================= */
+    /* Background States */
+    /* ========================= */
+    
     /* Light ON: Beige background */
     body.light-on {
       background-color: #e0ddd5;
@@ -53,7 +59,9 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' width='56' height='28'%3E%3Cpath fill='%232b3845' fill-opacity='0.74' d='M56 26v2h-7.75c2.3-1.27 4.94-2 7.75-2zm-26 2a2 2 0 1 0-4 0h-4.09A25.98 25.98 0 0 0 0 16v-2c.67 0 1.34.02 2 .07V14a2 2 0 0 0-2-2v-2a4 4 0 0 1 3.98 3.6 28.09 28.09 0 0 1 2.8-3.86A8 8 0 0 0 0 6V4a9.99 9.99 0 0 1 8.17 4.23c.94-.95 1.96-1.83 3.03-2.63A13.98 13.98 0 0 0 0 0h7.75c2 1.1 3.73 2.63 5.1 4.45 1.12-.72 2.3-1.37 3.53-1.93A20.1 20.1 0 0 0 14.28 0h2.7c.45.56.88 1.14 1.29 1.74 1.3-.48 2.63-.87 4-1.15-.11-.2-.23-.4-.36-.59H26v.07a28.4 28.4 0 0 1 4 0V0h4.09l-.37.59c1.38.28 2.72.67 4.01 1.15.4-.6.84-1.18 1.3-1.74h2.69a20.1 20.1 0 0 0-2.1 2.52c1.23.56 2.41 1.2 3.54 1.93A16.08 16.08 0 0 1 48.25 0H56c-4.58 0-8.65 2.2-11.2 5.6 1.07.8 2.09 1.68 3.03 2.63A9.99 9.99 0 0 1 56 4v2a8 8 0 0 0-6.77 3.74c1.03 1.2 1.97 2.5 2.79 3.86A4 4 0 0 1 56 10v2a2 2 0 0 0-2 2.07 28.4 28.4 0 0 1 2-.07v2c-9.2 0-17.3 4.78-21.91 12H30zM7.75 28H0v-2c2.81 0 5.46.73 7.75 2zM56 20v2c-5.6 0-10.65 2.3-14.28 6h-2.7c4.04-4.89 10.15-8 16.98-8zm-39.03 8h-2.69C10.65 24.3 5.6 22 0 22v-2c6.83 0 12.94 3.11 16.97 8zm15.01-.4a28.09 28.09 0 0 1 2.8-3.86 8 8 0 0 0-13.55 0c1.03 1.2 1.97 2.5 2.79 3.86a4 4 0 0 1 7.96 0zm14.29-11.86c1.3-.48 2.63-.87 4-1.15a25.99 25.99 0 0 0-44.55 0c1.38.28 2.72.67 4.01 1.15a21.98 21.98 0 0 1 36.54 0zm-5.43 2.71c1.13-.72 2.3-1.37 3.54-1.93a19.98 19.98 0 0 0-32.76 0c1.23.56 2.41 1.2 3.54 1.93a15.98 15.98 0 0 1 25.68 0zm-4.67 3.78c.94-.95 1.96-1.83 3.03-2.63a13.98 13.98 0 0 0-22.4 0c1.07.8 2.09 1.68 3.03 2.63a9.99 9.99 0 0 1 16.34 0z'%3E%3C/path%3E%3C/svg%3E");
     }
 
+    /* ========================= */
     /* Progress Bar */
+    /* ========================= */
     .progress-container {
       position: fixed;
       top: 20px;
@@ -68,6 +76,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      transition: all 0.3s ease;
     }
 
     .progress-bar {
@@ -85,7 +94,9 @@
       border-radius: 3px;
     }
 
+    /* ========================= */
     /* Main Container */
+    /* ========================= */
     .wrapper {
       width: 100%;
       max-width: 1200px;
@@ -106,7 +117,11 @@
       border-radius: 8px;
     }
 
-    /* Interactive Elements Highlight */
+    /* ========================= */
+    /* Interactive Elements */
+    /* ========================= */
+    
+    /* Highlight Hints (Desktop only) */
     .highlight-hint {
       position: absolute;
       border: 2px solid #ff4d4d;
@@ -131,26 +146,7 @@
       }
     }
 
-    /* Popup Styles */
-    .popup {
-      position: absolute;
-      display: none;
-      z-index: 1009;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Overlay */
+    /* Overlay for light-off state */
     #overlay {
       position: absolute;
       top: 0;
@@ -160,9 +156,10 @@
       background: rgba(20, 15, 40, 0.9);
       z-index: 1005;
       display: none;
+      border-radius: 8px;
     }
 
-    /* Switch */
+    /* Light Switch */
     #switchImg {
       position: absolute;
       width: 40px;
@@ -170,7 +167,6 @@
       cursor: pointer;
       z-index: 1007;
       transition: transform 0.2s;
-      /* Fixed position relative to image container */
       right: 8%;
       top: 48%;
       transform: translate(50%, -50%);
@@ -180,7 +176,7 @@
       transform: translate(50%, -50%) scale(1.1);
     }
 
-    /* Click Text */
+    /* Click Text Hint */
     #clickText {
       position: absolute;
       color: white;
@@ -200,24 +196,88 @@
       50% { opacity: 0.5; }
     }
 
-    /* Chicken Animation */
+    /* Instruction Text */
+    #anleitungText {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+      z-index: 1006;
+      pointer-events: none;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      line-height: 1.6;
+      display: none;
+    }
+
+    /* ========================= */
+    /* Easter Egg Elements */
+    /* ========================= */
+    
+    /* Chicken - Responsive positioning */
+    #chickenGif {
+      position: absolute;
+      width: 180px;
+      height: auto;
+      bottom: 2%;
+      left: 65%;
+      display: none;
+      z-index: 1004;
+      pointer-events: none;
+      transform-origin: center bottom;
+    }
+
+    /* Walking animation */
     @keyframes walkThenFade {
-      from {
-        transform: translateX(0);
+      0% {
+        transform: translateX(100px);
         opacity: 0;
       }
       10% {
+        transform: translateX(50px);
         opacity: 1;
       }
       60% {
+        transform: translateX(-200px);
         opacity: 1;
       }
-      to {
-        transform: translateX(-600px);
+      100% {
+        transform: translateX(-400px);
         opacity: 0;
       }
     }
 
+    /* Red Egg - Responsive positioning */
+    #redEgg {
+      position: absolute;
+      bottom: 4.2%;
+      left: 55.1%;
+      width: 4.9%;
+      min-width: 40px;
+      max-width: 60px;
+      height: auto;
+      display: none;
+      z-index: 1003;
+      cursor: pointer;
+      transition: transform 0.2s;
+      transform-origin: center bottom;
+    }
+    
+    #redEgg:hover {
+      transform: scale(1.1);
+    }
+    
+    #redEgg:focus {
+      outline: 2px solid #ff4d4d;
+      outline-offset: 2px;
+    }
+
+    /* Bounce animation for egg */
     @keyframes bounce {
       0% {
         transform: translateY(-20px) scale(0.8);
@@ -232,176 +292,93 @@
       }
     }
 
-    #chickenGif {
+    /* ========================= */
+    /* Popup Styles */
+    /* ========================= */
+    .popup {
       position: absolute;
-      width: 180px;
-      height: auto;
-      bottom: 10px;
-      left: 900px;
       display: none;
-      z-index: 1004;
-      pointer-events: none;
+      z-index: 1009;
+      animation: fadeIn 0.3s ease;
     }
 
-    #redEgg {
-      position: absolute;
-      bottom: 4.2%;
-      left: 55.1%;
-      width: 4.9%;
-      height: auto;
-      display: none;
-      z-index: 1003;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    
-    #redEgg:hover {
-      transform: scale(1.1);
-    }
-    
-    #redEgg:focus {
-      outline: none;
-    }
-
-    /* Tutorial Modal */
-    .tutorial-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    .tutorial-content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 500px;
-      text-align: center;
-      animation: slideIn 0.3s ease;
-    }
-
-    @keyframes slideIn {
+    @keyframes fadeIn {
       from {
-        transform: translateY(-50px);
         opacity: 0;
+        transform: translateY(-10px);
       }
       to {
-        transform: translateY(0);
         opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    .tutorial-content h2 {
-      color: #333;
-      margin-bottom: 20px;
+    .popup-content {
+      background: #e6f2ff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+      font-size: 15px;
+      line-height: 1.5;
+      color: #003366;
+      position: relative;
+      max-width: 480px;
+      min-width: 280px;
     }
 
-    .tutorial-content p {
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .tutorial-button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 6px;
-      font-size: 16px;
+    .popup-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
       cursor: pointer;
-      transition: background 0.3s;
+      font-weight: bold;
+      font-size: 18px;
+      color: #666;
+      background: none;
+      border: none;
+      padding: 4px 8px;
+      transition: color 0.2s;
     }
 
-    .tutorial-button:hover {
-      background: #45a049;
+    .popup-close:hover {
+      color: #333;
     }
 
-    /* Mobile Responsive - Simplified */
-    @media (max-width: 768px) {
-      .wrapper {
-        padding: 10px;
-      }
-
-      .progress-container {
-        font-size: 12px;
-        padding: 8px 15px;
-        top: 10px;
-      }
-
-      .progress-bar {
-        width: 100px;
-      }
-
-      #anleitungText {
-        font-size: 14px !important;
-        width: 90% !important;
-        top: 40px !important;
-      }
-
-      .popup > div {
-        max-width: 90vw !important;
-        min-width: 280px !important;
-        font-size: 14px !important;
-      }
-
-      .tutorial-content {
-        margin: 20px;
-        padding: 20px;
-      }
-
-      area {
-        cursor: pointer;
-      }
-      
-      /* Simplify on mobile - no percentage scaling */
-      #chickenGif {
-        display: none !important; /* Hide chicken animation on mobile */
-      }
-      
-      #redEgg {
-        width: 40px !important;
-        left: auto !important;
-        right: 50px !important;
-        bottom: 20px !important;
-      }
-      
-      /* Adjust switch for mobile */
-      #switchImg {
-        width: 30px;
-      }
-      
-      /* Fix popup position on mobile - center it */
-      .popup {
-        position: fixed !important;
-        left: 50% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        max-width: 90vw;
-        z-index: 1020 !important;
-      }
-      
-      /* Hide visited indicators on mobile - too cluttered */
-      .visited-indicator {
-        display: none !important;
-      }
+    .popup-title {
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 16px;
     }
 
-    /* Accessibility: Focus styles - removed per request */
-    /* 
-    *:focus-visible {
-      outline: 3px solid #ff9800;
-      outline-offset: 2px;
+    .popup-text {
+      white-space: pre-line;
+      margin-bottom: 12px;
     }
-    */
 
-    /* Visited indicator */
+    .popup-links {
+      display: none;
+    }
+
+    .popup-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      color: #b30000;
+      text-decoration: none;
+      margin-top: 6px;
+      transition: color 0.2s;
+    }
+
+    .popup-link:hover {
+      color: #800000;
+      text-decoration: underline;
+    }
+
+    /* ========================= */
+    /* Visited Indicators */
+    /* ========================= */
     .visited-indicator {
       position: absolute;
       width: 24px;
@@ -414,6 +391,18 @@
       z-index: 1002;
       transform: translate(-50%, -50%);
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      animation: visitedAppear 0.3s ease;
+    }
+
+    @keyframes visitedAppear {
+      from {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
     }
 
     .visited-indicator::after {
@@ -426,6 +415,205 @@
       font-size: 14px;
       font-weight: bold;
     }
+
+    /* ========================= */
+    /* Touch & Interaction Improvements */
+    /* ========================= */
+    area {
+      touch-action: manipulation;
+      cursor: pointer;
+    }
+
+    /* ========================= */
+    /* Mobile Responsive Styles */
+    /* ========================= */
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 10px;
+      }
+
+      /* Progress Bar Mobile */
+      .progress-container {
+        font-size: 11px;
+        padding: 6px 12px;
+        top: 10px;
+        gap: 8px;
+      }
+
+      .progress-bar {
+        width: 80px;
+        height: 5px;
+      }
+
+      /* Instruction Text Mobile */
+      #anleitungText {
+        font-size: 14px;
+        width: 90%;
+        top: 40px;
+      }
+
+      #anleitungText > span:first-child {
+        font-size: 16px;
+      }
+
+      #anleitungText > span:last-child {
+        font-size: 12px;
+      }
+
+      /* Popup Mobile */
+      .popup-content {
+        max-width: 90vw;
+        min-width: 260px;
+        font-size: 13px;
+        padding: 12px;
+      }
+
+      .popup-title {
+        font-size: 14px;
+      }
+
+      /* Visited indicators Mobile */
+      .visited-indicator {
+        width: 18px;
+        height: 18px;
+      }
+      
+      .visited-indicator::after {
+        font-size: 11px;
+      }
+      
+      /* Hide desktop-only hints */
+      .highlight-hint {
+        display: none !important;
+      }
+      
+      /* Light switch Mobile */
+      #switchImg {
+        width: 30px;
+        right: 5%;
+        top: 50%;
+      }
+      
+      /* Chicken Mobile - Better positioning */
+      #chickenGif {
+        width: 120px;
+        left: 50%;
+        bottom: 5px;
+      }
+      
+      /* Red Egg Mobile */
+      #redEgg {
+        width: 35px;
+        min-width: 35px;
+        max-width: 35px;
+        left: 52%;
+        bottom: 3%;
+      }
+
+      /* Adjusted walking animation for mobile */
+      @keyframes walkThenFade {
+        0% {
+          transform: translateX(80px);
+          opacity: 0;
+        }
+        10% {
+          transform: translateX(40px);
+          opacity: 1;
+        }
+        60% {
+          transform: translateX(-100px);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-200px);
+          opacity: 0;
+        }
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .progress-container {
+        font-size: 10px;
+        padding: 5px 10px;
+        top: 8px;
+        gap: 6px;
+      }
+      
+      .progress-bar {
+        width: 60px;
+        height: 4px;
+      }
+      
+      #anleitungText {
+        font-size: 12px;
+        top: 35px;
+        width: 95%;
+      }
+      
+      .popup-content {
+        font-size: 12px;
+        padding: 10px;
+        min-width: 240px;
+      }
+
+      .popup-title {
+        font-size: 13px;
+      }
+      
+      #switchImg {
+        width: 25px;
+      }
+      
+      #chickenGif {
+        width: 100px;
+      }
+      
+      #redEgg {
+        width: 30px;
+        min-width: 30px;
+      }
+
+      .visited-indicator {
+        width: 16px;
+        height: 16px;
+      }
+
+      .visited-indicator::after {
+        font-size: 10px;
+      }
+    }
+
+    /* ========================= */
+    /* Accessibility Improvements */
+    /* ========================= */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Focus styles for keyboard navigation */
+    area:focus,
+    #switchImg:focus,
+    #redEgg:focus,
+    .popup-close:focus {
+      outline: 2px solid #ff4d4d;
+      outline-offset: 2px;
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      .progress-container {
+        border: 2px solid black;
+      }
+      
+      .popup-content {
+        border: 2px solid black;
+      }
+    }
   </style>
 </head>
 <body class="light-on">
@@ -433,9 +621,9 @@
   <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
 
   <!-- Progress Bar -->
-  <div class="progress-container" role="status" aria-live="polite">
-    <span id="progressText">0 von 6 Stationen entdeckt</span>
-    <div class="progress-bar">
+  <div class="progress-container" role="status" aria-live="polite" aria-label="Fortschrittsanzeige">
+    <span id="progressText">0 von 6 Stationen</span>
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
       <div class="progress-fill" id="progressFill" style="width: 0%"></div>
     </div>
   </div>
@@ -452,22 +640,7 @@
       <div id="overlay"></div>
 
       <!-- Instruction Text (shown when light is off) -->
-      <div id="anleitungText" style="
-        position: absolute;
-        top: 60px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: white;
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-        width: 80%;
-        z-index: 1006;
-        pointer-events: none;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-        line-height: 1.6;
-        display: none;
-      " role="alert">
+      <div id="anleitungText" role="alert">
         <span style="font-size: 20px;">🔍 Neugierig?</span><br>
         Dieses digitale Atelier lädt Sie zu einem Rundgang ein.<br><br>
         Folgen Sie den <span style="color: #ff4d4d;">roten</span> Gegenständen<br>
@@ -477,7 +650,7 @@
           <b>Tipp:</b><br>
           ⚡ Auf den tippenden Text klicken für Schnellansicht<br>
           ❌ Popup schliessen: Klick daneben oder aufs Kreuz<br>
-          💡 <b>Zum Starten Licht einschalten</b> – sonst bleibt's dunkel
+          💡 <b>Zum Starten Licht einschalten</b> sonst bleibt's dunkel
         </span>
       </div>
 
@@ -489,9 +662,11 @@
            role="button"
            aria-pressed="false"
            aria-label="Licht ein/ausschalten">
+      
+      <!-- Click hint text -->
       <div id="clickText">Click!</div>
 
-      <!-- Visual hints for interactive areas -->
+      <!-- Visual hints for interactive areas (desktop only) -->
       <div class="highlight-hint" id="hint1"></div>
       <div class="highlight-hint" id="hint2"></div>
       <div class="highlight-hint" id="hint3"></div>
@@ -500,23 +675,23 @@
       <div class="highlight-hint" id="hint6"></div>
 
       <!-- Visited indicators -->
-      <div class="visited-indicator" id="visited1"></div>
-      <div class="visited-indicator" id="visited2"></div>
-      <div class="visited-indicator" id="visited3"></div>
-      <div class="visited-indicator" id="visited4"></div>
-      <div class="visited-indicator" id="visited5"></div>
-      <div class="visited-indicator" id="visited6"></div>
+      <div class="visited-indicator" id="visited1" aria-hidden="true"></div>
+      <div class="visited-indicator" id="visited2" aria-hidden="true"></div>
+      <div class="visited-indicator" id="visited3" aria-hidden="true"></div>
+      <div class="visited-indicator" id="visited4" aria-hidden="true"></div>
+      <div class="visited-indicator" id="visited5" aria-hidden="true"></div>
+      <div class="visited-indicator" id="visited6" aria-hidden="true"></div>
 
-      <!-- Chicken Easter Egg -->
-      <img id="chickenGif" src="chicken_yellow.png" alt="Huhn">
+      <!-- Easter Egg Elements -->
+      <img id="chickenGif" src="chicken_yellow.png" alt="Huhn" aria-hidden="true">
       <img id="redEgg" 
            src="red_egg.png" 
            alt="Rotes Ei - Easter Egg" 
            tabindex="0"
            role="button"
-           aria-label="Easter Egg - Klicken für Überraschung">
+           aria-label="Easter Egg klicken für Überraschung">
 
-      <!-- Image Map with improved accessibility -->
+      <!-- Image Map -->
       <map name="image-map">
         <area alt="Akademische Kappe - Bildungshintergrund" 
               title="Bildungshintergrund anzeigen" 
@@ -582,33 +757,13 @@
       </map>
 
       <!-- Popup Container -->
-      <div id="popup" class="popup" role="dialog" aria-label="Informationsfenster"></div>
-    </div>
-  </div>
-
-  <!-- Tutorial Modal -->
-  <div class="tutorial-modal" id="tutorialModal">
-    <div class="tutorial-content">
-      <h2>Willkommen im digitalen Atelier! 🎨</h2>
-      <p>
-        <strong>So funktioniert's:</strong><br><br>
-        🔍 Erkunden Sie das interaktive Büro<br>
-        🖱️ Klicken Sie auf die <span style="color: #ff4d4d;">roten Gegenstände</span><br>
-        📊 Verfolgen Sie Ihren Fortschritt oben<br>
-        🥚 Finden Sie alle 6 Stationen für eine Überraschung!<br><br>
-        <strong>Interaktive Elemente:</strong><br>
-        💡 Lichtschalter rechts im Bild<br>
-        🎓 📕 🎨 💻 🪴 💼 Die 6 Stationen<br><br>
-        <em>Tipp: Mit Tab durch die Bereiche navigieren</em>
-      </p>
-      <button class="tutorial-button" onclick="closeTutorial()">Los geht's!</button>
+      <div id="popup" class="popup" role="dialog" aria-label="Informationsfenster" aria-modal="true"></div>
     </div>
   </div>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
   <script>
-    // Portfolio Application Class
     class PortfolioApp {
       constructor() {
         this.popups = {
@@ -644,16 +799,23 @@
           },
           egg: {
             title: "🥚 Sie haben das Easter Egg entdeckt!",
-            text: "Das bedeutet: Sie haben alle Stationen erkundet – vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
+            text: "Das bedeutet: Sie haben alle Stationen erkundet vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
           }
         };
 
         this.lightOn = false;
-        this.currentTyping = { interval: null, element: null, fullText: "", index: 0, running: false };
+        this.currentTyping = { 
+          interval: null, 
+          element: null, 
+          fullText: "", 
+          index: 0, 
+          running: false 
+        };
         this.clickedAreas = new Set();
         this.chickenTriggered = false;
         this.allStationsVisited = false;
-        this.firstVisit = !localStorage.getItem('portfolio_visited');
+        this.isMobile = window.innerWidth <= 768;
+        this.isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         
         this.init();
       }
@@ -662,11 +824,7 @@
         this.setupEventListeners();
         this.preloadImages();
         this.initializeUI();
-        
-        // Show tutorial on first visit
-        if (this.firstVisit) {
-          setTimeout(() => this.showTutorial(), 500);
-        }
+        this.setupAccessibility();
       }
 
       preloadImages() {
@@ -677,10 +835,64 @@
         });
       }
 
+      setupAccessibility() {
+        const progressContainer = document.querySelector('.progress-container');
+        progressContainer.setAttribute('aria-live', 'polite');
+        
+        if (!this.isTouch) {
+          const areas = document.querySelectorAll('area');
+          areas.forEach(area => {
+            area.addEventListener('focus', () => {
+              const key = area.getAttribute('data-key');
+              if (key) {
+                this.showHintForArea(key);
+              }
+            });
+            area.addEventListener('blur', () => {
+              this.hideAllHints();
+            });
+          });
+        }
+      }
+
+      showHintForArea(key) {
+        const hintMap = {
+          'academic': 'hint1',
+          'book': 'hint2',
+          'drawing': 'hint3',
+          'laptop': 'hint4',
+          'plant': 'hint5',
+          'bag': 'hint6'
+        };
+        
+        const hintId = hintMap[key];
+        if (hintId && !this.isMobile) {
+          const hint = document.getElementById(hintId);
+          if (hint) {
+            hint.style.display = 'block';
+          }
+        }
+      }
+
+      hideAllHints() {
+        if (!this.isMobile) {
+          document.querySelectorAll('.highlight-hint').forEach(hint => {
+            hint.style.display = 'none';
+          });
+        }
+      }
+
       setupEventListeners() {
-        // Area click handlers
         document.querySelectorAll('area').forEach(area => {
           area.addEventListener('click', (e) => this.handleAreaClick(e));
+          
+          if (this.isTouch) {
+            area.addEventListener('touchend', (e) => {
+              e.preventDefault();
+              this.handleAreaClick(e);
+            });
+          }
+          
           area.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
@@ -689,9 +901,16 @@
           });
         });
 
-        // Switch handlers
         const switchImg = document.getElementById('switchImg');
         switchImg.addEventListener('click', (e) => this.toggleLight(e));
+        
+        if (this.isTouch) {
+          switchImg.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.toggleLight(e);
+          });
+        }
+        
         switchImg.addEventListener('keypress', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -699,12 +918,20 @@
           }
         });
 
-        // Red egg handler
         const redEgg = document.getElementById('redEgg');
         redEgg.addEventListener('click', (e) => {
           e.stopPropagation();
           this.showPopup(e, 'egg');
         });
+        
+        if (this.isTouch) {
+          redEgg.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.showPopup(e, 'egg');
+          });
+        }
+        
         redEgg.addEventListener('keypress', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -713,11 +940,35 @@
           }
         });
 
-        // Global click handler for closing popups
         document.addEventListener('click', (e) => this.handleGlobalClick(e));
+        
+        if (this.isTouch) {
+          document.addEventListener('touchend', (e) => {
+            if (!e.target.closest('#popup') && !e.target.closest('area') && !e.target.id === 'redEgg') {
+              this.closePopup();
+            }
+          });
+        }
 
-        // Window resize handler
-        window.addEventListener('resize', () => this.handleResize());
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            const wasMobile = this.isMobile;
+            this.isMobile = window.innerWidth <= 768;
+            if (wasMobile !== this.isMobile) {
+              this.handleResize();
+            } else {
+              this.handleResize();
+            }
+          }, 250);
+        });
+
+        window.addEventListener('orientationchange', () => {
+          setTimeout(() => {
+            this.handleResize();
+          }, 300);
+        });
       }
 
       handleAreaClick(e) {
@@ -732,44 +983,38 @@
       showPopup(e, key) {
         if (!this.popups[key]) return;
         
-        this.clickedAreas.add(key);
-        this.updateProgress();
-        this.markAsVisited(key);
+        if (key !== 'egg') {
+          this.clickedAreas.add(key);
+          this.updateProgress();
+          this.markAsVisited(key);
+        }
         
         const data = this.popups[key];
         const popup = document.getElementById('popup');
         const container = document.querySelector('.image-container');
         const containerRect = container.getBoundingClientRect();
 
-        let html = `<div style='background: #e6f2ff; border-radius: 12px; padding: 16px;`;
-        if (key === 'plant' || key === 'laptop') {
-          html += ' min-width: 480px;';
-        } else {
-          html += ' max-width: 320px;';
-        }
-        html += `
-          box-shadow: 2px 4px 12px rgba(0,0,0,0.2); font-size: 15px; line-height: 1.5;
-          color: #003366; position: relative;'>
-          <button id="popupClose"
-                  style="position: absolute; top: 8px; right: 10px; cursor: pointer; 
-                         font-weight: bold; font-size: 18px; color: #666; 
-                         background: none; border: none; display:none;"
+        let html = `<div class="popup-content">
+          <button class="popup-close" 
+                  id="popupClose"
                   onclick="app.closePopup()" 
-                  aria-label="Popup schließen">
+                  aria-label="Popup schliessen"
+                  style="display: none;">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <div style='font-weight: bold; margin-bottom: 6px;'>${data.title}</div>
-          <div id="popupText" style="white-space: pre-line; margin-bottom: 12px;"></div>`;
+          <div class="popup-title">${data.title}</div>
+          <div class="popup-text" id="popupText"></div>`;
 
         if (data.links && Array.isArray(data.links)) {
-          html += `<div id="popupBtn" style="display:none;">`;
+          html += `<div class="popup-links" id="popupBtn">`;
           data.links.forEach(link => {
             html += `<div style="margin-top: 6px;">
-                      <a href='${link.href}' target='_blank'
-                         style='display: inline-flex; align-items: center; gap: 8px;
-                                font-size: 15px; font-weight: bold; color: #b30000;
-                                text-decoration: none;'>
-                        <i class='fa-solid fa-file-arrow-down'></i> ${link.label}
+                      <a href='${link.href}' 
+                         target='_blank'
+                         rel="noopener noreferrer"
+                         class="popup-link">
+                        <i class='fa-solid fa-file-arrow-down'></i> 
+                        ${link.label}
                       </a>
                     </div>`;
           });
@@ -780,22 +1025,8 @@
         popup.innerHTML = html;
         popup.style.display = "block";
 
-        // Position popup
-        const pageX = e.pageX || e.target.getBoundingClientRect().left;
-        const pageY = e.pageY || e.target.getBoundingClientRect().top;
-        let left = pageX - containerRect.left - 30;
-        let top = pageY - containerRect.top - 100;
+        this.positionPopup(popup, e, containerRect);
 
-        if (left + popup.offsetWidth > container.clientWidth) {
-          left = container.clientWidth - popup.offsetWidth - 10;
-        }
-        if (left < 0) left = 10;
-        if (top < 0) top = pageY - containerRect.top + 20;
-
-        popup.style.left = left + "px";
-        popup.style.top = top + "px";
-
-        // Start typing animation
         setTimeout(() => {
           const textEl = document.getElementById('popupText');
           this.typeText(textEl, data.text, () => {
@@ -805,10 +1036,58 @@
             if (closeBtn) closeBtn.style.display = 'block';
           });
         }, 100);
+
+        popup.setAttribute('tabindex', '-1');
+        popup.focus();
       }
 
-      typeText(element, text, callback, delay = 40) {
+      positionPopup(popup, e, containerRect) {
+        let left, top;
+        const popupWidth = popup.offsetWidth || 320;
+        const popupHeight = popup.offsetHeight || 200;
+
+        if (this.isMobile) {
+          left = (containerRect.width - popupWidth) / 2;
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const viewportHeight = window.innerHeight;
+          
+          top = scrollTop + (viewportHeight / 3) - containerRect.top;
+          
+          if (top < 10) top = 10;
+          if (top + popupHeight > containerRect.height - 10) {
+            top = containerRect.height - popupHeight - 10;
+          }
+          if (left < 10) left = 10;
+          if (left + popupWidth > containerRect.width - 10) {
+            left = containerRect.width - popupWidth - 10;
+          }
+        } else {
+          const pageX = e.pageX || (e.target.getBoundingClientRect().left + window.scrollX);
+          const pageY = e.pageY || (e.target.getBoundingClientRect().top + window.scrollY);
+
+          left = pageX - containerRect.left - 30;
+          top = pageY - containerRect.top - 100;
+
+          if (left + popupWidth > containerRect.width) {
+            left = containerRect.width - popupWidth - 20;
+          }
+          if (left < 20) left = 20;
+          if (top < 20) top = 20;
+          if (top + popupHeight > containerRect.height) {
+            top = pageY - containerRect.top - popupHeight - 20;
+          }
+        }
+
+        popup.style.left = left + "px";
+        popup.style.top = top + "px";
+      }
+
+      typeText(element, text, callback, delay = 35) {
         if (!element) return;
+        
+        if (this.currentTyping.interval) {
+          clearInterval(this.currentTyping.interval);
+        }
         
         this.currentTyping.element = element;
         this.currentTyping.fullText = text;
@@ -816,18 +1095,19 @@
         this.currentTyping.running = true;
         element.innerHTML = "";
         
-        clearInterval(this.currentTyping.interval);
+        const typingDelay = this.isMobile ? 25 : delay;
         
         this.currentTyping.interval = setInterval(() => {
-          element.innerHTML += text.charAt(this.currentTyping.index);
-          this.currentTyping.index++;
-          
-          if (this.currentTyping.index >= text.length) {
+          if (this.currentTyping.index < text.length) {
+            element.innerHTML += text.charAt(this.currentTyping.index);
+            this.currentTyping.index++;
+          } else {
             clearInterval(this.currentTyping.interval);
             this.currentTyping.running = false;
+            element.innerHTML = text;
             if (typeof callback === 'function') callback();
           }
-        }, delay);
+        }, typingDelay);
       }
 
       toggleLight(event) {
@@ -847,6 +1127,7 @@
           clickText.style.display = 'block';
           anleitungText.style.display = 'none';
           switchImg.setAttribute('aria-pressed', 'true');
+          this.announceToScreenReader('Licht eingeschaltet');
         } else {
           overlay.style.display = 'block';
           body.classList.remove('light-on');
@@ -854,7 +1135,22 @@
           clickText.style.display = 'none';
           anleitungText.style.display = 'block';
           switchImg.setAttribute('aria-pressed', 'false');
+          this.announceToScreenReader('Licht ausgeschaltet');
         }
+      }
+
+      announceToScreenReader(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.style.position = 'absolute';
+        announcement.style.left = '-10000px';
+        announcement.textContent = message;
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+          document.body.removeChild(announcement);
+        }, 1000);
       }
 
       updateProgress() {
@@ -864,204 +1160,154 @@
         
         const progressText = document.getElementById('progressText');
         const progressFill = document.getElementById('progressFill');
+        const progressBar = document.querySelector('.progress-bar');
         
-        // Only update text if chicken hasn't been triggered yet
         if (!this.chickenTriggered) {
-          progressText.textContent = `${visitedCount} von ${totalCount} Stationen entdeckt`;
-          progressText.style.color = ''; // Reset to default color
+          progressText.textContent = `${visitedCount} von ${totalCount} Stationen`;
+          progressText.style.color = '';
         }
         
-        progressFill.style.width = `${(visitedCount / totalCount) * 100}%`;
+        const percentage = (visitedCount / totalCount) * 100;
+        progressFill.style.width = `${percentage}%`;
+        progressBar.setAttribute('aria-valuenow', percentage);
 
-        // Mark that all stations have been visited (but don't trigger chicken yet)
         if (!this.allStationsVisited && visitedCount >= totalCount) {
           this.allStationsVisited = true;
+          this.announceToScreenReader('Glückwunsch! Alle Stationen besucht!');
         }
       }
 
       markAsVisited(key) {
         const areaIndex = ['academic', 'book', 'drawing', 'laptop', 'plant', 'bag'].indexOf(key);
-        if (areaIndex !== -1) {
-          const indicator = document.getElementById(`visited${areaIndex + 1}`);
-          if (indicator) {
-            // Check if mobile
-            const isMobile = window.innerWidth <= 768;
-            
-            if (isMobile) {
-              // Precise percentage-based positioning for mobile
-              const mobilePositions = {
-                'academic': { x: 24.4, y: 44.2 },  // Cap position (390/1600, 442/1000)
-                'book': { x: 24.4, y: 52.8 },      // Book below cap (390/1600, 528/1000)
-                'drawing': { x: 60.0, y: 26.9 },   // Drawing on wall (960/1600, 269/1000)
-                'laptop': { x: 45.0, y: 45.5 },    // Laptop center (720/1600, 455/1000)
-                'plant': { x: 82.0, y: 66.8 },     // Plant right side (1312/1600, 668/1000)
-                'bag': { x: 60.6, y: 76.0 }        // Bag bottom (970/1600, 760/1000)
-              };
-              
-              const pos = mobilePositions[key];
-              if (pos) {
-                indicator.style.left = `${pos.x}%`;
-                indicator.style.top = `${pos.y}%`;
-                indicator.style.transform = 'translate(-50%, -50%)';
-              }
-            } else {
-              // Desktop positioning with exact pixels
-              let centerX, centerY;
-              
-              switch(key) {
-                case 'academic': // Cap
-                  centerX = 390;
-                  centerY = 442;
-                  break;
-                case 'book': // Book
-                  centerX = 390;
-                  centerY = 528;
-                  break;
-                case 'drawing': // Drawing on wall
-                  centerX = 960;
-                  centerY = 269;
-                  break;
-                case 'laptop': // Laptop
-                  centerX = 720;
-                  centerY = 455;
-                  break;
-                case 'plant': // Plant
-                  centerX = 1312;
-                  centerY = 668;
-                  break;
-                case 'bag': // Bag
-                  centerX = 970;
-                  centerY = 760;
-                  break;
-                default:
-                  return;
-              }
-              
-              this.positionElement(indicator.id, centerX, centerY);
-            }
-            
-            indicator.style.display = 'block';
-          }
-        }
+        if (areaIndex === -1) return;
+        
+        const indicator = document.getElementById(`visited${areaIndex + 1}`);
+        if (!indicator) return;
+
+        const positions = {
+          academic: { x: 390, y: 442 },  // Kappe
+          book:     { x: 390, y: 528 },  // Buch
+          drawing:  { x: 960, y: 269 },  // Zeichnung
+          laptop:   { x: 720, y: 455 },  // Laptop
+          plant:    { x: 1312, y: 668 }, // Pflanze
+          bag:      { x: 970, y: 760 }   // Tasche
+        };
+
+        const pos = positions[key];
+        if (!pos) return;
+
+        this.positionElement(indicator.id, pos.x, pos.y);
+        indicator.style.display = 'block';
       }
 
       triggerChicken() {
+        if (this.chickenTriggered) return;
+        
         const chicken = document.getElementById('chickenGif');
         const egg = document.getElementById('redEgg');
         
-        // Optional: Show a congratulations message
         const progressText = document.getElementById('progressText');
-        progressText.innerHTML = '🎉 Alle Stationen entdeckt! 🎉';
+        progressText.innerHTML = '🎉 Alle entdeckt! 🎉';
         progressText.style.color = '#4CAF50';
         
         chicken.style.display = 'block';
-        chicken.style.animation = 'walkThenFade 5s ease-in-out forwards';
+        
+        if (this.isMobile) {
+          chicken.style.animation = 'walkThenFade 4s ease-in-out forwards';
+        } else {
+          chicken.style.animation = 'walkThenFade 5s ease-in-out forwards';
+        }
+        
         this.chickenTriggered = true;
         
         setTimeout(() => {
           egg.style.display = 'block';
-          // Add a small bounce animation to the egg
           egg.style.animation = 'bounce 0.5s ease-out';
-        }, 2500);
-      }
-
-      showTutorial() {
-        document.getElementById('tutorialModal').style.display = 'flex';
-        localStorage.setItem('portfolio_visited', 'true');
-      }
-
-      closeTutorial() {
-        document.getElementById('tutorialModal').style.display = 'none';
+          this.announceToScreenReader('Ein Easter Egg ist erschienen!');
+        }, this.isMobile ? 2000 : 2500);
+        
+        setTimeout(() => {
+          chicken.style.display = 'none';
+        }, this.isMobile ? 4500 : 5500);
       }
 
       closePopup() {
-        document.getElementById('popup').style.display = 'none';
+        const popup = document.getElementById('popup');
+        if (popup.style.display === 'none') return;
         
-        // Trigger chicken after closing popup if all stations visited
+        if (this.currentTyping.interval) {
+          clearInterval(this.currentTyping.interval);
+          this.currentTyping.running = false;
+        }
+        
+        popup.style.display = 'none';
+        
         if (this.allStationsVisited && !this.chickenTriggered) {
           setTimeout(() => {
             this.triggerChicken();
-          }, 800); // Slight delay for better UX
+          }, 500);
         }
       }
 
       handleGlobalClick(e) {
         const popup = document.getElementById('popup');
-        const isClickOutsidePopup = !e.target.closest('#popup') && !e.target.closest('area');
+        const isClickInsidePopup = e.target.closest('#popup');
+        const isClickOnArea = e.target.closest('area');
         const isClickOnRedEgg = e.target.id === 'redEgg';
 
-        // Complete typing on popup click
-        if (e.target.closest('#popup') && this.currentTyping.running) {
+        if (isClickInsidePopup && this.currentTyping.running) {
           clearInterval(this.currentTyping.interval);
-          this.currentTyping.element.innerHTML = this.currentTyping.fullText;
+          if (this.currentTyping.element && this.currentTyping.fullText) {
+            this.currentTyping.element.innerHTML = this.currentTyping.fullText;
+          }
           this.currentTyping.running = false;
+          
           const btn = document.getElementById('popupBtn');
           if (btn) btn.style.display = 'block';
+          
           const closeBtn = document.getElementById('popupClose');
           if (closeBtn) closeBtn.style.display = 'block';
+          
           e.stopPropagation();
+          return;
         }
 
-        // Close popup on outside click
-        if (isClickOutsidePopup && !isClickOnRedEgg) {
-          popup.style.display = 'none';
-          
-          // Trigger chicken after closing popup if all stations visited
-          if (this.allStationsVisited && !this.chickenTriggered) {
-            setTimeout(() => {
-              this.triggerChicken();
-            }, 800); // Slight delay for better UX
-          }
+        if (!isClickInsidePopup && !isClickOnArea && !isClickOnRedEgg) {
+          this.closePopup();
         }
       }
 
       positionElement(elemId, x, y) {
-        // Skip egg, chicken, and switch - they have fixed/percentage positions in CSS
-        if (elemId === 'redEgg' || elemId === 'chickenGif' || elemId === 'switchImg') {
-          return;
-        }
-        
         const img = document.getElementById('imageMap');
         const el = document.getElementById(elemId);
-        if (!img || !el) return;
+        if (!img || !el || !img.naturalWidth || !img.naturalHeight) return;
         
         const scaleX = img.clientWidth / img.naturalWidth;
         const scaleY = img.clientHeight / img.naturalHeight;
+        
         el.style.left = (x * scaleX) + 'px';
         el.style.top = (y * scaleY) + 'px';
-        
-        // Apply transform for centering to specific elements
-        if (elemId.includes('visited') || elemId === 'clickText') {
-          el.style.transform = 'translate(-50%, -50%)';
-        }
       }
 
       handleResize() {
-        // Only position clickText - switch is now CSS positioned
-        this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
+        this.positionElement('clickText', 720, 455);
         
-        // Don't reposition egg, chicken, or switch - they have fixed CSS positions
-        
-        // Reposition visited indicators with proper coordinates
         this.clickedAreas.forEach(key => {
           if (key !== 'egg') {
             this.markAsVisited(key);
           }
         });
+        
+        this.closePopup();
       }
 
       initializeUI() {
-        // Initialize image map resizer
         if (typeof imageMapResize === 'function') {
           imageMapResize();
         }
         
-        // Only position clickText - switch is now CSS positioned
-        this.positionElement('clickText', (609 + 822) / 2, (391 + 421) / 2);
-        
-        // Egg and chicken sizes are fixed in CSS now
+        this.positionElement('clickText', 720, 455);
 
-        // Set initial state
         const body = document.body;
         const overlay = document.getElementById('overlay');
         const clickText = document.getElementById('clickText');
@@ -1078,25 +1324,37 @@
           clickText.style.display = 'none';
           anleitungText.style.display = 'block';
         }
+        
+        this.updateProgress();
       }
     }
 
-    // Global functions for inline handlers
-    function closeTutorial() {
-      document.getElementById('tutorialModal').style.display = 'none';
+    let app;
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        app = new PortfolioApp();
+        window.app = app;
+      });
+    } else {
+      app = new PortfolioApp();
+      window.app = app;
     }
 
-    // Initialize app when DOM is ready
-    let app;
-    document.addEventListener('DOMContentLoaded', () => {
-      app = new PortfolioApp();
-    });
-
-    // Fallback for load event
     window.addEventListener('load', () => {
       if (!app) {
         app = new PortfolioApp();
+        window.app = app;
       }
+      
+      if (window.performance && window.performance.timing) {
+        const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+        console.log(`Page load time: ${loadTime}ms`);
+      }
+    });
+
+    window.addEventListener('error', (e) => {
+      console.error('Application error:', e.error);
     });
   </script>
 </body>
