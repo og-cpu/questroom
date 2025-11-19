@@ -485,6 +485,10 @@
       }
       
       /* Hide desktop-only elements */
+      #clickText {
+        display: none !important;
+      }
+      
       .highlight-hint {
         display: none !important;
       }
@@ -597,8 +601,9 @@
       }
     }
 
-    /* Focus styles for keyboard navigation – Schalter ausgenommen */
+    /* Focus styles for keyboard navigation */
     area:focus,
+    #switchImg:focus,
     #redEgg:focus,
     .popup-close:focus {
       outline: 2px solid #ff4d4d;
@@ -650,8 +655,8 @@
         <span style="font-size: 16px; font-weight: normal;">
           <b>Tipp:</b><br>
           ⚡ Auf den tippenden Text klicken für Schnellansicht<br>
-          ❌ Popup schliessen: Klick daneben oder aufs Kreuz<br>
-          💡 <b>Zum Starten Licht einschalten</b> sonst bleibt's dunkel
+          ❌ Popup schließen: Klick daneben oder aufs Kreuz<br>
+          💡 <b>Zum Starten Licht einschalten</b> - sonst bleibt's dunkel
         </span>
       </div>
 
@@ -722,7 +727,7 @@
               data-key="drawing">
         
         <area alt="Laptop - Willkommen" 
-              title="Begrüssung und Einführung" 
+              title="Begrüßung und Einführung" 
               href="#" 
               coords="613,392,826,518" 
               shape="rect" 
@@ -798,7 +803,7 @@
           },
           plant: {
             title: "🪴 Lernen und Wachsen",
-            text: "Lernen begeistert mich, deshalb lerne ich selbst ständig weiter, oft im Selbststudium. Gleichzeitig weiss ich aus eigener Erfahrung: Noch schöner ist es, wenn man diese Neugier weitergeben kann. Deswegen vertiefe ich mich aktuell in den EdX-Kurs in Learning and Development Design."
+            text: "Lernen begeistert mich, deshalb lerne ich selbst ständig weiter, oft im Selbststudium. Gleichzeitig weiß ich aus eigener Erfahrung: Noch schöner ist es, wenn man diese Neugier weitergeben kann. Deswegen vertiefe ich mich aktuell in den EdX-Kurs in Learning and Development Design."
           },
           bag: {
             title: "💼 Berufserfahrung",
@@ -809,7 +814,7 @@
           },
           egg: {
             title: "🥚 Sie haben das Easter Egg entdeckt!",
-            text: "Das bedeutet: Sie haben alle Stationen erkundet vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
+            text: "Das bedeutet: Sie haben alle Stationen erkundet - vielen Dank für Ihre Aufmerksamkeit und hoffentlich bis auf bald!"
           }
         };
 
@@ -921,4 +926,524 @@
 
         // Switch handlers with improved touch support
         const switchImg = document.getElementById('switchImg');
-        switchImg.addEventListener('click', (e) => this.togg
+        switchImg.addEventListener('click', (e) => this.toggleLight(e));
+        
+        if (this.isTouch) {
+          switchImg.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.toggleLight(e);
+          });
+        }
+        
+        switchImg.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.toggleLight(e);
+          }
+        });
+
+        // Red egg handler
+        const redEgg = document.getElementById('redEgg');
+        redEgg.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.showPopup(e, 'egg');
+        });
+        
+        if (this.isTouch) {
+          redEgg.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.showPopup(e, 'egg');
+          });
+        }
+        
+        redEgg.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.stopPropagation();
+            this.showPopup(e, 'egg');
+          }
+        });
+
+        // Global click handler for closing popups
+        document.addEventListener('click', (e) => this.handleGlobalClick(e));
+        
+        if (this.isTouch) {
+          document.addEventListener('touchend', (e) => {
+            if (!e.target.closest('#popup') && !e.target.closest('area') && !e.target.id === 'redEgg') {
+              this.closePopup();
+            }
+          });
+        }
+
+        // Window resize handler with debouncing
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            const wasMobile = this.isMobile;
+            this.isMobile = window.innerWidth <= 768;
+            
+            if (wasMobile !== this.isMobile) {
+              this.handleResize();
+            }
+          }, 250);
+        });
+
+        // Handle orientation change for mobile
+        window.addEventListener('orientationchange', () => {
+          setTimeout(() => {
+            this.handleResize();
+          }, 300);
+        });
+      }
+
+      handleAreaClick(e) {
+        e.preventDefault();
+        const key = e.target.getAttribute('data-key');
+        if (key && key !== 'switch') {
+          this.showPopup(e, key);
+          document.getElementById('clickText').style.display = 'none';
+        }
+      }
+
+      showPopup(e, key) {
+        if (!this.popups[key]) return;
+        
+        // Track visited areas
+        if (key !== 'egg') {
+          this.clickedAreas.add(key);
+          this.updateProgress();
+          this.markAsVisited(key);
+        }
+        
+        const data = this.popups[key];
+        const popup = document.getElementById('popup');
+        const container = document.querySelector('.image-container');
+        const containerRect = container.getBoundingClientRect();
+
+        // Build popup HTML with better structure
+        let html = `<div class="popup-content">
+          <button class="popup-close" 
+                  id="popupClose"
+                  onclick="app.closePopup()" 
+                  aria-label="Popup schließen"
+                  style="display: none;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="popup-title">${data.title}</div>
+          <div class="popup-text" id="popupText"></div>`;
+
+        if (data.links && Array.isArray(data.links)) {
+          html += `<div class="popup-links" id="popupBtn">`;
+          data.links.forEach(link => {
+            html += `<div style="margin-top: 6px;">
+                      <a href='${link.href}' 
+                         target='_blank'
+                         rel="noopener noreferrer"
+                         class="popup-link">
+                        <i class='fa-solid fa-file-arrow-down'></i> 
+                        ${link.label}
+                      </a>
+                    </div>`;
+          });
+          html += `</div>`;
+        }
+
+        html += `</div>`;
+        popup.innerHTML = html;
+        popup.style.display = "block";
+
+        // Position popup - responsive positioning
+        this.positionPopup(popup, e, containerRect);
+
+        // Start typing animation
+        setTimeout(() => {
+          const textEl = document.getElementById('popupText');
+          this.typeText(textEl, data.text, () => {
+            const btn = document.getElementById('popupBtn');
+            if (btn) btn.style.display = 'block';
+            const closeBtn = document.getElementById('popupClose');
+            if (closeBtn) closeBtn.style.display = 'block';
+          });
+        }, 100);
+
+        // Set focus for accessibility
+        popup.setAttribute('tabindex', '-1');
+        popup.focus();
+      }
+
+      positionPopup(popup, e, containerRect) {
+        let left, top;
+        const popupWidth = popup.offsetWidth || 320;
+        const popupHeight = popup.offsetHeight || 200;
+
+        if (this.isMobile) {
+          // Center popup on mobile
+          left = (containerRect.width - popupWidth) / 2;
+          
+          // Position vertically in viewport center
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const viewportHeight = window.innerHeight;
+          
+          top = scrollTop + (viewportHeight / 3) - containerRect.top;
+          
+          // Ensure popup stays within bounds
+          if (top < 10) top = 10;
+          if (top + popupHeight > containerRect.height - 10) {
+            top = containerRect.height - popupHeight - 10;
+          }
+          if (left < 10) left = 10;
+          if (left + popupWidth > containerRect.width - 10) {
+            left = containerRect.width - popupWidth - 10;
+          }
+        } else {
+          // Desktop positioning near cursor
+          const pageX = e.pageX || (e.target.getBoundingClientRect().left + window.scrollX);
+          const pageY = e.pageY || (e.target.getBoundingClientRect().top + window.scrollY);
+
+          left = pageX - containerRect.left - 30;
+          top = pageY - containerRect.top - 100;
+
+          // Boundary checks
+          if (left + popupWidth > containerRect.width) {
+            left = containerRect.width - popupWidth - 20;
+          }
+          if (left < 20) left = 20;
+          if (top < 20) top = 20;
+          if (top + popupHeight > containerRect.height) {
+            top = pageY - containerRect.top - popupHeight - 20;
+          }
+        }
+
+        popup.style.left = left + "px";
+        popup.style.top = top + "px";
+      }
+
+      typeText(element, text, callback, delay = 35) {
+        if (!element) return;
+        
+        // Clear any existing typing
+        if (this.currentTyping.interval) {
+          clearInterval(this.currentTyping.interval);
+        }
+        
+        this.currentTyping.element = element;
+        this.currentTyping.fullText = text;
+        this.currentTyping.index = 0;
+        this.currentTyping.running = true;
+        element.innerHTML = "";
+        
+        // Slightly faster on mobile for better UX
+        const typingDelay = this.isMobile ? 25 : delay;
+        
+        this.currentTyping.interval = setInterval(() => {
+          if (this.currentTyping.index < text.length) {
+            element.innerHTML += text.charAt(this.currentTyping.index);
+            this.currentTyping.index++;
+          } else {
+            clearInterval(this.currentTyping.interval);
+            this.currentTyping.running = false;
+            element.innerHTML = text; // Ensure complete text
+            if (typeof callback === 'function') callback();
+          }
+        }, typingDelay);
+      }
+
+      toggleLight(event) {
+        event?.preventDefault();
+        this.lightOn = !this.lightOn;
+        
+        const overlay = document.getElementById('overlay');
+        const body = document.body;
+        const clickText = document.getElementById('clickText');
+        const anleitungText = document.getElementById('anleitungText');
+        const switchImg = document.getElementById('switchImg');
+
+        if (this.lightOn) {
+          overlay.style.display = 'none';
+          body.classList.remove('light-off');
+          body.classList.add('light-on');
+          if (!this.isMobile) {
+            clickText.style.display = 'block';
+          }
+          anleitungText.style.display = 'none';
+          switchImg.setAttribute('aria-pressed', 'true');
+          
+          // Announce state change for screen readers
+          this.announceToScreenReader('Licht eingeschaltet');
+        } else {
+          overlay.style.display = 'block';
+          body.classList.remove('light-on');
+          body.classList.add('light-off');
+          clickText.style.display = 'none';
+          anleitungText.style.display = 'block';
+          switchImg.setAttribute('aria-pressed', 'false');
+          
+          this.announceToScreenReader('Licht ausgeschaltet');
+        }
+      }
+
+      announceToScreenReader(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.style.position = 'absolute';
+        announcement.style.left = '-10000px';
+        announcement.textContent = message;
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+          document.body.removeChild(announcement);
+        }, 1000);
+      }
+
+      updateProgress() {
+        const nonEggKeys = Object.keys(this.popups).filter(key => key !== 'egg');
+        const visitedCount = nonEggKeys.filter(key => this.clickedAreas.has(key)).length;
+        const totalCount = nonEggKeys.length;
+        
+        const progressText = document.getElementById('progressText');
+        const progressFill = document.getElementById('progressFill');
+        const progressBar = document.querySelector('.progress-bar');
+        
+        // Update text
+        if (!this.chickenTriggered) {
+          progressText.textContent = `${visitedCount} von ${totalCount} Stationen`;
+          progressText.style.color = '';
+        }
+        
+        // Update progress bar
+        const percentage = (visitedCount / totalCount) * 100;
+        progressFill.style.width = `${percentage}%`;
+        
+        // Update ARIA attributes
+        progressBar.setAttribute('aria-valuenow', percentage);
+
+        // Check if all stations visited
+        if (!this.allStationsVisited && visitedCount >= totalCount) {
+          this.allStationsVisited = true;
+          this.announceToScreenReader('Glückwunsch! Alle Stationen besucht!');
+        }
+      }
+
+      markAsVisited(key) {
+        const areaIndex = ['academic', 'book', 'drawing', 'laptop', 'plant', 'bag'].indexOf(key);
+        if (areaIndex === -1) return;
+        
+        const indicator = document.getElementById(`visited${areaIndex + 1}`);
+        if (!indicator) return;
+        
+        // Position mapping with responsive values
+        const positions = {
+          'academic': { x: 390, y: 442, mobileX: 26, mobileY: 57 },
+          'book': { x: 390, y: 528, mobileX: 26, mobileY: 68 },
+          'drawing': { x: 960, y: 269, mobileX: 64, mobileY: 35 },
+          'laptop': { x: 720, y: 455, mobileX: 48, mobileY: 59 },
+          'plant': { x: 1312, y: 668, mobileX: 87, mobileY: 86 },
+          'bag': { x: 970, y: 760, mobileX: 65, mobileY: 98 }
+        };
+        
+        const pos = positions[key];
+        if (!pos) return;
+        
+        if (this.isMobile) {
+          // Use percentage-based positioning for mobile
+          indicator.style.left = `${pos.mobileX}%`;
+          indicator.style.top = `${pos.mobileY}%`;
+        } else {
+          // Use pixel-based positioning for desktop
+          this.positionElement(indicator.id, pos.x, pos.y);
+        }
+        
+        indicator.style.display = 'block';
+      }
+
+      triggerChicken() {
+        if (this.chickenTriggered) return;
+        
+        const chicken = document.getElementById('chickenGif');
+        const egg = document.getElementById('redEgg');
+        
+        // Update progress text
+        const progressText = document.getElementById('progressText');
+        progressText.innerHTML = '🎉 Alle entdeckt! 🎉';
+        progressText.style.color = '#4CAF50';
+        
+        // Show and animate chicken with responsive positioning
+        chicken.style.display = 'block';
+        
+        // Adjust animation based on screen size
+        if (this.isMobile) {
+          chicken.style.animation = 'walkThenFade 4s ease-in-out forwards';
+        } else {
+          chicken.style.animation = 'walkThenFade 5s ease-in-out forwards';
+        }
+        
+        this.chickenTriggered = true;
+        
+        // Show egg after delay
+        setTimeout(() => {
+          egg.style.display = 'block';
+          egg.style.animation = 'bounce 0.5s ease-out';
+          this.announceToScreenReader('Ein Easter Egg ist erschienen!');
+        }, this.isMobile ? 2000 : 2500);
+        
+        // Hide chicken after animation
+        setTimeout(() => {
+          chicken.style.display = 'none';
+        }, this.isMobile ? 4500 : 5500);
+      }
+
+      closePopup() {
+        const popup = document.getElementById('popup');
+        if (popup.style.display === 'none') return;
+        
+        // Clear typing animation if running
+        if (this.currentTyping.interval) {
+          clearInterval(this.currentTyping.interval);
+          this.currentTyping.running = false;
+        }
+        
+        popup.style.display = 'none';
+        
+        // Trigger chicken animation if all stations visited
+        if (this.allStationsVisited && !this.chickenTriggered) {
+          setTimeout(() => {
+            this.triggerChicken();
+          }, 500);
+        }
+      }
+
+      handleGlobalClick(e) {
+        const popup = document.getElementById('popup');
+        const isClickInsidePopup = e.target.closest('#popup');
+        const isClickOnArea = e.target.closest('area');
+        const isClickOnRedEgg = e.target.id === 'redEgg';
+
+        // Skip typing animation on popup click
+        if (isClickInsidePopup && this.currentTyping.running) {
+          clearInterval(this.currentTyping.interval);
+          if (this.currentTyping.element && this.currentTyping.fullText) {
+            this.currentTyping.element.innerHTML = this.currentTyping.fullText;
+          }
+          this.currentTyping.running = false;
+          
+          const btn = document.getElementById('popupBtn');
+          if (btn) btn.style.display = 'block';
+          
+          const closeBtn = document.getElementById('popupClose');
+          if (closeBtn) closeBtn.style.display = 'block';
+          
+          e.stopPropagation();
+          return;
+        }
+
+        // Close popup on outside click
+        if (!isClickInsidePopup && !isClickOnArea && !isClickOnRedEgg) {
+          this.closePopup();
+        }
+      }
+
+      positionElement(elemId, x, y) {
+        const img = document.getElementById('imageMap');
+        const el = document.getElementById(elemId);
+        if (!img || !el) return;
+        
+        const scaleX = img.clientWidth / img.naturalWidth;
+        const scaleY = img.clientHeight / img.naturalHeight;
+        
+        el.style.left = (x * scaleX) + 'px';
+        el.style.top = (y * scaleY) + 'px';
+      }
+
+      handleResize() {
+        // Recalculate click text position
+        if (!this.isMobile) {
+          this.positionElement('clickText', 720, 455);
+        }
+        
+        // Reposition visited indicators
+        this.clickedAreas.forEach(key => {
+          if (key !== 'egg') {
+            this.markAsVisited(key);
+          }
+        });
+        
+        // Close popup on significant resize
+        this.closePopup();
+      }
+
+      initializeUI() {
+        // Initialize image map resizer
+        if (typeof imageMapResize === 'function') {
+          imageMapResize();
+        }
+        
+        // Position click text
+        if (!this.isMobile) {
+          this.positionElement('clickText', 720, 455);
+        }
+
+        const body = document.body;
+        const overlay = document.getElementById('overlay');
+        const clickText = document.getElementById('clickText');
+        const anleitungText = document.getElementById('anleitungText');
+
+        // Set initial state
+        if (this.lightOn) {
+          body.classList.add('light-on');
+          overlay.style.display = 'none';
+          if (!this.isMobile) {
+            clickText.style.display = 'block';
+          }
+          anleitungText.style.display = 'none';
+        } else {
+          body.classList.add('light-off');
+          overlay.style.display = 'block';
+          clickText.style.display = 'none';
+          anleitungText.style.display = 'block';
+        }
+        
+        // Set up progress bar
+        this.updateProgress();
+      }
+    }
+
+    // Initialize app when DOM is ready
+    let app;
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        app = new PortfolioApp();
+        window.app = app; // Make available globally for onclick handlers
+      });
+    } else {
+      // DOM already loaded
+      app = new PortfolioApp();
+      window.app = app;
+    }
+
+    // Performance optimization: Load non-critical resources after page load
+    window.addEventListener('load', () => {
+      // Ensure app is initialized
+      if (!app) {
+        app = new PortfolioApp();
+        window.app = app;
+      }
+      
+      // Log performance metrics if available
+      if (window.performance && window.performance.timing) {
+        const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+        console.log(`Page load time: ${loadTime}ms`);
+      }
+    });
+
+    // Handle errors gracefully
+    window.addEventListener('error', (e) => {
+      console.error('Application error:', e.error);
+      // Could implement error reporting here
+    });
+  </script>
+</body>
+</html>
